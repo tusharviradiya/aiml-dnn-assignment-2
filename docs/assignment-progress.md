@@ -6,7 +6,7 @@ Overall: Task 1 Completed with provisional seeds: 5/100 marks of rubric coverage
 | Task | Marks | Status | Acceptance criteria / pending work |
 |---|---:|---|---|
 | P1.1 Data pipelines | 5 | Completed | Official HAR download; nine ordered channels; shapes/labels; subject splits; training-only normalization; class balance; exact adding generator and assertions; executed notebook |
-| P1.2 Scratch cells | 10 | Not Started | Student implements RNN/LSTM/GRU; library agreement 1e-5; hand counts and dual biases |
+| P1.2 Scratch cells | 10 | In Progress | Student implements RNN/LSTM/GRU; library agreement 1e-5; hand counts and dual biases |
 | P1.3 HAR comparisons | 10 | Not Started | Equal budgets; three seeds/model; accuracy and macro-F1 mean/sample std; parameters/time; best confusion matrix |
 | P1.4 Adding comparisons | 10 | Not Started | Four lengths × three models × three seeds; MSE/baseline; solved counts; T=200 curves; MSE vs length |
 | P1.5a Gradients | part of 15 | Not Started | T=100, all models, before/after training, log-scale hidden-state gradient norms |
@@ -32,3 +32,18 @@ All items verified by the executed notebook: official shapes and channel order; 
 ## Outstanding information
 
 Student ID and missing variants table: provisional seeds 0/1/2 are documented; rerun when supplied. Instructor attention example, portal and final deadline confirmation remain outstanding for later tasks.
+
+## Task 2 subtasks (10 marks total; no invented sub-mark allocation)
+
+| Subtask | Status | Evidence / remaining work |
+|---|---|---|
+| Interfaces and explanatory guidance | Completed | Three clearly labelled student-only constructor/forward TODOs; shapes and equation references |
+| Verification infrastructure | Completed | Helpers and negative controls passed; full notebook ran; actual custom-cell equivalence awaits student code |
+| MyRNNCell implementation/equivalence | Blocked | Student must implement constructor and forward; no numerical match claimed |
+| MyLSTMCell implementation/equivalence | Blocked | Student implementation pending; packed i/f/g/o gates |
+| MyGRUCell implementation/equivalence | Blocked | Student implementation pending; packed r/z/n gates and PyTorch reset convention |
+| Parameter derivation/reference counts | Completed | All six formula totals and actual PyTorch counts 4800/19200/14400 verified |
+| Actual custom parameter counts | Blocked | Requires student parameters; strict verifier checks two-bias counts |
+| Final Task 2 acceptance | Blocked | All three student cells, numerical tests, custom counts, strict completion check and notebook execution required |
+
+Task 3 has not started. Infrastructure completion does not earn or imply Task 2 completion.
