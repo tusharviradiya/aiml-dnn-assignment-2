@@ -1,10 +1,10 @@
 # Problem 2 results and analysis
 
-All 13 runs and110 epochs completed. Full notebook execution and cache restart passed; independent checkpoint/sample replay passed. Task 1 remains In Progress only for the missing instructor-provided example. AI-assisted code follows professor permission reported by the user.
+All 13 runs and110 epochs completed. Full notebook execution and cache restart passed; independent checkpoint/sample replay passed. The instructor clarification permits our own three-token example; its strict tests pass. AI-assisted code follows professor permission reported by the user.
 
 ## Component evidence and parameter derivation
 
-Attention max absolute error3.576279e-7 versus functional SDPA; multi-head1.804112e-16 versus nn.MultiheadAttention; encoder8.881784e-16 versus the pre-LN reference; sinusoidal5.960464e-8 versus scalar math. Input gradients match within8.881784e-16. Row sums, future zeros, finite gradients, invalid masks and dimensions, and whole-block/LM causality assertions pass. No library attention/Transformer is used in model implementations. The illustrative hand example agrees by hand/code; the absent instructor example remains pending.
+Attention max absolute error3.576279e-7 versus functional SDPA; multi-head1.804112e-16 versus nn.MultiheadAttention; encoder8.881784e-16 versus the pre-LN reference; sinusoidal5.960464e-8 versus scalar math. Input gradients match within8.881784e-16. Row sums, future zeros, finite gradients, invalid masks and dimensions, and whole-block/LM causality assertions pass. No library attention/Transformer is used in model implementations. The chosen hand example agrees by hand/code; the chosen example satisfies the clarified instruction.
 
 Block matrices contribute4d²+2d(4d)=12d²; attention biases4d, FF biases5d, two LayerNorm scale/bias vectors4d add13d. At d=128:196608+1664=198272 total, verified against actual parameters. At d=64:49152+832=49984. HAR has2×49984 + (72×64+64) embedding +64 CLS +128 final norm +(64×6+6) head =105222; learned positions add17×64=1088, giving106310. LM has2×49984 +65×64 embedding +128 final norm +(64×65+65) untied output =108481.
 
@@ -63,15 +63,15 @@ Fixed trained four-head model, batch 8, float32, eval/dropout off; two warmups a
 
 | Context | Mean ± sample std (ms) | Peak additional tensors (MiB) | One score tensor elements |
 |---|---:|---:|---:|
-| 64 | 6.684 ± 0.623 | 5.228 | 131072 |
-| 128 | 11.736 ± 0.768 | 12.714 | 524288 |
-| 256 | 45.613 ± 2.581 | 41.331 | 2097152 |
-| 512 | 189.119 ± 4.451 | 146.753 | 8388608 |
+| 64 | 5.361 ± 0.695 | 5.228 | 131072 |
+| 128 | 14.849 ± 2.053 | 12.714 | 524288 |
+| 256 | 50.965 ± 2.001 | 41.331 | 2097152 |
+| 512 | 165.871 ± 5.762 | 146.753 | 8388608 |
 
-Table 8: measured full-model cost; Figure 14 (`context_scaling.png`) plots time and memory, including an anchored quadratic reference. An8× context increase gives64× as many score elements, 28.29× measured time and 28.07× additional tensor peak. Each score product/weighted sum has O(T²d) work; FFN/embeddings add linear-T cost, so the total need not scale exactly64×. Hardware/cache/thread/allocation overhead also affects short-context time. CPU results do not establish T4 runtime or wearable inference energy.
+Table 8: measured full-model cost; Figure 14 (`context_scaling.png`) plots time and memory, including an anchored quadratic reference. An8× context increase gives64× as many score elements, 30.94× measured time and 28.07× additional tensor peak. Each score product/weighted sum has O(T²d) work; FFN/embeddings add linear-T cost, so the total need not scale exactly64×. Hardware/cache/thread/allocation overhead also affects short-context time. CPU results do not establish T4 runtime or wearable inference energy.
 
 ## Verification and remaining work
 
 Full Restart & Run All passed twice (initial training, then13 cache hits). Shared ledger now82 rows, including all 69 unchanged P1 rows and13 unique P2 runs. Independent audit reproduces nine HAR checkpoints/26523 predictions, all four LM validation losses, all 2000 generated characters, statistics and perturbation evidence; verifies sample standard deviations, selected epochs, counts, source fingerprints and absence of forbidden framework layers in model code. All four image files visually inspected. Total P2 training-only CPU time613.14 seconds (10.22 min), excluding validation/generation/profiling/setup. No T4 measurement.
 
-The user proposed [Vaswani et al., *Attention Is All You Need*](https://arxiv.org/html/1706.03762v7) as the missing example source. Checked section 3.2.1, Eq 1 and the attention-visualization appendix: these supply the mathematical reference, but no worked numerical three-token Q/K/V fixture was found. The existing zero-score example remains explicitly illustrative, not instructor-supplied. Task 1 acceptance remains pending that exact fixture; Tasks 2–5 are verified. Missing variant table remains a documented provisional assumption. Optional bonus, final report/PDF and packaging are separate pending work.
+The instructor email permits chosen h/d/seeds and a self-created three-token example. We choose h=64, d=64 and seeds0/1/2. Hand/code agreement passes. The mathematical reference remains Vaswani et al. The email confirms Saturday14 November2026 as the due date. It does not address AI authorship; the original written prohibition needs the separately user-reported permission to apply. Optional bonus is unattempted; portal submission remains external.

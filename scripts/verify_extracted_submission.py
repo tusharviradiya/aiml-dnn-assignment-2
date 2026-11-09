@@ -23,7 +23,7 @@ for name,metadata in manifest['files'].items():
 local_data=extracted/'data'
 assert not local_data.exists(), 'Use a fresh extraction to rerun this verification'
 local_data.symlink_to(os.path.relpath(root/'data',extracted),target_is_directory=True)
-environment={**os.environ,'MPLCONFIGDIR':'.cache/matplotlib','JUPYTER_RUNTIME_DIR':'.cache/jupyter'}
+environment={**os.environ,'MPLCONFIGDIR':'.cache/matplotlib','JUPYTER_RUNTIME_DIR':'.cache/jupyter','DNN_VERIFY_CACHED_ONLY':'1'}
 commands=['scripts/test_verification.py','scripts/test_cache_fingerprints.py',
           'scripts/execute_problem1.py','scripts/execute_problem2.py',
           'scripts/audit_har.py','scripts/audit_adding.py','scripts/audit_task5.py','scripts/audit_problem2.py']

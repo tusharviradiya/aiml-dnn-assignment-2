@@ -14,7 +14,8 @@
 \begin{document}
 \begin{center}
 {\Large\bfseries DNN Programming Assignment 2}\par
-Viradiya Tushar Rajeshbhai \quad Student ID: 2026aj05073
+Viradiya Tushar Rajeshbhai \quad Student ID: 2026aj05073\par
+Chosen settings: $h=64$, $d=64$; seeds $0,1,2$.
 \end{center}
 \topic{Problem 1: data, verification and HAR classification}
 UCI HAR uses nine channels in the prescribed order: body acceleration xyz,
@@ -24,7 +25,7 @@ The 21 training and 9 test subjects are disjoint. For each seed, NumPy's prescri
 choice holds out four training subjects; normalization uses that seed's training
 portion only. Figure 1 shows class balance; constant channels are rejected.
 
-The variants table is absent: $h=64$ and seeds 0/1/2 are provisional.
+The instructor permits freely chosen sizes and seeds; our choices are stated above.
 All recurrent classifiers use the last hidden state, one library layer, no dropout,
 Adam $10^{-3}$, batch 128, 10 epochs and norm-1 clipping. Best checkpoints use
 validation macro-F1 (earliest tie). All reported spread is sample std over three seeds;
@@ -123,7 +124,7 @@ The odd-ID experiment isolates initial forget bias while pairing other weights a
 
 On HAR, Table 1 shows RNN accuracy 70.52$\pm$4.91\%, LSTM 87.71$\pm$0.29\% and GRU 88.19$\pm$1.04\%. Figure 2 highlights sitting/standing confusion in the validation-selected GRU. Gated cells improve this classification task despite the unsuccessful adding experiment. Table 3/Figure 7 show diminishing accuracy gains with width: GRU grows from 87.41$\pm$0.73\% at h=32 to 89.04$\pm$0.70\% at h=128, while parameters grow from 4,326 to 54,150. LSTM h=128 reaches 88.28$\pm$0.43\% with 71,942 parameters. CPU training times favor LSTM over comparable GRU widths on this backend; they do not measure deployment inference energy.
 
-For a memory-constrained wearable, I would prototype GRU h=32. It uses about 71\% fewer parameters than GRU h=64 for a 0.78 percentage-point lower mean accuracy, and beats LSTM h=32 in this sweep. Its float32 weights occupy about 16.9 KiB, excluding activations and runtime overhead. This recommendation follows the measured accuracy/size trade-off; battery life and latency still require device measurements. Three seeds, provisional variant settings and short training budgets limit generalization and statistical certainty.
+For a memory-constrained wearable, I would prototype GRU h=32. It uses about 71\% fewer parameters than GRU h=64 for a 0.78 percentage-point lower mean accuracy, and beats LSTM h=32 in this sweep. Its float32 weights occupy about 16.9 KiB, excluding activations and runtime overhead. This recommendation follows the measured accuracy/size trade-off; battery life and latency still require device measurements. Three seeds and short training budgets limit generalization and statistical certainty.
 
 \newpage
 \topic{Problem 2: scratch Transformer and HAR encoder}
@@ -135,11 +136,15 @@ shapes and random output equivalence pass. Maximum SDPA reference error is
 $3.58\cdot10^{-7}$ and input-gradient error $8.88\cdot10^{-16}$.
 Only tests use framework attention/Transformer implementations.
 
-For the \textbf{illustrative, not instructor-supplied} three-token check, $Q=K=0$
-with width 2 and $V=[(1,0),(0,2),(3,4)]$. Unmasked rows have weights $(1/3,1/3,1/3)$
-and output $(4/3,2)$. Causal rows have weights $(1,0,0),(1/2,1/2,0),(1/3,1/3,1/3)$
-and outputs $(1,0),(1/2,1),(4/3,2)$, verified by code. The instructor's specified fixture
-is absent; the paper [1] gives the equation, not this numerical example.
+Our chosen three-token example uses
+\(Q=K=\left[\begin{smallmatrix}0&0\\0&0\\0&0\end{smallmatrix}\right]\),
+\(V=\left[\begin{smallmatrix}1&0\\0&2\\3&4\end{smallmatrix}\right]\).
+By hand, $QK^\top/\sqrt2=0_{3\times3}$, so each weight is
+$e^0/(3e^0)=1/3$ and each output is $(V_1+V_2+V_3)/3=(4/3,2)$.
+With a causal mask, weight rows are $(1,0,0),(1/2,1/2,0),(1/3,1/3,1/3)$,
+and outputs $(1,0),(1/2,1),(4/3,2)$. Code agrees within $10^{-5}$.
+This self-created example follows the instructor clarification; random tests also
+verify scaling on nonzero queries/keys.
 
 Multi-head attention has separate biased Q/K/V/O projections and head reshaping.
 The block uses pre-LayerNorm (eps$=10^{-5}$), residual branches, ReLU FFN width $4d$,
@@ -149,11 +154,13 @@ $PE_{p,2i}=\sin(p/10000^{2i/d})$, $PE_{p,2i+1}=\cos(p/10000^{2i/d})$
 matches scalar calculations within $5.96\cdot10^{-8}$; causal perturbation and
 parameter-gradient checks pass.
 
-Block matrix count is $4d^2+2d\,d_{ff}=12d^2$. Attention biases add $4d$, FFN biases
-$5d$, and two LayerNorms $4d$: total $12d^2+13d$. At $d=128$ this is 196608+1664=198272,
-matching actual parameters. At $d=64$ it is 49984. Two blocks, patch embedding, CLS,
-final norm and 6-class head give 105222; learned positions add 1088. The untied
-65-character language model has 108481 parameters, including embeddings/head.
+At our $d=64$, $d_{ff}=256$, block matrices contribute
+$4(64)^2+2(64)(256)=16384+32768=49152$ weights.
+Attention biases add $4(64)=256$; FFN biases $256+64=320$;
+two LayerNorms add $4(64)=256$. Total $49152+256+320+256=49984$,
+matching actual parameters. The general formula is $12d^2+13d$.
+Two blocks, patch embedding, CLS, final norm and 6-class head give 105222;
+learned positions add 1088. The untied65-character LM has 108481 parameters.
 
 Task A uses 8-step patches (72 values), a $d=64$ embedding, CLS, two blocks/four heads,
 then normalized CLS classification. Nine runs compare none/sinusoidal/learned positions,
@@ -237,23 +244,23 @@ reservation. It is neither process RSS nor reserved GPU memory.
 \textbf{Table 8. Full-model context cost on CPU}\par\vspace{2pt}
 \begin{tabular}{lrrr}\toprule
 Context & Time (ms), mean $\pm$ std & Peak tensor MiB & Score elements\\\midrule
-64 & $6.684\pm0.623$ & 5.228 & 131072\\
-128 & $11.736\pm0.768$ & 12.714 & 524288\\
-256 & $45.613\pm2.581$ & 41.331 & 2097152\\
-512 & $189.119\pm4.451$ & 146.753 & 8388608\\
+64 & $5.361\pm0.695$ & 5.228 & 131072\\
+128 & $14.849\pm2.053$ & 12.714 & 524288\\
+256 & $50.965\pm2.001$ & 41.331 & 2097152\\
+512 & $165.871\pm5.762$ & 146.753 & 8388608\\
 \bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{problem2/figures/context_scaling.png}
 \par Figures 14a--b. Time and incremental tensor peak versus context; dashed line
 is an anchored quadratic memory reference. With 8$\times$ context, score elements
-increase 64$\times$, measured time 28.29$\times$, tensor peak 28.07$\times$.
+increase 64$\times$, measured time 30.94$\times$, tensor peak 28.07$\times$.
 Attention products cost $O(T^2d)$; embeddings/FFN add linear-T work, so full-model
 ratios need not equal 64. Short-length timing includes overhead and cache effects.
 Long-context quality and T4/device latency are not evaluated.
 
 All assertions pass; full notebooks execute top to bottom with outputs. Independent
 checkpoint audits reproduce HAR predictions, adding errors, LM losses, samples,
-gradients and selection. The 82-row ledger preserves 69 P1 and 13 P2 runs. The instructor
-hand fixture and variants table remain missing; the illustrative example and provisional
-settings are disclosed. Optional bonus is not attempted. Method and evidence, rather
+gradients and selection. The 82-row ledger preserves 69 P1 and 13 P2 runs. Chosen
+sizes/seeds and the self-created example follow the instructor clarification.
+Optional bonus is not attempted. Method and evidence, rather
 than reaching approximate sanity ranges, determine these conclusions.
 \newpage
 \topic{AI-use statement and references (excluded from six-page limit)}
@@ -261,17 +268,19 @@ OpenAI Codex was used for assignment review, project setup, data pipelines, test
 custom RNN, LSTM, GRU and Transformer implementations, experiment pipelines,
 debugging, execution, plots, result audits, analysis drafting, report generation and
 submission packaging. This includes AI-written from-scratch code. The user reported
-on 9 November 2026 that the professor permits full AI assistance, superseding the
-narrower AI restriction in the supplied assignment. This is reported authorization,
-not independent verification or a claim that the original document changed.
-The student is responsible for reviewing the work and confirming that authorization.
+verbal permission from Samsir to use AI. No instructor-authored exemption has been
+provided here. The original brief prohibits AI-written scratch code and requires
+complete disclosure. The size/seed/example clarification does not change that rule.
+This declaration states actual assistance; authorization remains unverified.
 
 No pretrained weights or external datasets were used. Reference framework layers
 occur only in verification for restricted components; permitted library recurrent
 layers run P1 experiments. Experimental values are measured; failed adding runs
-and weak language samples are reported without fabricated success. Subject-specific
-variants remain provisional because the table is absent. The user-proposed paper [1]
-does not supply the missing worked numerical instructor fixture found in the brief.
+and weak language samples are reported without fabricated success. The subsequent
+instructor email permits chosen sizes/seeds and our own attention example; it does
+not address AI authorship. The original written scratch-code prohibition therefore
+requires the separately reported permission to be valid. That permission has not
+been independently evidenced here; disclosure alone does not waive the rule.
 
 [1] A. Vaswani et al. \emph{Attention Is All You Need}.2017.
 Sections 3.2.1,3.2.2,3.5 and Table 1: attention, head projections, positions and complexity.
@@ -292,8 +301,10 @@ MultiheadAttention and TransformerEncoderLayer (verification only).
 
 [5] Course assignment: \emph{DNN Programming Assignment--2: RNN, LSTM, GRU and
 Transformer}, supplied DOCX. Source of dataset/split/generator instructions,
-marking criteria and CPU exception. Portal link, variants table, instructor hand
-fixture and final deadline confirmation were not supplied.
+marking criteria and CPU exception. The instructor clarification email supplied by
+the user overrides the size/seed table and requests a self-created three-token
+example. It confirms the due date as Saturday14 November 2026; the portal link
+is not supplied. It contains no AI-policy exemption.
 
 Reproducibility: Python 3.14.4, PyTorch 2.15.0+cpu and exact package pins in
 requirements.txt; four CPU threads. P2 training-only time 10.22min; P1 adding 25.27min;

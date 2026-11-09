@@ -1,6 +1,6 @@
 # Task 4 — Adding results
 
-All 36 full-data runs completed: three models × four lengths × three model seeds. Training/validation/test sizes 10000/1000/1000 use fixed data seeds 0/1/2. Shared settings: provisional h=64, model seeds 0/1/2, batch 128, Adam 1e-3, norm-1 clipping and five epochs. Select minimum validation MSE, ties earliest.
+All 36 full-data runs completed: three models × four lengths × three model seeds. Training/validation/test sizes 10000/1000/1000 use fixed data seeds 0/1/2. Shared settings: chosen h=64, model seeds 0/1/2, batch 128, Adam 1e-3, norm-1 clipping and five epochs. Select minimum validation MSE, ties earliest.
 
 Table 2. Test MSE mean ± sample std. Every group has **0 solved runs out of 3** (threshold MSE <0.05).
 

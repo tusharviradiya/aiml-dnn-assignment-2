@@ -56,7 +56,8 @@ s=r'''\documentclass[11pt,a4paper]{article}
 \begin{document}
 \begin{center}
 {\Large\bfseries DNN Programming Assignment 2}\par
-Viradiya Tushar Rajeshbhai \quad Student ID: 2026aj05073
+Viradiya Tushar Rajeshbhai \quad Student ID: 2026aj05073\par
+Chosen settings: $h=64$, $d=64$; seeds $0,1,2$.
 \end{center}
 \topic{Problem 1: data, verification and HAR classification}
 UCI HAR uses nine channels in the prescribed order: body acceleration xyz,
@@ -66,7 +67,7 @@ The 21 training and 9 test subjects are disjoint. For each seed, NumPy's prescri
 choice holds out four training subjects; normalization uses that seed's training
 portion only. Figure 1 shows class balance; constant channels are rejected.
 
-The variants table is absent: $h=64$ and seeds 0/1/2 are provisional.
+The instructor permits freely chosen sizes and seeds; our choices are stated above.
 All recurrent classifiers use the last hidden state, one library layer, no dropout,
 Adam $10^{-3}$, batch 128, 10 epochs and norm-1 clipping. Best checkpoints use
 validation macro-F1 (earliest tie). All reported spread is sample std over three seeds;
@@ -158,11 +159,15 @@ shapes and random output equivalence pass. Maximum SDPA reference error is
 $3.58\cdot10^{-7}$ and input-gradient error $8.88\cdot10^{-16}$.
 Only tests use framework attention/Transformer implementations.
 
-For the \textbf{illustrative, not instructor-supplied} three-token check, $Q=K=0$
-with width2 and $V=[(1,0),(0,2),(3,4)]$. Unmasked rows have weights $(1/3,1/3,1/3)$
-and output $(4/3,2)$. Causal rows have weights $(1,0,0),(1/2,1/2,0),(1/3,1/3,1/3)$
-and outputs $(1,0),(1/2,1),(4/3,2)$, verified by code. The instructor's specified fixture
-is absent; the paper [1] gives the equation, not this numerical example.
+Our chosen three-token example uses
+\(Q=K=\left[\begin{smallmatrix}0&0\\0&0\\0&0\end{smallmatrix}\right]\),
+\(V=\left[\begin{smallmatrix}1&0\\0&2\\3&4\end{smallmatrix}\right]\).
+By hand, $QK^\top/\sqrt2=0_{3\times3}$, so each weight is
+$e^0/(3e^0)=1/3$ and each output is $(V_1+V_2+V_3)/3=(4/3,2)$.
+With a causal mask, weight rows are $(1,0,0),(1/2,1/2,0),(1/3,1/3,1/3)$,
+and outputs $(1,0),(1/2,1),(4/3,2)$. Code agrees within $10^{-5}$.
+This self-created example follows the instructor clarification; random tests also
+verify scaling on nonzero queries/keys.
 
 Multi-head attention has separate biased Q/K/V/O projections and head reshaping.
 The block uses pre-LayerNorm (eps$=10^{-5}$), residual branches, ReLU FFN width$4d$,
@@ -172,11 +177,13 @@ $PE_{p,2i}=\sin(p/10000^{2i/d})$, $PE_{p,2i+1}=\cos(p/10000^{2i/d})$
 matches scalar calculations within $5.96\cdot10^{-8}$; causal perturbation and
 parameter-gradient checks pass.
 
-Block matrix count is $4d^2+2d\,d_{ff}=12d^2$. Attention biases add$4d$, FFN biases
-$5d$, and two LayerNorms $4d$: total$12d^2+13d$. At d128 this is196608+1664=198272,
-matching actual parameters. At d64 it is49984. Two blocks, patch embedding, CLS,
-final norm and6-class head give105222; learned positions add1088. The untied
-65-character language model has108481 parameters, including embeddings/head.
+At our $d=64$, $d_{ff}=256$, block matrices contribute
+$4(64)^2+2(64)(256)=16384+32768=49152$ weights.
+Attention biases add $4(64)=256$; FFN biases $256+64=320$;
+two LayerNorms add $4(64)=256$. Total $49152+256+320+256=49984$,
+matching actual parameters. The general formula is $12d^2+13d$.
+Two blocks, patch embedding, CLS, final norm and6-class head give105222;
+learned positions add1088. The untied65-character LM has108481 parameters.
 
 Task A uses8-step patches (72 values), a d64 embedding, CLS, two blocks/four heads,
 then normalized CLS classification. Nine runs compare none/sinusoidal/learned positions,
@@ -262,9 +269,9 @@ Long-context quality and T4/device latency are not evaluated.
 
 All assertions pass; full notebooks execute top to bottom with outputs. Independent
 checkpoint audits reproduce HAR predictions, adding errors, LM losses, samples,
-gradients and selection. The82-row ledger preserves69 P1 and13 P2 runs. The instructor
-hand fixture and variants table remain missing; the illustrative example and provisional
-settings are disclosed. Optional bonus is not attempted. Method and evidence, rather
+gradients and selection. The82-row ledger preserves69 P1 and13 P2 runs. Chosen
+sizes/seeds and the self-created example follow the instructor clarification.
+Optional bonus is not attempted. Method and evidence, rather
 than reaching approximate sanity ranges, determine these conclusions.
 \newpage
 \topic{AI-use statement and references (excluded from six-page limit)}
@@ -272,17 +279,19 @@ OpenAI Codex was used for assignment review, project setup, data pipelines, test
 custom RNN, LSTM, GRU and Transformer implementations, experiment pipelines,
 debugging, execution, plots, result audits, analysis drafting, report generation and
 submission packaging. This includes AI-written from-scratch code. The user reported
-on9 November2026 that the professor permits full AI assistance, superseding the
-narrower AI restriction in the supplied assignment. This is reported authorization,
-not independent verification or a claim that the original document changed.
-The student is responsible for reviewing the work and confirming that authorization.
+verbal permission from Samsir to use AI. No instructor-authored exemption has been
+provided here. The original brief prohibits AI-written scratch code and requires
+complete disclosure. The size/seed/example clarification does not change that rule.
+This declaration states actual assistance; authorization remains unverified.
 
 No pretrained weights or external datasets were used. Reference framework layers
 occur only in verification for restricted components; permitted library recurrent
 layers run P1 experiments. Experimental values are measured; failed adding runs
-and weak language samples are reported without fabricated success. Subject-specific
-variants remain provisional because the table is absent. The user-proposed paper [1]
-does not supply the missing worked numerical instructor fixture found in the brief.
+and weak language samples are reported without fabricated success. The subsequent
+instructor email permits chosen sizes/seeds and our own attention example; it does
+not address AI authorship. The original written scratch-code prohibition therefore
+requires the separately reported permission to be valid. That permission has not
+been independently evidenced here; disclosure alone does not waive the rule.
 
 [1] A. Vaswani et al. \emph{Attention Is All You Need}.2017.
 Sections3.2.1,3.2.2,3.5 and Table1: attention, head projections, positions and complexity.
@@ -303,8 +312,10 @@ MultiheadAttention and TransformerEncoderLayer (verification only).
 
 [5] Course assignment: \emph{DNN Programming Assignment--2: RNN, LSTM, GRU and
 Transformer}, supplied DOCX. Source of dataset/split/generator instructions,
-marking criteria and CPU exception. Portal link, variants table, instructor hand
-fixture and final deadline confirmation were not supplied.
+marking criteria and CPU exception. The instructor clarification email supplied by
+the user overrides the size/seed table and requests a self-created three-token
+example. It confirms the due date as Saturday14 November2026; the portal link
+is not supplied. It contains no AI-policy exemption.
 
 Reproducibility: Python3.14.4, PyTorch2.15.0+cpu and exact package pins in
 requirements.txt; four CPU threads. P2 training-only time10.22min; P1 adding25.27min;
@@ -312,6 +323,7 @@ these exclude validation/setup and do not estimate T4 runtime. Checkpoints/raw d
 are intentionally excluded from the submission and regenerated by the notebooks.
 \end{document}
 '''
+s=s.replace('time28.29',f'time {scaling.mean_seconds.iloc[-1]/scaling.mean_seconds.iloc[0]:.2f}')
 # Normal textual spacing; TeX math remains intact.
 s=re.sub(r'\b(Table|Figure|Figures|layer|heads|head|batch|seed|context|epoch|top-k)(?=\d)',r'\1 ',s)
 for a,b in {'With8':'With 8','increase64':'increase 64','time28':'time 28','peak28':'peak 28','on9':'on 9','November2026':'November 2026','The82':'The 82','preserves69':'preserves 69','and13':'and 13','all500':'all 500','at0.2':'at 0.2','At0.2':'At 0.2','At0.8':'At 0.8','At1.5':'At 1.5','parameters.22':'parameters. 22','has1115394':'has 1115394','and65':'and 65','first90':'first 90','last10':'last 10','to17':'to 17','reduces128':'reduces 128','using7.11':'using 7.11','by2.42':'by 2.42'}.items():s=s.replace(a,b)

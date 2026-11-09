@@ -21,20 +21,22 @@ holds raw data/checkpoints; the submission contains neither. Runs save `results.
 after completion and reuse exact matching caches. Set notebook `FORCE_*_RERUN`
 flags to retrain. Exact reviewed legacy-cache aliases are documented in decisions.
 
-Variant: odd ID selects LSTM initial effective forget bias0 versus1. The missing
-variants table requires provisional recurrent h64/seeds0/1/2. HAR uses10 epochs;
-adding uses5. CPU language model follows the permitted d64/two-layer exception,
-context128/four heads/five epochs. HAR encoder uses patch8, CLS, d64/two layers.
+Chosen settings: **h=64, d=64, seeds 0, 1, 2**, permitted by the instructor email.
+The main Transformer uses four heads; d=64 also divides the 1/4/8-head ablation.
+HAR uses 10 epochs; adding uses five. The CPU LM uses two layers/context128/five
+epochs; the HAR encoder uses patch8, CLS and two layers. We retain the odd-ID
+LSTM initial forget-bias 0/1 ablation from the original experimental instructions.
+Our own 3×2 Q/K/V example has a hand calculation verified against code.
 
 All82 experiments total44.7 CPU training minutes, excluding evaluation,
 setup, generation and profiling. **T4 runtime was not measured.**
 
-Both full notebooks pass; independent checkpoint/sample audits pass. All36 adding
-runs remain unsolved under five epochs; language samples are weak. P2 attention
-passes tests, but the missing instructor hand fixture remains pending; our worked
-example is explicitly illustrative. Variant values and portal/deadline confirmation
-also remain outstanding. AI assistance is disclosed in the report under professor
-permission reported by the user. No optional bonus is claimed.
+Both full notebooks and independent audits pass. All36 adding runs remain unsolved
+under five epochs; language samples are weak. The due date is Saturday14 November2026.
+AI assistance, including scratch implementations, is fully disclosed. The user reports
+professor permission, but the supplied clarification email does not waive the original
+AI-writing prohibition: permission evidence remains an integrity condition. No optional
+bonus is claimed. Portal upload/download confirmation remains external work.
 
 `report.pdf`: six A4 content pages plus one excluded AI/reference page.
 `docs/assignment-progress.md` tracks acceptance; results/decisions/logs are in `docs/`.

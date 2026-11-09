@@ -1,6 +1,6 @@
 # Task 3 — HAR evidence and interpretation
 
-Configuration: one recurrent layer, hidden size 64, final hidden-state classifier, batch 128, Adam 1e-3, 10 epochs, norm-1 clipping, no dropout. Three paired provisional seeds 0/1/2. Source/data/config fingerprint: 878cc93e6862a042. These results use the official subject-disjoint test split.
+Configuration: one recurrent layer, hidden size 64, final hidden-state classifier, batch 128, Adam 1e-3, 10 epochs, norm-1 clipping, no dropout. Three paired chosen seeds 0/1/2. Source/data/config fingerprint: 878cc93e6862a042. These results use the official subject-disjoint test split.
 
 Table 1. Means ± sample standard deviations across three seeds. Accuracy is percent; macro-F1 is on [0,1]. Training times are measured on this CPU with four PyTorch threads, excluding validation/evaluation.
 
@@ -16,4 +16,4 @@ Figure 2 (`problem1/figures/har_confusion_matrix.png`) uses GRU seed 2, epoch 9.
 
 Figure 3 (`problem1/figures/har_learning_curves.png`) plots training and validation losses averaged over all seeds. Gated models reduce training loss more consistently; RNN validation loss fluctuates and remains higher. This observation does not by itself prove a vanishing-gradient mechanism: Task 5 gradient evidence is still required.
 
-Evidence: results.csv plus problem1/metrics/har_{runs,summary,history,predictions}.csv and har_config.json. No test-driven tuning was performed. Remaining limitations: missing assigned variant table, a short fixed epoch budget and CPU-specific timings. No T4 runtime or battery-power measurements are claimed.
+Evidence: results.csv plus problem1/metrics/har_{runs,summary,history,predictions}.csv and har_config.json. No test-driven tuning was performed. Remaining limitations: a short fixed epoch budget and CPU-specific timings. No T4 runtime or battery-power measurements are claimed.
