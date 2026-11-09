@@ -21,8 +21,9 @@ start = 0
 if args.problem == 'problem1':
     start = next(i for i, c in enumerate(original.cells)
                  if c.cell_type == 'markdown' and c.source.startswith('# Problem 1 — Task 2:'))
+end = next((i for i,c in enumerate(original.cells) if i > start and c.source.startswith('# Problem 1 — Task 3:')), len(original.cells))
 selected = nbformat.v4.new_notebook(metadata=original.metadata)
-selected.cells = [nbformat.v4.new_code_cell('import torch')] + original.cells[start:]
+selected.cells = [nbformat.v4.new_code_cell('import torch')] + original.cells[start:end]
 if args.strict:
     function = 'require_task2_complete' if args.problem == 'problem1' else 'require_problem2_components'
     selected.cells.append(nbformat.v4.new_code_cell(f'print({function}())'))
@@ -33,7 +34,7 @@ client = NotebookClient(selected, km=km, timeout=180, startup_timeout=30,
 try:
     client.execute()
 finally:
-    original.cells[start:] = selected.cells[1:1+len(original.cells)-start]
+    original.cells[start:end] = selected.cells[1:1+end-start]
     nbformat.write(original, path)
     for cell in selected.cells:
         for output in cell.get('outputs', []):

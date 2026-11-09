@@ -1,6 +1,6 @@
 # DNN Programming Assignment 2
 
-Task 1 and the three recurrent cells are implemented; Transformer components and experiments remain pending. See `docs/assignment-progress.md` for rubric tracking.
+Problem 1 Tasks 1–3 are implemented and verified; later experiments and Transformer implementations remain pending. See `docs/assignment-progress.md` for rubric tracking.
 
 ## Environment and execution
 
@@ -13,14 +13,15 @@ python3 -m venv .venv
 MPLCONFIGDIR=.cache/matplotlib JUPYTER_RUNTIME_DIR=.cache/jupyter .venv/bin/python scripts/execute_problem1.py
 ```
 
-Alternatively open `problem1/problem1.ipynb` with this environment's kernel and Restart & Run All. Internet is required for the first official HAR download (~61 MB); cached data lives in ignored `data/`. The notebook works from the root or `problem1/` directory. Outputs and the class-balance figure are saved. Problem 2 contains interfaces and reference checks only.
+Alternatively open `problem1/problem1.ipynb` with this environment's kernel and Restart & Run All. Internet is required for the first official HAR download (~61 MB); cached data lives in ignored `data/`. The notebook works from the root or `problem1/` directory. Notebook outputs, HAR figures and metrics are saved. Matching completed HAR runs are cached under ignored data/experiments; set FORCE_HAR_RERUN=True in the notebook to retrain. Problem 2 contains interfaces and reference checks only.
 
-Student ID: 2026aj05073; odd-ID forget-bias ablation. Variant table missing: provisional hidden size 64 and split/model seeds 0/1/2. Adding-data seeds are fixed by the assignment. T4 total runtime: not measured; training has not begun. Final report, student-ID packaging and generated language samples remain pending. AI assistance and assumptions are recorded in `docs/decisions.md`.
+Student ID: 2026aj05073; odd-ID forget-bias ablation. Variant table missing: provisional hidden size 64 and split/model seeds 0/1/2. Adding-data seeds are fixed by the assignment. T4 runtime: not measured. Nine 10-epoch HAR runs completed on CPU; training totaled about 124 seconds, excluding validation and setup. Final report, student-ID packaging and generated language samples remain pending. AI assistance and assumptions are recorded in `docs/decisions.md`.
 
 ## Targeted checks (no Task 1 rerun)
 
 ```sh
 .venv/bin/python scripts/test_verification.py
+.venv/bin/python scripts/audit_har.py
 .venv/bin/python scripts/execute_checks.py problem1
 .venv/bin/python scripts/execute_checks.py problem2
 ```

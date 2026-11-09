@@ -1,0 +1,19 @@
+{
+  "run_id": "878cc93e6862a042",
+  "hidden_size": 64,
+  "batch_size": 128,
+  "epochs": 10,
+  "lr": 0.001,
+  "clip_norm": 1.0,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "num_layers": 1,
+  "dropout": 0.0,
+  "threads": 4,
+  "torch_version": "2.15.0+cpu",
+  "python": "3.14.4",
+  "device": "cpu"
+}

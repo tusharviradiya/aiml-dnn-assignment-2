@@ -1,13 +1,13 @@
 # Assignment progress
 
 Updated: 2026-11-09. Status values: Not Started, In Progress, Completed, Blocked.
-Overall: Tasks 1 and 2 Completed: 15/100 marks of rubric coverage verified (not an awarded grade). Transformer scaffolding exists. User-reported professor permission now allows AI implementation of remaining work. No model experiments run. Marks below denote rubric coverage, not awarded marks.
+Overall: Tasks 1–3 Completed: 25/100 marks of rubric coverage verified (not an awarded grade). Transformer scaffolding exists. User-reported professor permission now allows AI implementation of remaining work. Nine HAR experiments completed and saved. Marks below denote rubric coverage, not awarded marks.
 
 | Task | Marks | Status | Acceptance criteria / pending work |
 |---|---:|---|---|
 | P1.1 Data pipelines | 5 | Completed | Official HAR download; nine ordered channels; shapes/labels; subject splits; training-only normalization; class balance; exact adding generator and assertions; executed notebook |
 | P1.2 Scratch cells | 10 | Completed | Student implements RNN/LSTM/GRU; library agreement 1e-5; hand counts and dual biases |
-| P1.3 HAR comparisons | 10 | Not Started | Equal budgets; three seeds/model; accuracy and macro-F1 mean/sample std; parameters/time; best confusion matrix |
+| P1.3 HAR comparisons | 10 | Completed | Equal budgets; three seeds/model; accuracy and macro-F1 mean/sample std; parameters/time; best confusion matrix |
 | P1.4 Adding comparisons | 10 | Not Started | Four lengths × three models × three seeds; MSE/baseline; solved counts; T=200 curves; MSE vs length |
 | P1.5a Gradients | part of 15 | Not Started | T=100, all models, before/after training, log-scale hidden-state gradient norms |
 | P1.5b Hidden sweep | part of 15 | Not Started | HAR LSTM/GRU at 16/32/64/128 |
@@ -67,4 +67,19 @@ generation has run; results.csv remains header-only.
 
 ## Current next work (2026-11-09)
 
-Professor permission for full AI assistance is reported by the user and recorded in decisions.md. Former student-authorship blockers are lifted. No model training has run; results.csv remains header-only. Next: HAR experiments and Transformer implementation. Missing variant table and instructor hand example remain documented assumptions/pending information.
+Professor permission for full AI assistance is reported by the user and recorded in decisions.md. Former student-authorship blockers are lifted. Nine HAR runs now populate results.csv. Next: adding-problem experiments and Transformer implementation. Missing variant table and instructor hand example remain documented assumptions/pending information.
+
+## Task 3 execution (2026-11-09)
+
+Implemented last-hidden-state library classifiers, seeded loaders, training-only statistics, validation checkpoint selection, atomic per-run CSV persistence, source/data/config fingerprints and aggregation/plot code. Nine full-data runs are pending completion: 3 models × seeds 0/1/2, h=64, batch 128, 10 epochs, Adam 1e-3 and clipping 1.0. All use the same CPU thread count. Verification and actual outputs determine completion; no results are assumed.
+
+### Task 3 verified evidence
+
+- Completed all nine full-data, 10-epoch runs with fixed matching budgets.
+- Classifier shape/last-state/parameter/backward tests, metric fixtures and atomic CSV upsert tests passed.
+- Actual predictions from all saved checkpoints independently reproduced; training-only normalization, validation-selected epochs, metric values, sample std and timing reconciled.
+- `problem1/metrics/har_runs.csv`, `har_summary.csv`, `har_history.csv`, `har_predictions.csv`, and `har_config.json` preserve results, 90 epoch records and 26523 predictions.
+- Confusion matrix and learning curves saved and visually inspected. GRU selected by mean validation macro-F1; representative seed 2, epoch 9 selected by validation only.
+- Test accuracy mean ± sample std: RNN 70.52 ± 4.91%, LSTM 87.71 ± 0.29%, GRU 88.19 ± 1.04%. CPU timings only; variant h=64/seeds 0/1/2 remain provisional.
+
+- Cache restart verified: nine cached runs reused without retraining or duplicate rows. Targeted Task 2 verification preserves Task 3 outputs exactly. All existing Task 1/2 source and saved cells preserved.
