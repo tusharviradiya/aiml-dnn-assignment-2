@@ -69,3 +69,35 @@ Reviewed Task 4 commit c1913a9 and prior configs/checkpoints. Generalized HAR/ad
 Targeted notebook execution exited 0. Saved 1800 gradient records, 24 sweep points (240 epoch histories; six cached width64 runs), six forget-bias points (30 histories), predictions and Figures 6–8. All 18 gradient probes matched library outputs and parameter gradients. Mean post-training first/last hidden-gradient ratios: RNN 3.55e-22, LSTM 1.25e-11, GRU 6.45e-5. Interpret LSTM hidden gradients separately from cell memory.
 
 HAR GRU h32 accuracy 87.41±0.73% with 4326 parameters; h128 89.04±0.70% with 54150. Effective forget bias 0/1 MSE: 0.168400745±0.000449405 / 0.168494318±0.000389646; no solved runs and no reliable benefit inferred. scripts/audit_task5.py independently replayed all 24 sweep/six ablation checkpoints and all 18 gradient probes, checked initial paired parameters, metrics, selection, counts and 69-row ledger; exited 0. Plots visually inspected. Prepared concise evidence-based one-page report text in docs/problem1-analysis.md (final PDF pagination pending). Cache restart passed: 24 cached runs and six reused baseline runs, no new training or duplicate ledger rows. Default-argument regression checks on the generalized HAR/adding helpers reused original caches and preserved all 69 rows in a temporary results copy. No commit/push.
+
+## 2026-11-09 — Problem 2 components and pipelines
+
+Reviewed original assignment and Problem 1 completion commit 7c81120. Implemented custom tensor attention, multi-head reshaping/projections, pre-LN residual/4d-ReLU/dropout block and sinusoidal encoding. Strict component tests and existing verification-infrastructure suite pass. Max errors attention 3.576279e-7, multi-head 1.804112e-16, encoder 8.881784e-16, attention gradients 8.881784e-16. Parameter count 198272 reconciled at d=128. Added HAR/LM model shape/count/backward/causality assertions, contiguous blocks and uniform-loss diagnostic.
+
+Official Shakespeare download initially failed with sandbox DNS; retried with network approval successfully (1115394 characters, 65-character vocabulary). Source-compilation smoke check caught an escaped-newline bug in fingerprint construction before any training; corrected it and compiled all code cells. Small profiler test confirmed available CPU memory event API and positive measured tensor peak. Launched full notebook execution with fixed budgets, atomic per-run logs and ignored caches; experiments pending. No commit/push.
+
+## 2026-11-09 — Problem 2 HAR runs saved
+
+All nine encoder runs and 90 epochs completed; training-only CPU total134.53 seconds. Accuracy means±sample std: none90.544±1.820%, sinusoidal90.612±1.016%, learned91.200±0.530%. Mean validation macro-F1 selects sinusoidal (0.927613), ahead of none (0.924655) and learned (0.914417); do not select learned based on test accuracy. Counts105222 for none/sinusoidal,106310 learned. Independent audit and notebook completion still pending; no Task A completion claim yet. LM training underway. No commit/push.
+
+Main four-head causal LM completed five epochs at d=64/two layers/context 128: selected epoch 5, validation2.2349452775 nats, 3.2243444686 BPC,108481 parameters,22.0911 CPU seconds/epoch. Validation fell each epoch from2.55856 to2.23495; fixed budget unchanged. Remaining head/no-mask runs and sampling/audit pending.
+
+## 2026-11-09 — Problem 2 experiments and acceptance
+
+Run13613c052b7f52c4 completed13 runs/110 epochs: nine HAR/90 epochs and four LM/20 epochs. Training-only CPU total613.14sec. Main LM2.234945nats/3.224344BPC; head1/8 losses2.202787/2.255983. No-mask final train0.593618/apparent validation0.317695; generated sample 98.4% newlines, explicitly interpreted as leakage failure. Main samples have14/31/44 distinct characters at0.2/0.8/1.5. Measured two-head maps and context scaling saved; 64→512 increases attention scores64×, measured tensor peak28.07×. Four plots visually inspected.
+
+Initial complete notebook run passed; added actual trained prefix-perturbation and empirical sample diagnostics plus evidence-based analysis. Final full restart passed with13 cache hits and82 ledger rows unchanged. Causal prefix change0 versus unmasked7.15354 verifies future dependence. scripts/audit_problem2.py independently reproduced all 9 HAR checkpoints/26523 predictions, four LM losses and2000 generated characters; checked selected epochs, counts, statistics, paired initialization, histories, source hashes, forbidden-layer absence and all 69 preserved P1 rows. Extended audit of diagnostics passed. Component regression suite passed. Source and notebook schemas/diff checks reviewed; final Git review pending. No model numerical failures.
+
+The user supplied arXiv1706.03762 as a possible instructor example. Reviewed the paper's attention equation, relevant sections and appendix: a worked numerical three-token fixture was not found. Cite paper as mathematical reference; retain illustrative fixture and P2.1 pending official example. P2.2–5 marked Completed only after these checks; optional bonus/report/packaging pending. No commit/push.
+
+Final checks: all 48 notebook code cells have saved execution counts and no error outputs; notebook schema valid. Final component/negative-control regression suite passed. git diff --check passed; reviewed changes and artifact sizes, and confirmed problem1/ has no diff. Source assignment remains untracked; no raw data, model checkpoints, environment or large generated files included. Suggested commit: feat(problem2): implement and verify Transformer experiments and ablations. Awaiting user approval; no commit/push.
+
+Final compatibility review found Task 5 audit hard-coded the entire ledger to69 rows. Replaced that global-total condition with the same24-row Task 5/run-fingerprint check, P1 scope and ledger uniqueness, allowing unrelated completed P2 rows. P1 notebook code/results remain unchanged. Regression audit pending.
+
+Post-P2 Task5 regression audit passed:24 HAR sweep checkpoint sets, six forget-bias checkpoints,18 gradient probes and24 Task5 ledger entries verified with the expanded82-row ledger. Final git diff --check passes. All changes remain uncommitted pending approval.
+
+## 2026-11-09 — Problem 2 commit approved
+
+User approved the reviewed Problem 2 commit. Final status/diff checks passed. Commit scope includes the executed notebook, compact metrics/predictions, figures, generated samples, verification runners, ledger-compatible Task 5 audit and synchronized documentation. Source DOCX, datasets, checkpoints, virtual environment and caches are excluded. No push authorized or planned.
+
+Staged whitespace check flagged trailing blank lines in no_mask_sample.txt. These are actual generated characters in the verified 500-character sample and were preserved. All other staged paths pass the normal whitespace check; the literal sample passes with only blank-at-EOF checking disabled for that path. No whitespace configuration changed.

@@ -1,39 +1,39 @@
-# DNN Programming Assignment 2
+# DNN Programming Assignment 2 — 2026aj05073
 
-Problem 1 Tasks 1–5 are implemented and verified. Transformer implementations and final report/packaging remain pending. See `docs/assignment-progress.md` for rubric tracking.
-
-## Environment and execution
-
-Test environment: Python 3.14.4, CPU PyTorch 2.x; exact versions in `requirements.txt`.
-From the repository root:
+Python 3.10+ and PyTorch 2.x; tested with Python 3.14.4 on CPU (four threads).
+Exact tested versions are in `requirements.txt`. From this repository root:
 
 ```sh
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 MPLCONFIGDIR=.cache/matplotlib JUPYTER_RUNTIME_DIR=.cache/jupyter .venv/bin/python scripts/execute_problem1.py
+MPLCONFIGDIR=.cache/matplotlib JUPYTER_RUNTIME_DIR=.cache/jupyter .venv/bin/python scripts/execute_problem2.py
 ```
 
-Alternatively open `problem1/problem1.ipynb` with this environment's kernel and Restart & Run All. Internet is required for the first official HAR download (~61 MB); cached data lives in ignored `data/`. The notebook works from the root or `problem1/` directory. Notebook outputs, HAR figures and metrics are saved. Matching completed HAR runs are cached under ignored data/experiments; set FORCE_HAR_RERUN=True in the notebook to retrain. Problem 2 contains interfaces and reference checks only.
+Alternatively open each notebook with this environment's kernel and Restart & Run
+All. Both notebooks support the repository root or their own directory as working
+directory. The first run downloads only official UCI HAR (~61 MB) and Tiny
+Shakespeare (~1.1 MB). Internet is needed initially. Data/checkpoints stay in ignored
+`data/`; matching completed runs are reused, and `results.csv` is saved after each
+run. Set the notebook's `FORCE_*_RERUN` flag to retrain.
 
-Student ID: 2026aj05073; odd-ID forget-bias ablation. Variant table missing: provisional hidden size 64 and split/model seeds 0/1/2. Adding-data seeds are fixed by the assignment. T4 runtime: not measured. Nine 10-epoch HAR runs completed on CPU; training totaled about 124 seconds, excluding validation and setup. Final report, student-ID packaging and generated language samples remain pending. AI assistance and assumptions are recorded in `docs/decisions.md`.
+Variant: ID ends in 3, so the individual ablation is LSTM effective forget bias 0
+versus 1. The assignment's variants table is absent: recurrent h=64 and seeds 0/1/2
+are provisional. CPU language model uses the expressly allowed d=64/two-layer
+exception, context 128 and four heads. HAR Transformer uses patch 8, CLS, d=64 and
+two layers. Fixed budgets: HAR10 epochs; adding and language models5 epochs.
 
-## Targeted checks (no Task 1 rerun)
+Problem 1 Tasks 1–5 are verified. Problem 2 Tasks 2–5 are verified; attention tests pass,
+with only the instructor hand fixture pending. P2 training took10.22 CPU minutes
+excluding evaluation/setup; T4 runtime is **not measured**. All 36 adding runs remain unsolved under the five-epoch budget. The
+instructor's hand-attention example is missing; an illustrative fixture is clearly
+labelled. Final report/PDF and submission ZIP are pending. AI assistance is
+disclosed under the professor permission reported by the user.
 
-```sh
-.venv/bin/python scripts/test_verification.py
-.venv/bin/python scripts/audit_har.py
-.venv/bin/python scripts/execute_adding.py
-.venv/bin/python scripts/audit_adding.py
-.venv/bin/python scripts/execute_task5.py
-.venv/bin/python scripts/audit_task5.py
-.venv/bin/python scripts/execute_checks.py problem1
-.venv/bin/python scripts/execute_checks.py problem2
-```
-
-These save verification outputs and report pending student work honestly. Add `--strict`
-to require custom components to pass (Problem 1 passes; Problem 2 remains pending). See `docs/student-work-map.md` for the remaining student-authored work.
-
-Task 4 uses five epochs per run on CPU; results may remain unsolved under this short budget. The targeted adding runner preserves earlier outputs and reuses its matching completed runs.
- Adding training took 25.3 CPU minutes excluding evaluation/setup; all 36 runs remained unsolved.
-
-Task 5 reuses six h=64 HAR runs, trains eighteen other sweep runs and six forget-bias runs. Gradient probes use custom unrolls with reference verification. See docs/problem1-analysis.md for the report analysis.
+Verification (no training): `scripts/test_verification.py`,
+`scripts/audit_har.py`, `scripts/audit_adding.py`, `scripts/audit_task5.py`,
+and `scripts/audit_problem2.py`, using `.venv/bin/python`.
+`execute_checks.py problem1 --strict` or `problem2 --strict` runs and saves component
+checks. Targeted P1 runners: `execute_adding.py` and `execute_task5.py`.
+Details, actual results and assumptions: `docs/assignment-progress.md`,
+`docs/development-log.md`, `docs/decisions.md`, and `docs/task*-results.md`.

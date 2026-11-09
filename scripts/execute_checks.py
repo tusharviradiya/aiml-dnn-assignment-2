@@ -21,7 +21,7 @@ start = 0
 if args.problem == 'problem1':
     start = next(i for i, c in enumerate(original.cells)
                  if c.cell_type == 'markdown' and c.source.startswith('# Problem 1 — Task 2:'))
-end = next((i for i,c in enumerate(original.cells) if i > start and c.source.startswith('# Problem 1 — Task 3:')), len(original.cells))
+end = next((i for i,c in enumerate(original.cells) if i > start and c.source.startswith(('# Problem 1 — Task 3:', '# Problem 2 — Experiments'))), len(original.cells))
 selected = nbformat.v4.new_notebook(metadata=original.metadata)
 selected.cells = [nbformat.v4.new_code_cell('import torch')] + original.cells[start:end]
 if args.strict:
@@ -40,4 +40,4 @@ finally:
         for output in cell.get('outputs', []):
             if output.output_type == 'stream':
                 print(output.text, end='')
-print('Verification section executed; PENDING entries remain incomplete.')
+print('Verification section executed; completion is determined by strict checks.')

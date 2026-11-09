@@ -1,0 +1,23 @@
+[
+  {
+    "temperature": 0.2,
+    "prompt": "ROMEO:\n",
+    "sample": "And he se the tere the to he the he the the the the the the he is the and the the is and to se to he and the the the and he he than sthe and the and the heand and the the he he the sear the he the t the the the he that and and he the the the the and and thand be the t the he he he sthat se heand the t the the he at so he at the he he heat he he ther thear thand the ast wind and the he seat sto he he the t heand and the t the the here and and seand the are to the are the to he sise the the and he",
+    "top_k": 20,
+    "seed": 700
+  },
+  {
+    "temperature": 0.8,
+    "prompt": "ROMEO:\n",
+    "sample": "HAnd I me harnt, you austie, deer\nt riot cot ad heat tul treaclin.\n\n\nWA:\nI lon ad be rof wof he ord in paret tence fend pas hirerelest ontalleds\nI your I mioursth nour iscer treanges ar; wouies pas tllio st in auos hat he I ia igr her arislante\nAnd are hind have bime be ame ang benollal oor it toant d than is werin seand\nI tor itot and thin cor muthe nords hange, and, cre staimad I havoust\nHel willl heere lis pint:\nAf rest yowe wisen you see severr hade chan\nAstherer ifoorll e shir or nor tor he",
+    "top_k": 20,
+    "seed": 700
+  },
+  {
+    "temperature": 1.5,
+    "prompt": "ROMEO:\n",
+    "sample": "HAnd:\nThaker fen' mO!\nLOUTIOOf has:\nG:\nBud bew'l fra, bird.\nWhick'sh bucwe cot t sthe! nomo, hols held dardy;\nWame fe tho m tall ayntheserod mil tume arre sthard\nslle decyfost:\nNonon akd yephou gilou:\nO gar letheve tur goubr I f thapl hile:\nWey.\n\nBeralllere ittomphilaw d kgrf wrollee ir my. brfoud methe be,\n\nI who po I thill lifo idis kinst cn irrrelviore.\n\nAncay hatiaut altembof d do shardiaiod savar weve?\n\n\nYICLourauy wiclliny; t mett yeritie\nA iss I'lflllf torster yolarirsues,\nCon tiano w gro",
+    "top_k": 20,
+    "seed": 700
+  }
+]

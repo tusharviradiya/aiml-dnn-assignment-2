@@ -94,5 +94,6 @@ for kind in ['RNN','LSTM','GRU']:
             np.testing.assert_allclose(actual.norm,expected.norm,rtol=1e-8,atol=1e-300)
 print('PASS: all 18 gradient probes reproduced; fused-library output and parameter-gradient comparisons passed')
 ledger=pd.read_csv('results.csv');selected=ledger[ledger.notes.str.contains(config['run_id'],regex=False,na=False)]
-assert len(selected)==24 and len(ledger)==69
+assert len(selected)==24 and selected.problem.eq('P1').all()
+assert not ledger.duplicated(['problem','model','seed','notes']).any()
 print('PASS: 24 new Task 5 ledger rows; six HAR width64 runs reused without duplication')

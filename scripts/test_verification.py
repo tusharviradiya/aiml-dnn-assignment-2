@@ -14,7 +14,7 @@ def definitions(path, start=0):
     notebook = nbformat.read(path, as_version=4)
     with contextlib.redirect_stdout(io.StringIO()):
         for cell in notebook.cells[start:]:
-            if cell.source.startswith('# Problem 1 — Task 3:'):
+            if cell.source.startswith(('# Problem 1 — Task 3:', '# Problem 2 — Experiments')):
                 break
             if cell.cell_type == 'code':
                 exec(compile(cell.source, path, 'exec'), scope)

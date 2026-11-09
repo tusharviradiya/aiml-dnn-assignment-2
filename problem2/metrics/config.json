@@ -1,0 +1,40 @@
+{
+  "run_id": "13613c052b7f52c4",
+  "har": {
+    "d": 64,
+    "layers": 2,
+    "heads": 4,
+    "patch": 8,
+    "dropout": 0.1,
+    "batch_size": 128,
+    "epochs": 10,
+    "lr": 0.001,
+    "clip_norm": 1.0,
+    "seeds": [
+      0,
+      1,
+      2
+    ]
+  },
+  "lm": {
+    "d": 64,
+    "layers": 2,
+    "heads": 4,
+    "context": 128,
+    "dropout": 0.1,
+    "batch_size": 64,
+    "epochs": 5,
+    "lr": 0.001,
+    "clip_norm": 1.0,
+    "seed": 0,
+    "causal": true,
+    "top_k": 20,
+    "generation_seed": 700
+  },
+  "code_hash": "5b7de9d8a4e1236273f3b460211221d6e5316ec30f93643ddf9d3e64442ad83c",
+  "har_hash": "13c05d840167b45922bf97871ec68f9c761f5681ba0b096da0ee8ddde3b25d90",
+  "text_hash": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+  "torch": "2.15.0+cpu",
+  "device": "cpu",
+  "threads": 4
+}
