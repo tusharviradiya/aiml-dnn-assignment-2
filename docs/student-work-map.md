@@ -1,6 +1,10 @@
+# Current authorization update (2026-11-09)
+
+The user now reports professor permission for full AI assistance, including implementations and experiment code. The student-only restrictions below describe the earlier preparation stage and are superseded. Recurrent cells are now implemented and verified; Transformer implementations and experiments are the next development work. AI assistance will be disclosed.
+
 # Student-authored work and verification map
 
-Updated 2026-11-08. AI prepares interfaces/tests/explanations, reviews student code,
+Historical preparation map, updated 2026-11-09. AI prepares interfaces/tests/explanations, reviews student code,
 debugs errors and tidies plots. The user confirmed no instructor clarification
 permits AI-written experiment code: training pipelines remain student-authored.
 No model experiments have run; this document is guidance, not results.

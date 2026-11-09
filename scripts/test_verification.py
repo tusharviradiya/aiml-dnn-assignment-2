@@ -96,4 +96,4 @@ expect_failure(lambda: b['verify_attention'](ignores_mask), AssertionError,
                'attention verifier rejects future-token leakage')
 expect_failure(lambda: b['verify_positions'](lambda length, d: torch.zeros(length, d)),
                AssertionError, 'position verifier rejects zero encoding')
-print('Infrastructure tests passed; no student implementation verified.')
+print('Verification infrastructure passed; component completion is reported by the strict gates above.')

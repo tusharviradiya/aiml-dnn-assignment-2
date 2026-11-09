@@ -1,6 +1,6 @@
 # DNN Programming Assignment 2
 
-Task 1 is implemented; recurrent and Transformer student implementations remain TODOs. See `docs/assignment-progress.md` for rubric tracking.
+Task 1 and the three recurrent cells are implemented; Transformer components and experiments remain pending. See `docs/assignment-progress.md` for rubric tracking.
 
 ## Environment and execution
 
@@ -15,7 +15,7 @@ MPLCONFIGDIR=.cache/matplotlib JUPYTER_RUNTIME_DIR=.cache/jupyter .venv/bin/pyth
 
 Alternatively open `problem1/problem1.ipynb` with this environment's kernel and Restart & Run All. Internet is required for the first official HAR download (~61 MB); cached data lives in ignored `data/`. The notebook works from the root or `problem1/` directory. Outputs and the class-balance figure are saved. Problem 2 contains interfaces and reference checks only.
 
-Variant: student ID/table unavailable; provisional split seeds 0/1/2. Adding-data seeds are fixed by the assignment. T4 total runtime: not measured; training has not begun. Final report, student-ID packaging and generated language samples remain pending. AI assistance and assumptions are recorded in `docs/decisions.md`.
+Student ID: 2026aj05073; odd-ID forget-bias ablation. Variant table missing: provisional hidden size 64 and split/model seeds 0/1/2. Adding-data seeds are fixed by the assignment. T4 total runtime: not measured; training has not begun. Final report, student-ID packaging and generated language samples remain pending. AI assistance and assumptions are recorded in `docs/decisions.md`.
 
 ## Targeted checks (no Task 1 rerun)
 
@@ -26,5 +26,4 @@ Variant: student ID/table unavailable; provisional split seeds 0/1/2. Adding-dat
 ```
 
 These save verification outputs and report pending student work honestly. Add `--strict`
-to either execution command to require custom components to pass (currently fails by
-design). See `docs/student-work-map.md` for the remaining student-authored work.
+to require custom components to pass (Problem 1 passes; Problem 2 remains pending). See `docs/student-work-map.md` for the remaining student-authored work.
