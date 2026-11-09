@@ -1,13 +1,13 @@
 """Meaningful tests for future training resume and evidence-preserving verification."""
 from pathlib import Path
 import tempfile
-import copy,json,hashlib,random,os
+import copy,json,hashlib,random,os,shutil
 import nbformat
 import numpy as np
 import torch
 from torch import nn
 n=nbformat.read('problem1/problem1.ipynb',4)
-scope=dict(Path=Path,copy=copy,json=json,hashlib=hashlib,random=random,os=os,np=np,torch=torch)
+scope=dict(Path=Path,copy=copy,json=json,hashlib=hashlib,random=random,os=os,np=np,torch=torch,DATA=Path('.cache'))
 exec(next(c.source for c in n.cells if c.source.startswith('# Reproducibility infrastructure')),scope)
 torch.set_num_threads(4)
 random.seed(38);np.random.seed(38);torch.manual_seed(38)
@@ -49,6 +49,8 @@ from notebook_scope import load_definitions
 with tempfile.TemporaryDirectory(dir='.cache') as directory:
  task_root=Path(directory);cache=task_root/'cache';metrics=task_root/'metrics'
  cache.mkdir();metrics.mkdir()
+ (task_root/'problem1').mkdir()
+ shutil.copyfile('problem1/problem1.ipynb',task_root/'problem1/problem1.ipynb')
  s=load_definitions('problem1',dict(ROOT=task_root,SUPPLEMENT_CACHE=cache,SUPPLEMENT_METRICS=metrics,
                                    RESULT_COLUMNS=ns['RESULT_COLUMNS']))
  previous=os.environ.pop('DNN_VERIFY_CACHED_ONLY',None)

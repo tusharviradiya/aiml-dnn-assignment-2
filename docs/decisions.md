@@ -126,3 +126,39 @@
 - Keep only required root files, notebooks, figures and primary sample file in ZIP.
   Optional rebuild/audit tools and understanding checklist remain internal. PDF LaTeX
   rebuilding uses internal tooling; notebook result/figure reproduction is self-contained.
+
+## 2026-11-09 — Final focused revision
+
+- Original DOCX controls the six-content-page rule and required final AI-use statement.
+  Keep a single complete report declaration naming Codex/Codex CLI and actual AI-written
+  scratch code, experiments/tests/debugging, execution/plots, analysis/drafting and
+  reproducibility/packaging. Remove repetitive informal-permission narrative from
+  submitted technical material; retain permission history internally. This is editorial
+  consolidation, not evidence of authorization. Treat the original restrictions as
+  binding without an explicit applicable instructor exemption; integrity remains Blocked.
+- Resolve requested supplemental settings before cache lookup. A weights checksum
+  alone proves neither configuration nor data compatibility. Compare full protocol,
+  scoped executable-source/data fingerprints, software/device/thread settings and,
+  for continuations, baseline checkpoint identity/hash and selected epoch/loss.
+  Mismatches raise a compatibility error rather than overwrite evidence; revised runs
+  need distinct names. Prospective runs save complete contracts when created.
+- Historical adding metadata lacks n_train, and continuation metadata lacks an original
+  baseline hash. Reconstruct adding sizes only from the committed fixed training source
+  and pre-outcome protocol. Bind exact preserved metadata/weights to that reviewed
+  contract. For LM, record currently observed baseline hashes retrospectively, check
+  source/config/key and independently reproduce each saved initial validation loss.
+  A matching loss is supporting evidence, not proof of unique historical weights.
+  Never retrofit these observations as contemporaneous provenance. Reviewed bindings
+  are explicit in both self-contained notebooks, with detailed limits retained internally.
+- Hash ASTs of relevant definitions while ignoring comments/docstrings; plot-only or
+  disclosure edits should not invalidate experiment semantics. The historical binding
+  itself is excluded from result-affecting source dependencies to avoid circular hashes.
+  Changes to training/data/model/evaluation definitions must reject legacy reuse.
+- No model changes or assessed retraining are justified by these cache-validation defects:
+  inspected historical experiments match the fixed source/protocol and independent replay.
+  Keep all92 existing rows and primary sample bytes. Verify future training only with
+  disposable fixtures. Distinguish cached timing trace reuse from new hardware-dependent
+  benchmark repeats; fresh timing studies require statistical analysis, not PNG equality.
+- Preserve39112c6 and ignored pre-revision artifacts. Submit only the same16 required
+  files; all cache helpers/assertions stay inside notebooks, with no excluded helper
+  dependency. Internal review/provenance/permission files stay outside the ZIP.

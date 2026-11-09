@@ -1,6 +1,6 @@
 # Current submission readiness
 
-**Technical: locally verified. Course authorization: scope awaiting clarification.
+**Technical: locally verified. Academic integrity: blocked pending verified instructor authorization.
 Portal: external steps not performed.** No unconditional course-policy clearance,
 awarded marks or proof of personal understanding is claimed.
 
@@ -34,6 +34,13 @@ instructor authorization clarification remain student responsibilities.
 
 Conditional technical estimate: approximately97/100 (94–99), with architectural
 comparison/interpretation/presentation uncertainty; see professor-evaluation.md.
+The focused final revision passes ten audits with296 checked evidence files unchanged,
+23 stale-cache negative controls and both packaged notebooks. No informal-permission
+narrative remains in submitted artifacts; the required declaration still names actual
+AI-written scratch components and other material assistance. Retrospective cache
+bindings establish the current compatibility boundary, not missing training-time hashes.
+
 Upload through the actual course portal, download/open that uploaded copy and retain
-confirmation before claiming submission. The user has authorized a local commit. No push, publication or upload is
-authorized or performed.
+confirmation before claiming submission. The prior release was committed as39112c6;
+the user has authorized a local commit of this revision. No push, publication or upload
+is authorized or performed.

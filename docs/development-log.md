@@ -219,3 +219,70 @@ self-contained notebooks, required report/figures/samples, compact evidence, aud
 packaging tools and synchronized internal documentation. Original assignment DOCX
 is left untracked; ignored ZIP, datasets, checkpoints and environment are excluded.
 No push or external submission is authorized or performed. Parent revision2689b65.
+
+## 2026-11-09 — Focused disclosure, supplemental-cache and presentation revision
+
+Baseline39112c6 reviewed against the original assignment **DOCX**, its100-point rubric
+and the separate size/seed/example email. report.pdf was treated as a deliverable,
+not the instructions. Pre-change notebook/PDF/ZIP/CSV/sample/generator copies and audit
+hashes are preserved in ignored data/final-revision-baseline-2026-11-09/; Git history
+and original experiment metadata/weights remain intact.
+
+Consolidated Codex/Codex CLI attribution in the required report-end statement, keeping
+all actual scratch, experiment, test, analysis and report assistance explicit. Removed
+informal-permission narrative from the generator, report source and recurrent notebook
+annotations. Only docstrings/Markdown changed in scratch sections; executable model
+ASTs match the preserved implementations. Internal permission records remain truthful.
+Fixed untied65-character/use8-step/h32:71% spacing and related mathematical typography.
+PDF remains six content pages plus one excluded declaration/reference page,11pt/A4/2cm.
+
+Confirmed and fixed two cache defects: adding diagnostics looked up evidence before
+resolving epochs/n_train, and LM continuation accepted a matching architecture without
+binding the originating baseline. Both notebooks now resolve full contracts before
+lookup and check scoped source/data/runtime fingerprints; LM additionally checks the
+baseline checkpoint hash/key/selected epoch/loss. New records save contracts. Existing
+records remain byte-identical and use exact retrospective bindings reconstructed from
+Git2689b65 source/protocol and preserved evidence, with all four baseline validation
+losses independently re-evaluated. These bindings do not invent contemporaneous hashes
+or missing optimizer/RNG states. Unknown, partial, corrupt or incompatible caches fail
+before result reuse and are not overwritten.
+
+Tests actually completed: all six adding and four LM legacy bindings pass;23 negative
+controls reject budget/data-size/batch/seed/length/width/optimizer/source/data/baseline
+changes and corruption. Both notebooks' disposable contract assert tests pass.
+Future resume stochastic-update and disposable one-update adding fixture tests pass;
+the fixture is deleted and adds no assessed result. Ten independent audits passed
+with296 evidence hashes unchanged. Root and exact final ZIP both execute141/55 code
+cells in cached-only mode. Exact92-row CSV,3x500 primary sample characters and nine
+packaged figures agree; original raw timing repeats were replayed, not remeasured.
+PDF bounds/format/font/numbering/disclosure checks pass; revised pages3/4/7 rendered
+and inspected. CRC/name/root/allowlist/file hashes/size/extraction all pass.
+
+Test-development error resolved: the negative source-edit fixture initially selected
+an experiment configuration string, then an absent evaluator token. It now selects
+actual definitions and changes executable source; stale-cache rejection is verified.
+No experimental failure/result was replaced in resolving this test fixture.
+
+No assessed retraining, clean installation or portal action. Primary continued causal
+h4 LM remains2.0269467236664482nats /2.924265986379717BPC; all unsuccessful grid results
+remain. Final ZIP1,914,738bytes,16files, SHA256
+c50a489ed9be17891714610d51984dbb4b5668f70b38ae6f5b91063463311875.
+Technical readiness is local verification; absent verified authorization for AI-written
+restricted components remains an academic-integrity blocker. Editorial changes do
+not resolve it. No new commit/push/upload. Suggested commit:
+`fix: validate supplemental cache provenance and consolidate submission disclosure`.
+
+## 2026-11-09 — Approved focused final revision commit
+
+The user authorized a local commit. Pre-commit verification confirmed that the final
+16-file ZIP (1,914,738 bytes; SHA256
+c50a489ed9be17891714610d51984dbb4b5668f70b38ae6f5b91063463311875),
+all packaged files and296 audited evidence hashes still match successful verification
+records. Both extracted notebooks passed141/55 code cells; all ten audits passed.
+Git diff and whitespace checks pass. Commit scope is the final notebook cache fixes,
+disclosure/presentation revisions, tests/verification tooling and internal evidence/
+tracking records. Parent39112c6 is preserved. The original assignment DOCX remains
+untracked; ZIP, datasets, checkpoints and environment remain excluded from Git.
+Technical readiness and the unresolved academic-integrity authorization blocker are
+unchanged. No retraining, push, publication or external submission is authorized or
+performed by this commit step. The resulting commit hash is available in Git history.

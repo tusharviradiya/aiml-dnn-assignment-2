@@ -10,4 +10,4 @@ The paired odd-ID study changes only initial effective forget bias. Table 4/Figu
 
 On HAR, Table 1 gives70.52±4.91% (RNN),87.71±0.29% (LSTM),88.19±1.04% (GRU); Figure 2 shows sitting/standing confusion. Table 3/Figure 7 show GRU h32→128 raises accuracy87.41→89.04% while parameters grow4326→54150. LSTM h128 reaches88.28% with71942 parameters. CPU training favors LSTM over comparable GRU widths on this backend; it does not measure deployment energy.
 
-For a memory-constrained wearable, these measurements favor prototyping GRU h32:71% fewer parameters than h64 for0.78 points lower accuracy, and better accuracy than LSTM h32. Float32 weights occupy16.9KiB before activations/runtime. Device latency and energy remain unmeasured; three seeds and short budgets limit certainty.
+For a memory-constrained wearable, these measurements favor prototyping GRU h32: 71% fewer parameters than h64 for0.78 points lower accuracy, and better accuracy than LSTM h32. Float32 weights occupy16.9KiB before activations/runtime. Device latency and energy remain unmeasured; three seeds and short budgets limit certainty.

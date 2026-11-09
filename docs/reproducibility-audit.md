@@ -76,3 +76,22 @@ observations, not causal explanations; profiler peaks measure additional live te
 bytes under one workload, not RSS, energy or reserved GPU memory.
 
 Execution results and final artifact details are recorded in submission-validation.md.
+
+## Focused final revision: supplemental compatibility and disclosure
+
+Supersedes the earlier broad claim that all supplemental cache compatibility was
+already guarded. The final review found adding lookup preceding requested budget
+resolution and continuation lookup lacking baseline identity. Both are corrected.
+Complete contracts cover requested settings plus source/data/runtime; LM includes
+baseline key/hash/selected epoch/loss. The23 negative controls in the added cache
+test reject stale evidence before evaluation, logging or training. All ten existing
+supplements pass reviewed legacy bindings. Full evidence and provenance limits are
+in review-evidence/supplement-cache-bindings.json; no historical metadata is rewritten.
+Current observed baseline hashes are retrospective, not proof of training-time identity.
+
+Only three recurrent class docstrings changed in graded implementation cells; exact
+executable-AST comparison against39112c6 passes. Full disclosure is consolidated at
+report end; no informal-permission narrative remains in submitted sources/outputs.
+Permission history stays internal and the unresolved authorization remains a blocker.
+Root and final extracted notebooks pass141/55 code cells; ten audits leave296 checked
+files unchanged. Exact final artifact details are in submission-validation.md.

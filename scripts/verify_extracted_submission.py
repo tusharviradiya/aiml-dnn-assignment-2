@@ -20,6 +20,8 @@ local_data.symlink_to(os.path.relpath(root/'data',extracted),target_is_directory
 os.environ.update(DNN_VERIFY_CACHED_ONLY='1',MPLCONFIGDIR=str(root/'.cache/matplotlib'),JUPYTER_RUNTIME_DIR=str(root/'.cache/jupyter'))
 results_before=(extracted/'results.csv').read_bytes()
 samples_before=(extracted/'problem2/generated_samples.txt').read_bytes()
+timing_repeats={length:json.loads((root/f'problem2/metrics/context_raw_{length}.json').read_text())['timing_seconds']
+                for length in (64,128,256,512)}
 counts={}
 for problem in ('problem1','problem2'):
  path=extracted/problem/f'{problem}.ipynb';notebook=nbformat.read(path,4)
@@ -41,12 +43,20 @@ for problem in ('problem1','problem2'):
 assert (extracted/'results.csv').read_bytes()==results_before
 assert (extracted/'problem2/generated_samples.txt').read_bytes()==samples_before
 assert (extracted/'report.pdf').read_bytes()==(root/'report.pdf').read_bytes()
+# These are cached measurements, not new benchmark observations. Exact comparisons
+# are appropriate only after confirming reuse of the original raw timing repeats.
+# A fresh timing study needs statistical analysis on its own measured repeats;
+# deterministic PNG equality is not an acceptance criterion for fresh timings.
+for length,repeats in timing_repeats.items():
+ raw=json.loads((extracted/f'problem2/metrics/context_raw_{length}.json').read_text())
+ assert raw['timing_seconds']==repeats,'New timings measured: compare statistically outside cached replay verification'
 for problem in ('problem1','problem2'):
  # Recomputed deterministic figures must be byte-identical; timing is replayed.
  for name in record['manifest']:
   if name.startswith(problem+'/figures/'):
    assert (extracted/name).read_bytes()==(root/name).read_bytes(),name
 result=dict(passed=True,mode='minimal ZIP, self-contained notebooks, reused local data/checkpoints, Adam guard, no fresh training',
-            archive_sha256=record['sha256'],code_cells=counts,exact_csv_samples_and_figures=True,extraction=str(extracted))
+            archive_sha256=record['sha256'],code_cells=counts,exact_csv_samples_and_figures=True,
+            timing_mode='Original raw timing repeats replayed exactly; no fresh timing observations',extraction=str(extracted))
 (root/'.cache/extracted-verification.json').write_text(json.dumps(result,indent=2)+'\n')
 print('PASS: minimal extraction executes without excluded helpers; CSV, samples and all included figures reproduced exactly')

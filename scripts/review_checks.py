@@ -1,6 +1,6 @@
 """Independent review checks: scalar oracle, model invariance, evidence integrity."""
 from pathlib import Path
-import json, hashlib, math, random
+import ast, json, hashlib, math, random, subprocess
 import nbformat
 import numpy as np
 import pandas as pd
@@ -17,12 +17,26 @@ def definitions(problem,prefixes):
 torch.set_num_threads(4)
 
 def run():
+    def tensor_ast(source):
+        # Only the three permission-bearing class docstrings were edited.
+        tree=ast.parse(source)
+        for node in ast.walk(tree):
+            if isinstance(node,(ast.ClassDef,ast.FunctionDef)) and node.body and isinstance(node.body[0],ast.Expr):
+                value=node.body[0].value
+                if isinstance(value,ast.Constant) and isinstance(value.value,str):node.body.pop(0)
+        return ast.dump(tree,include_attributes=False)
+    archived=nbformat.reads(subprocess.check_output(['git','show','39112c6:problem1/problem1.ipynb'],text=True),4)
+    originals={c.source.splitlines()[0]:c.source for c in archived.cells if c.cell_type=='code' and c.source}
     hashes=json.loads(Path('docs/baseline-2026-11-09/model-source-hashes.json').read_text())
     for problem in ('problem1','problem2'):
         for cell in nbformat.read(f'{problem}/{problem}.ipynb',4).cells:
             key=cell.source.splitlines()[0] if cell.source else ''
             if key in hashes and key.startswith(('class My','def scaled_dot_product_attention','def sinusoidal_positions','class HAREncoder','class CharacterTransformer','class HARClassifier','class AddingRegressor')):
-                assert hashlib.sha256(cell.source.encode()).hexdigest()==hashes[key],key
+                if key.startswith(('class MyRNNCell','class MyLSTMCell','class MyGRUCell')):
+                    assert hashlib.sha256(originals[key].encode()).hexdigest()==hashes[key],key
+                    assert tensor_ast(cell.source)==tensor_ast(originals[key]),key
+                else:
+                    assert hashlib.sha256(cell.source.encode()).hexdigest()==hashes[key],key
     baseline=pd.read_csv('docs/baseline-2026-11-09/results.csv')
     now=pd.read_csv('results.csv'); extra=pd.read_csv(OUT/'additional-results.csv')
     pd.testing.assert_frame_equal(now.iloc[:82].reset_index(drop=True),baseline,check_exact=False,rtol=1e-14,atol=1e-14)

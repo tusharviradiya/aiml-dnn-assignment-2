@@ -27,7 +27,7 @@ See instructor-clarifications.md. Sizes/seeds are legitimate choices and our sel
 
 ## Verification and reproducibility
 
-No models are retrained for clarification changes. Model/training-loop ASTs match the committed version; exact cache aliases only cover comment/requirement text changes. Full execution is guarded: creating an Adam optimizer aborts verification on a cache miss. Raw data/checkpoints remain local, outside submission. Final verification records and rubric review are in submission-readiness.md.
+No assessed models were retrained for the final revision. Graded tensor equations match the preserved implementation; three recurrent class docstrings were edited only to consolidate disclosure. Permitted supplemental cache control was corrected and tested. Full cached execution is guarded: creating an Adam optimizer aborts verification on a cache miss. Raw data/checkpoints remain local, outside submission. Final verification records and rubric review are in submission-readiness.md.
 
 ## Integrity review
 
@@ -49,3 +49,18 @@ Baseline82 experiments preserved. Six adding diagnostics Completed: all cells ov
   actual nine-audit and packaged-notebook checks; see submission-validation.md.
 - Course authorization scope and external portal steps remain unverified; no change
   to student-reported status. No new scratch implementation or full retraining.
+
+## Focused final revision — 2026-11-09
+
+- Disclosure consolidation and report spacing: Completed. Complete Codex/Codex CLI
+  declaration remains on excluded page7; no informal-permission narrative in submitted
+  report or notebooks. Original permission history remains internal and in Git.
+- Supplemental cache validation: Completed. Requested budgets/configuration resolve
+  before lookup; source/data/runtime and LM baseline identities are checked. All ten
+  historical supplements match explicit retrospective bindings;23 negative controls
+  reject stale/incompatible evidence. Missing historical provenance is not invented.
+- Root and exact final ZIP execution: Completed,141/55 code cells, cached-only mode.
+  Ten audits pass with296 evidence files unchanged;92-row CSV, primary samples and
+  nine packaged figures reproduce exactly. Final artifact is recorded in submission-validation.md.
+- Academic-integrity authorization remains **Blocked**. Technical verification and
+  editorial consolidation do not override the original restricted-code authorship rule.

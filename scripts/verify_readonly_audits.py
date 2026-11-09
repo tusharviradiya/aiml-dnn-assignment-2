@@ -9,7 +9,7 @@ def snapshot():
  return {str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
 
 if __name__=='__main__':
- commands=['scripts/test_verification.py','scripts/test_cache_fingerprints.py','scripts/test_reproducibility.py',
+ commands=['scripts/test_verification.py','scripts/test_cache_fingerprints.py','scripts/test_supplement_cache.py','scripts/test_reproducibility.py',
            'scripts/audit_har.py','scripts/audit_adding.py','scripts/audit_task5.py','scripts/audit_problem2.py','scripts/review_checks.py','scripts/normalize_review_ledger.py']
  before=snapshot();records=[]
  for script in commands:
@@ -24,4 +24,4 @@ if __name__=='__main__':
  changed=[p for p in before.keys()|after.keys() if before.get(p)!=after.get(p)]
  assert not changed,changed
  Path('.cache/readonly-audits.json').write_text(json.dumps(dict(passed=True,files_hashed=len(before),commands=records,evidence_sha256=before),indent=2)+'\n')
- print('PASS: all nine audits; no checked evidence was created, removed or rewritten')
+ print(f'PASS: all {len(commands)} audits; no checked evidence was created, removed or rewritten')
