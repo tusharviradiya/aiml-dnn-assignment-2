@@ -1,0 +1,12 @@
+{
+  "6d117c7365cafa64": {
+    "run_id": "878cc93e6862a042",
+    "task": "HAR",
+    "reason": "Legacy checkpoints independently replay-audited after training-helper parameterization; training defaults unchanged. Exact dependency/config/data hash required."
+  },
+  "d20750fa59038bff": {
+    "run_id": "7d60ee6ede81051e",
+    "task": "adding",
+    "reason": "Legacy checkpoints independently replay-audited after training-helper parameterization; training defaults unchanged. Exact dependency/config/data hash required."
+  }
+}

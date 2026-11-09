@@ -8,7 +8,6 @@ import contextlib
 import io
 import json
 import math
-import subprocess
 import nbformat
 import numpy as np
 import pandas as pd
@@ -50,7 +49,8 @@ ledger = pd.read_csv('results.csv')
 assert ledger.columns.tolist() == scope['RESULT_COLUMNS']
 assert not ledger.duplicated(['problem','model','seed','notes']).any()
 # Preserve every pre-existing P1 row, allowing CSV float round-trip precision only.
-before = pd.read_csv(io.StringIO(subprocess.check_output(['git','show','HEAD:results.csv'],text=True)))
+before = pd.read_csv(ROOT/'problem1'/'metrics'/'experiment_ledger.csv')
+assert len(before)==69 and before.problem.eq('P1').all()
 pd.testing.assert_frame_equal(before[before.problem=='P1'].reset_index(drop=True),
                               ledger[ledger.problem=='P1'].reset_index(drop=True),check_exact=False,rtol=1e-12,atol=1e-12)
 har_runs = pd.read_csv(METRICS/'har_runs.csv')

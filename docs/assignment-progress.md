@@ -1,7 +1,7 @@
 # Assignment progress
 
 Updated: 2026-11-09. Status values: Not Started, In Progress, Completed, Blocked.
-Overall: P1 Tasks 1–5 and P2 Tasks 2–5 Completed: 90/100 marks of fully verified task coverage (not an awarded grade), plus tested P2 attention awaiting the missing instructor hand example. All 13 P2 runs audited; results.csv has 82 rows. Report/packaging remain pending. User-reported professor permission permits AI-assisted implementation. Marks below denote rubric coverage, not awarded marks.
+Overall: P1 Tasks 1–5 and P2 Tasks 2–5 Completed: 90/100 marks of fully verified task coverage (not an awarded grade), plus tested P2 attention awaiting the missing instructor hand example. All 13 P2 runs audited; results.csv has 82 rows. Six-page report plus excluded AI/reference page verified; local ZIP verified; portal submission remains external. User-reported professor permission permits AI-assisted implementation. Marks below denote rubric coverage, not awarded marks.
 
 | Task | Marks | Status | Acceptance criteria / pending work |
 |---|---:|---|---|
@@ -22,8 +22,9 @@ Overall: P1 Tasks 1–5 and P2 Tasks 2–5 Completed: 90/100 marks of fully veri
 | P2.5c No mask | part of 10 | Completed | Training loss and generation effects |
 | P2.5d Scaling | part of 10 | Completed | Time/memory at 64/128/256/512; quadratic-growth discussion |
 | Optional bonus | up to 5 | Not Started | KV cache or LSTM language-model comparison |
-| Report | — | Not Started | Six pages; numbered/cited figures/tables; AI statement and references |
-| Packaging | — | Not Started | Exact student-ID ZIP/root naming; ≤25 MB; PDF; executed notebooks; samples; pinned requirements; one-page README; download-and-open verification |
+| Report | — | Completed | Six pages; numbered/cited figures/tables; AI statement and references |
+| Local packaging | — | Completed | Correct student-ID ZIP/root, ~3.25 MB, CRC/SHA checks, PDF, executed notebooks, samples, pinned requirements, one-page README; full extracted execution/audits pass with explicitly reused local data/checkpoints |
+| Portal submission | — | Not Started | User must confirm portal/deadline, upload, download/open the uploaded ZIP, and retain confirmation; no portal URL supplied and no upload authorized |
 
 ## Task 1 verification checklist
 
@@ -120,3 +121,17 @@ Main LM saved:108481 parameters,2.234945 nats/3.224344 BPC at epoch 5. One-head 
 - P2.5 Completed: two measured head heatmaps/interpretation; matched1/4/8-head runs; no-mask training/generation and actual future-dependence diagnostic; measured context 64/128/256/512 time/tensor peak with quadratic discussion. One-seed and CPU limitations stated.
 - Notebook executes top to bottom with outputs saved; second full execution reuses 13 caches with no duplicate ledger rows. Independent audit reproduces all four LM losses,2000 generated characters, attention weights and diagnostics. Four figure files visually inspected. docs/problem2-results.md and notebook analysis cite actual evidence.
 - All 69 previous P1 ledger rows preserved; total 82. No datasets/checkpoints/environments staged or committed. Full P1 integration, final PDF/report pagination and ZIP remain packaging work. No commit/push yet.
+
+## Final report and local packaging (2026-11-09)
+
+- Full Problem1 notebook executed top to bottom after stable dependency hashing; all assertions pass and legacy runs are reused honestly, with no duplicate result rows. Exact aliases retain verified experiment provenance. Tests prove training/config edits invalidate caches while analysis/output edits do not.
+- Report Completed: Viradiya Tushar Rajeshbhai; six content pages A4/11pt/2cm margins plus one excluded AI-use/reference page; all required figures/tables and measured analysis included. PDF text/bounding-box/page allocation checks pass; no overfull LaTeX boxes. Rendered pages inspected. Missing example/provisional variant/CPU/short-budget limitations disclosed.
+- Portable P1 ledger snapshot permits the P2 preservation audit without Git metadata; portable audit passes. Local ZIP construction/extraction and extracted-notebook execution pending. Portal upload/download confirmation remains external work; no portal URL supplied.
+
+### Local package acceptance
+
+Completed the named ZIP with correct outer folder, all mandatory files and compact supporting scripts/metrics/docs. Size~3.25MB (<25MB), CRC integrity and individual SHA256 records pass; ZIP freshly extracted and required structure checked. Raw datasets, checkpoints, virtual environment, Git metadata, caches and source DOCX excluded. Manifest stored inside ZIP.
+
+Fresh extraction: component suite and cache invalidation tests pass; both full notebooks pass top to bottom; all HAR/adding/Task5/P2 audits pass without .git. Tests explicitly reused existing local raw data/checkpoints through a local-only relative symlink, which is absent from the ZIP. This verifies portability and integration, not a fresh network download or uncached retraining claim. All sources match packaged sources. Root ledger retains all82 original rows/order; full Run-All notebook outputs retained. Updated targeted adding runner reuses all36 runs successfully.
+
+Report/local package are Completed. P2.1 instructor fixture remains In Progress; provisional variant assumptions and all experimental limitations are disclosed. Optional bonus not attempted. Portal upload and post-upload verification are not performed. User approved the final report/packaging commit on 2026-11-09; no push authorized.

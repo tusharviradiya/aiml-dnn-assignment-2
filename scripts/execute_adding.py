@@ -11,7 +11,7 @@ start=next(i for i,c in enumerate(original.cells) if c.source.startswith('# Prob
 end=next((i for i,c in enumerate(original.cells) if i>start and c.source.startswith('# Problem 1 — Task 5:')),len(original.cells))
 # Reuse setup/functions only; do not execute prior data plots or HAR experiments.
 setup=[original.cells[1].source,'from torch import nn']
-for prefix in ('def make_adding','import copy','def save_har_result'):
+for prefix in ('def make_adding','import copy','def save_har_result', 'def experiment_fingerprint'):
     setup.append(next(c.source for c in original.cells if c.source.startswith(prefix)))
 selected=nbformat.v4.new_notebook(metadata=original.metadata)
 selected.cells=[nbformat.v4.new_code_cell('\n'.join(setup))]+original.cells[start:end]

@@ -101,3 +101,27 @@ Post-P2 Task5 regression audit passed:24 HAR sweep checkpoint sets, six forget-b
 User approved the reviewed Problem 2 commit. Final status/diff checks passed. Commit scope includes the executed notebook, compact metrics/predictions, figures, generated samples, verification runners, ledger-compatible Task 5 audit and synchronized documentation. Source DOCX, datasets, checkpoints, virtual environment and caches are excluded. No push authorized or planned.
 
 Staged whitespace check flagged trailing blank lines in no_mask_sample.txt. These are actual generated characters in the verified 500-character sample and were preserved. All other staged paths pass the normal whitespace check; the literal sample passes with only blank-at-EOF checking disabled for that path. No whitespace configuration changed.
+
+## 2026-11-09 — Final report and packaging started
+
+Problem2 commit a1ffd7f approved/created in prior turn; no push. User authorized final report and packaging and supplied report name Viradiya Tushar Rajeshbhai. Reviewed requirements and available PDF tooling (pdflatex/pdfinfo/pdftoppm/pdftotext installed; no new Python modeling libraries needed). Report/packaging In Progress. Found notebook-wide P1 cache fingerprints invalidated by later sections; scoping them to actual training dependencies and recording exact reviewed aliases to the already-audited legacy run IDs. Full integration and final PDF/ZIP checks pending.
+
+## 2026-11-09 — Report and full integration verified
+
+Full P1 Restart & Run All passed with saved outputs and existing caches; results ledger remains82 rows. New cache invalidation tests pass: reviewed adding alias reused, configuration/training dependency edits invalidate, analysis/output edits do not. Initial alias-generation helper expected nested config; actual metadata is flat. Corrected before full execution. Re-audited HAR and all adding checkpoints successfully.
+
+Built report.pdf from scripts/build_report.py and docs/report.tex using measured CSVs and existing figures. First layout placed the width/forget figures on an extra content page; condensed the sweep table by pairing model columns and adjusted figure sizing, retaining11pt text/2cm margins. Final PDF has six content pages + excluded AI/reference page; body bounding boxes/A4/title/required evidence checks pass. Fixed a long unbreakable slash-separated phrase to remove overfull boxes. Validator initially missed combined figure labels and line-wrapped AI text; corrected text matching without weakening margin/page checks. Rendered pages inspected.
+
+Added portable69-row P1 ledger snapshot so P2 audit does not need .git inside submission; all checkpoint/sample/diagnostic audits still pass. Prepared explicit-allowlist ZIP builder with CRC/hash/size/layout validation. Packaging and extracted full-notebook checks pending; no commit/push.
+
+ZIP structural validation passed (about3.25MB,79 files, CRC and all hashes). First extracted smoke check passed component tests but exposed a portability bug in the new cache regression test: it assumed .cache already existed. Added explicit directory creation before TemporaryDirectory. Rebuilding into a fresh extraction and rerunning all checks; no change to model/result code.
+
+## 2026-11-09 — Local submission package verified
+
+After fixing .cache creation, fresh extraction passed all eight checks: component regression, cache invalidation, full Problem1, full Problem2, HAR audit, adding audit, Task5 audit and P2 audit. No .git is required. Both notebooks have identical source to the package. Validation explicitly reused local data/checkpoints via a relative symlink outside the archive; no claim of uncached training/network-download verification. Updated targeted adding runner independently passed36 cache hits. Restored saved full-Run-All outputs after that targeted check and original82-row ledger ordering after atomic-cache logger upserts; values unchanged.
+
+Report validated: seven total pages (six assessed + one excluded), A4/11pt/2cm source and text margins, all required figures/tables, title/ID/name, AI disclosure, no overflow and embedded fonts. All rendered pages inspected. ZIP uses exact2026aj05073 naming, required root folder, compact evidence/source files and manifest; CRC/hash/extraction/size pass, about3.25MB. Local report/package marked Completed; portal submission separately Not Started. Instructor hand fixture remains missing and P2.1 In Progress. Final rebuild includes this evidence; no commit/push. Suggested commit: build: assemble verified assignment report and submission package.
+
+## 2026-11-09 — Final report/package commit approved
+
+User approved `build: assemble verified assignment report and submission package`. Rechecked Git diff/whitespace, PDF page allocation/margins and local ZIP CRC/checksum/size; all passed. Rebuilt ZIP to synchronize this approval record and progress status. Commit scope contains report PDF/source, packaging/validation/cache scripts, portable provenance records, executed P1 notebook and documentation; generated ZIP, source DOCX, raw data, checkpoints and environment excluded. No push authorized or performed.
