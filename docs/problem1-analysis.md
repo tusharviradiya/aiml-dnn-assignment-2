@@ -1,3 +1,5 @@
+> Historical experiment analysis retained for provenance. Current primary model, notebook workflow and submission scope are defined in [reproducibility-audit.md](reproducibility-audit.md) and [submission-validation.md](submission-validation.md). Baseline numbers below remain baseline results; they are not automatically primary-model results.
+
 # Problem 1 — analysis for the report
 
 Figure 6 shows early hidden-gradient attenuation at T=100. After training, the t=1/t=100 mean-norm ratios are about3.6×10⁻²² (RNN),1.2×10⁻¹¹ (LSTM) and6.5×10⁻⁵ (GRU). Predictions and parameter gradients match the library graph. Gating retains stronger early hidden signals here, but these derivatives also depend on loss and trajectory; dL/dh_t does not cover LSTM's separate cell-memory path or prove a general memory ranking.

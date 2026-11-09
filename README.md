@@ -1,56 +1,50 @@
-# DNN Programming Assignment 2 — 2026aj05073
+# DNN Assignment 2 — 2026aj05073
 
-Viradiya Tushar Rajeshbhai. Tested: Python 3.14.4, PyTorch 2.15.0+cpu, four
-CPU threads; exact dependencies are pinned in `requirements.txt`.
+Viradiya Tushar Rajeshbhai. Tested on Python 3.14.4 / PyTorch 2.15.0+cpu,
+four CPU threads; exact versions are in `requirements.txt`. Python 3.10+ is
+required by the assignment; the pinned environment was tested on 3.14.4.
 
-From the repository/submission root:
+From the extracted submission root:
 
 ```sh
 python3.14 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python scripts/execute_problem1.py
-.venv/bin/python scripts/execute_problem2.py
+.venv/bin/python -m ipykernel install --user --name dnn-assignment
 ```
 
-Alternatively open each notebook with this environment's kernel and Restart & Run
-All. Both run from the root or their own directory; outputs are saved. On restricted
-hosts, set `MPLCONFIGDIR=.cache/matplotlib` and
-`JUPYTER_RUNTIME_DIR=.cache/jupyter`. The first run downloads only official HAR
-(~61 MB) and Shakespeare (~1.1 MB); internet is needed initially. Ignored `data/`
-holds raw data/checkpoints; the submission contains neither. Runs save `results.csv`
-after completion and reuse exact matching caches. Set notebook `FORCE_*_RERUN`
-flags to retrain. Exact reviewed legacy-cache aliases are documented in decisions.
+Open `problem1/problem1.ipynb`, select that kernel, Restart & Run All; then do
+the same for `problem2/problem2.ipynb`. All experiment, test and report-figure
+code is in those two notebooks. No internal scripts, reviews or metric files
+are required. Run Problem 1 first. Relative paths work from the root or each
+notebook directory. Outputs are saved in the supplied notebooks; save again
+after execution. Initial downloads require internet: official UCI HAR (~61 MB)
+and Tiny Shakespeare (~1.1 MB). Only the prescribed datasets are used.
 
-Chosen settings: **h=64, d=64, seeds 0, 1, 2**, permitted by the instructor email.
-The main Transformer uses four heads; d=64 also divides the 1/4/8-head ablation.
-HAR uses 10 epochs; adding uses five. The CPU LM uses two layers/context128/five
-epochs; the HAR encoder uses patch8, CLS and two layers. We retain the odd-ID
-LSTM initial forget-bias 0/1 ablation from the original experimental instructions.
-Our own 3×2 Q/K/V example has a hand calculation verified against code.
+**Chosen settings: h=64, d=64, seeds 0, 1, 2.** These are freely chosen under
+the instructor's size/seed clarification. CPU LM: two layers, context128,
+four heads (the assignment CPU exception). HAR runs use10 epochs; the
+required36-run adding grid uses5. The odd-ID initial LSTM forget-bias0/1
+ablation is retained. The three-token attention example is self-created.
 
-The original82 experiments total44.7 CPU training minutes, excluding evaluation,
-setup, generation and profiling. **T4 runtime was not measured.**
+The primary LM is the four-head causal continuation: five extra epochs from
+its selected five-epoch baseline, with Adam reset for every continued variant.
+`problem2/generated_samples.txt` contains its three500-new-character samples
+at temperatures0.2/0.8/1.5, top-k20, prompt `ROMEO:\n`, sampling seed700.
+Baseline head/mask comparisons retain matched initialization and budgets;
+continuations, validation-only adding pilots and test results are labelled separately.
+The CSV's92 rows retain82 baseline runs,6 adding diagnostics and4 continuations.
 
-Both full notebooks and independent audits pass for the baseline; supplemental
-checks are documented in `docs/research-review.md`. All36 adding runs remain unsolved
-under five epochs. Supplemental T50 validation pilots and equal-budget LM
-continuations are documented in `docs/review-evidence/`; original results are preserved.
-Run `scripts/research_review.py adding` and then `scripts/research_review.py language`
-for these additional experiments (CPU; approximately15 minutes including audits).
-Then run `scripts/review_artifacts.py`, `scripts/normalize_review_ledger.py`,
-and `scripts/review_checks.py`. Ten additional runs preserve the baseline82 rows.
-Language samples remain limited; supplemental samples come from actual continued checkpoints. The due date is Saturday14 November2026.
-AI assistance, including scratch implementations, is fully disclosed. The user reports
-professor permission, but the supplied clarification email does not waive the original
-AI-writing prohibition: permission evidence remains an integrity condition. No optional
-bonus is claimed. Portal upload/download confirmation remains external work.
+Matching local `data/` checkpoints replay results; absent caches trigger fresh
+training. Set `DNN_VERIFY_CACHED_ONLY=1` to abort on a missing cache. Fresh runs
+regenerate metrics, figures and samples; timings vary by hardware. Historical
+runs lack optimizer/RNG states. Future training saves separate resume snapshots.
+Raw data/checkpoints are excluded as required; cached replay requires local
+caches. Full uncached reproduction was not repeated for this release.
 
-`report.pdf`: six A4 content pages plus one excluded AI/reference page.
-`docs/assignment-progress.md` tracks acceptance; results/decisions/logs are in `docs/`.
-Quick checks: `.venv/bin/python scripts/test_verification.py` and
-`.venv/bin/python scripts/test_cache_fingerprints.py` (no training).
-`audit_har.py`, `audit_adding.py`, `audit_task5.py`, `audit_problem2.py` in `scripts/`
-replay local checkpoints; run the notebooks first after a clean extraction.
-Optional report rebuild uses system LaTeX: `scripts/build_report.py`; validate with
-`scripts/validate_report.py` (Poppler tools), package with `scripts/package_submission.py`.
-The generated ZIP is locally verified; portal upload/download verification is manual.
+Measured original training totals44.7 CPU minutes; LM continuation adds9.13
+training minutes and adding diagnostics123 seconds wall time, excluding other
+execution/validation overhead. **T4 runtime was not measured.** All36 original
+adding runs are unsolved; the single-seed LM remains limited. No bonus claimed.
+The report has six A4 content pages plus an excluded AI-use/reference page.
+AI assistance is accurately disclosed there. Portal upload, download/open
+verification and receipt remain external steps.

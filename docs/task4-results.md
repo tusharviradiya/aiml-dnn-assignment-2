@@ -1,3 +1,5 @@
+> Historical experiment analysis retained for provenance. Current primary model, notebook workflow and submission scope are defined in [reproducibility-audit.md](reproducibility-audit.md) and [submission-validation.md](submission-validation.md). Baseline numbers below remain baseline results; they are not automatically primary-model results.
+
 # Task 4 — Adding results
 
 All 36 full-data runs completed: three models × four lengths × three model seeds. Training/validation/test sizes 10000/1000/1000 use fixed data seeds 0/1/2. Shared settings: chosen h=64, model seeds 0/1/2, batch 128, Adam 1e-3, norm-1 clipping and five epochs. Select minimum validation MSE, ties earliest.

@@ -23,5 +23,20 @@
     "run_id": "cee2760cd83588bd",
     "task": "task5",
     "reason": "Clarified chosen seeds and exact legacy-cache lookup only; model/training AST unchanged."
+  },
+  "cf9e666a1b0e6908": {
+    "run_id": "878cc93e6862a042",
+    "task": "HAR",
+    "reason": "Reviewed infrastructure only: idempotent logging and future resume-state capture; numerical training operations unchanged."
+  },
+  "fb31cf7107080710": {
+    "run_id": "7d60ee6ede81051e",
+    "task": "adding",
+    "reason": "Reviewed infrastructure only: idempotent logging and future resume-state capture; numerical training operations unchanged."
+  },
+  "2bb797162ee08d6a": {
+    "run_id": "cee2760cd83588bd",
+    "task": "task5",
+    "reason": "Exact reviewed hash: bound to Task5 cells; future resume capture, numerical operations unchanged."
   }
 }

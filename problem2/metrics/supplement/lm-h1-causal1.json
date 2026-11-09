@@ -1,0 +1,73 @@
+{
+  "heads": 1,
+  "causal": true,
+  "before": 2.2027866788353903,
+  "best_val_loss": 1.9960959836344494,
+  "best_epoch": 5,
+  "bits_per_char": 2.8797577767277978,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 2.1818786712666913,
+      "val_loss": 2.154983415395603,
+      "seconds": 19.486356123001315
+    },
+    {
+      "epoch": 2,
+      "train_loss": 2.130478477210483,
+      "val_loss": 2.1000358765489335,
+      "seconds": 19.463221340998643
+    },
+    {
+      "epoch": 3,
+      "train_loss": 2.081368094893993,
+      "val_loss": 2.057209518555248,
+      "seconds": 19.687613541000246
+    },
+    {
+      "epoch": 4,
+      "train_loss": 2.0406993807836686,
+      "val_loss": 2.024725352308096,
+      "seconds": 19.495005152000886
+    },
+    {
+      "epoch": 5,
+      "train_loss": 2.0056097735497636,
+      "val_loss": 1.9960959836344494,
+      "seconds": 19.678645828998924
+    }
+  ],
+  "config": {
+    "d": 64,
+    "layers": 2,
+    "heads": 1,
+    "context": 128,
+    "dropout": 0.1,
+    "batch_size": 64,
+    "epochs": 5,
+    "lr": 0.001,
+    "clip_norm": 1.0,
+    "seed": 0,
+    "causal": true,
+    "top_k": 20,
+    "generation_seed": 700
+  },
+  "protocol": "five additional epochs from validation-selected baseline; Adam reset for all variants",
+  "source_sha256": "f9ad58f11e372f7558a2a702092ad3ba217105bb01edb2bcfe9a0a7cedbe7d54",
+  "checkpoint_sha256": "ab19e253c5d336dd98ec55d7cfaa768aff471c4844b42f5e8ce0ab7d631b2dbc",
+  "historical_resume_states_available": false,
+  "row": {
+    "problem": "P2",
+    "model": "Char-Transformer-h1-causal-continued",
+    "seed": 0,
+    "seq_len": 128,
+    "test_acc": null,
+    "macro_f1": null,
+    "test_mse": null,
+    "params": 108481,
+    "sec_per_epoch": 19.562168397200004,
+    "val_loss_nats": 1.9960959836344494,
+    "bits_per_char": 2.8797577767277978,
+    "notes": "{\"before\": 2.2027866788353903, \"best_epoch\": 5, \"best_val_loss\": 1.9960959836344494, \"bits_per_char\": 2.8797577767277978, \"causal\": true, \"config\": {\"batch_size\": 64, \"causal\": true, \"clip_norm\": 1.0, \"context\": 128, \"d\": 64, \"dropout\": 0.1, \"epochs\": 5, \"generation_seed\": 700, \"heads\": 1, \"layers\": 2, \"lr\": 0.001, \"seed\": 0, \"top_k\": 20}, \"heads\": 1, \"protocol\": \"five additional epochs from validation-selected baseline; Adam reset for all variants\", \"review\": \"2026-11-09\", \"source_sha256\": \"f9ad58f11e372f7558a2a702092ad3ba217105bb01edb2bcfe9a0a7cedbe7d54\"}"
+  }
+}

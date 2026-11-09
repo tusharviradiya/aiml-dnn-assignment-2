@@ -1,3 +1,5 @@
+> Historical experiment analysis retained for provenance. Current primary model, notebook workflow and submission scope are defined in [reproducibility-audit.md](reproducibility-audit.md) and [submission-validation.md](submission-validation.md). Baseline numbers below remain baseline results; they are not automatically primary-model results.
+
 # Task 5 — measured results
 
 Gradient evidence: hidden_gradients.csv contains 1800 records from 18 probes (three models × three seeds × before/after), each T=100. Figure 6 shows log-scale means over seeds; actual hidden graph nodes retain gradients. Outputs and parameter gradients agree with library references. Raw zero values, if any, remain in CSV; display floor is 1e-300.

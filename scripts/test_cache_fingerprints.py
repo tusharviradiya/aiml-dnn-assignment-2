@@ -1,5 +1,6 @@
 """Check that plots/outputs reuse reviewed caches and training edits invalidate them."""
 from pathlib import Path
+import ast
 import hashlib
 import json
 import tempfile
@@ -16,7 +17,9 @@ with tempfile.TemporaryDirectory(dir='.cache') as folder:
     root=Path(folder);(root/'problem1/metrics').mkdir(parents=True)
     path=root/'problem1/problem1.ipynb';nbformat.write(notebook,path)
     (root/'problem1/metrics/cache_aliases.json').write_text(Path('problem1/metrics/cache_aliases.json').read_text())
-    scope=dict(ROOT=root,nbformat=nbformat,hashlib=hashlib,json=json)
+    alias_cell=next(c.source for c in notebook.cells if c.source.startswith('CACHE_ALIASES ='))
+    aliases=ast.literal_eval(ast.parse(alias_cell).body[0].value)
+    scope=dict(ROOT=root,nbformat=nbformat,hashlib=hashlib,json=json,CACHE_ALIASES=aliases)
     exec(helper,scope);fingerprint=scope['experiment_fingerprint']
     assert fingerprint(config,prefixes)==expected
     assert fingerprint({**config,'lr':.002},prefixes)!=expected

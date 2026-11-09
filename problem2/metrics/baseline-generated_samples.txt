@@ -1,0 +1,40 @@
+Temperature 0.2; top-k 20; seed 700; 500 NEW characters; prompt 'ROMEO:\n'
+And he se the tere the to he the he the the the the the the he is the and the the is and to se to he and the the the and he he than sthe and the and the heand and the the he he the sear the he the t the the the he that and and he the the the the and and thand be the t the he he he sthat se heand the t the the he at so he at the he he heat he he ther thear thand the ast wind and the he seat sto he he the t heand and the t the the here and and seand the are to the are the to he sise the the and he
+
+Temperature 0.8; top-k 20; seed 700; 500 NEW characters; prompt 'ROMEO:\n'
+HAnd I me harnt, you austie, deer
+t riot cot ad heat tul treaclin.
+
+
+WA:
+I lon ad be rof wof he ord in paret tence fend pas hirerelest ontalleds
+I your I mioursth nour iscer treanges ar; wouies pas tllio st in auos hat he I ia igr her arislante
+And are hind have bime be ame ang benollal oor it toant d than is werin seand
+I tor itot and thin cor muthe nords hange, and, cre staimad I havoust
+Hel willl heere lis pint:
+Af rest yowe wisen you see severr hade chan
+Astherer ifoorll e shir or nor tor he
+
+Temperature 1.5; top-k 20; seed 700; 500 NEW characters; prompt 'ROMEO:\n'
+HAnd:
+Thaker fen' mO!
+LOUTIOOf has:
+G:
+Bud bew'l fra, bird.
+Whick'sh bucwe cot t sthe! nomo, hols held dardy;
+Wame fe tho m tall ayntheserod mil tume arre sthard
+slle decyfost:
+Nonon akd yephou gilou:
+O gar letheve tur goubr I f thapl hile:
+Wey.
+
+Beralllere ittomphilaw d kgrf wrollee ir my. brfoud methe be,
+
+I who po I thill lifo idis kinst cn irrrelviore.
+
+Ancay hatiaut altembof d do shardiaiod savar weve?
+
+
+YICLourauy wiclliny; t mett yeritie
+A iss I'lflllf torster yolarirsues,
+Con tiano w gro

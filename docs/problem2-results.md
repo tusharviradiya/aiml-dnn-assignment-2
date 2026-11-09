@@ -1,3 +1,5 @@
+> Historical experiment analysis retained for provenance. Current primary model, notebook workflow and submission scope are defined in [reproducibility-audit.md](reproducibility-audit.md) and [submission-validation.md](submission-validation.md). Baseline numbers below remain baseline results; they are not automatically primary-model results.
+
 > Baseline training results are preserved below; new continuation results are in research-review.md. Figure numbers here refer to notebook plots; the final PDF uses consecutive report numbering. Context measurements below were refreshed with raw evidence.
 
 # Problem 2 results and analysis

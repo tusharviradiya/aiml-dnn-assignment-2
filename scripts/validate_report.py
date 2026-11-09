@@ -20,13 +20,18 @@ body='\n'.join(pages[:6])
 for n in range(1,10):assert f'Table {n}' in body
 for n in range(1,10):
     assert re.search(rf'Figure\s+{n}(?=\D|$)',body),n
+normalized=re.sub(r'(?<=\w)-\n\s*(?=\w)','',body)
+for label in ('Figure','Table'):
+    for number in range(1,10):
+        assert len(re.findall(rf'{label}\s+{number}(?=\D|$)',normalized))>=2,(label,number)
 # Every numbered item has both a caption and a prose reference or explicit
 # explanation adjoining it; final visual inspection checks panel readability.
 for term in ('2.23495','2.92427','105222','108481','0.59362','0.31769','0/3','nonuniform','contaminated','0.01327','0.00189'):
     assert term in body,term
 assert 'AI-written from-scratch code' in ' '.join(pages[-1].split())
 assert 'post-LN' in pages[-1]
-assert 'does not address AI authorship' in ' '.join(pages[-1].split()) or 'not address AI authorship' in ' '.join(pages[-1].split())
+assert 'not treated as a written exemption' in ' '.join(pages[-1].split())
+assert 'primary LM' in pages[4]
 assert all(str(number) in body for number in (16384,32768,49152,49984))
 assert 'provisional' not in '\n'.join(pages).lower()
 source=Path('docs/report.tex').read_text()
@@ -45,3 +50,8 @@ for page in root.findall('.//x:page',ns):
         assert x0>=margin-1 and x1<=width-margin+1,(word.text,x0,x1)
         assert y0>=margin-1 and y1<=height-margin+1,(word.text,y0,y1)
 print('PASS A4/11pt/2cm margins, six content pages + one AI/reference page; all required evidence and no overflow')
+
+fonts=subprocess.check_output(['pdffonts','report.pdf'],text=True)
+for line in fonts.splitlines()[2:]:
+    if line.strip(): assert 'yes' in line, 'PDF font not embedded'
+print('PASS: all PDF fonts embedded')

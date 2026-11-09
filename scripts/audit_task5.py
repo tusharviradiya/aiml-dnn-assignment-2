@@ -13,8 +13,9 @@ root=Path('.')
 metrics=root/'problem1/metrics'
 config=json.loads((metrics/'task5_config.json').read_text())
 nb=nbformat.read('problem1/problem1.ipynb',as_version=4)
-scope={'np':np,'torch':torch,'nn':nn}
-exec(nb.cells[1].source,scope)
+from notebook_scope import load_definitions
+scope=load_definitions('problem1')
+scope['CHANNELS']=('body_acc_x','body_acc_y','body_acc_z','body_gyro_x','body_gyro_y','body_gyro_z','total_acc_x','total_acc_y','total_acc_z')
 for prefix in ('def download_har','def load_har_split','def subject_split','def fit_normalizer','def make_adding',
                'class HARClassifier','class AddingRegressor','class MyRNNCell','class MyLSTMCell','class MyGRUCell'):
     exec(next(c.source for c in nb.cells if c.source.startswith(prefix)),scope)
@@ -22,7 +23,7 @@ exec(next(c.source for c in nb.cells if c.cell_type=='code' and 'REFERENCE_CLASS
 exec(next(c.source for c in nb.cells if c.source.startswith('def copy_reference_weights')),scope)
 scope['ADDING_BASE']=config['adding_base']
 exec(next(c.source for c in nb.cells if c.source.startswith('def hidden_gradient_probe')),scope)
-folder=scope['download_har']()
+folder=next(p for p in Path('data/har').rglob('UCI HAR Dataset') if (p/'train/y_train.txt').is_file())
 xtrain,ytrain,subjects=scope['load_har_split'](folder,'train')
 x,y,subtest=scope['load_har_split'](folder,'test')
 cache=Path('data/experiments/task5')/config['run_id']

@@ -1,3 +1,5 @@
+> Historical experiment analysis retained for provenance. Current primary model, notebook workflow and submission scope are defined in [reproducibility-audit.md](reproducibility-audit.md) and [submission-validation.md](submission-validation.md). Baseline numbers below remain baseline results; they are not automatically primary-model results.
+
 # Task 3 — HAR evidence and interpretation
 
 Configuration: one recurrent layer, hidden size 64, final hidden-state classifier, batch 128, Adam 1e-3, 10 epochs, norm-1 clipping, no dropout. Three paired chosen seeds 0/1/2. Source/data/config fingerprint: 878cc93e6862a042. These results use the official subject-disjoint test split.

@@ -11,7 +11,8 @@ import pandas as pd
 ROOT=Path('.')
 P1=ROOT/'problem1'/'metrics'
 P2=ROOT/'problem2'/'metrics'
-REVIEW=ROOT/'docs'/'review-evidence'
+REVIEW=P2/'supplement'
+ADDING_REVIEW=P1/'supplement'
 import json
 continued={name:json.loads((REVIEW/f'lm-{name}.json').read_text()) for name in ('h4-causal1','h1-causal1','h8-causal1','h4-causal0')}
 DEST=ROOT/'docs'/'report.tex'
@@ -91,11 +92,11 @@ rows=[]
 for model in ('RNN','LSTM','GRU'):
  r=har.loc[model];rows.append([model,pm(r.accuracy_mean,r.accuracy_std,100),pm(r.macro_f1_mean,r.macro_f1_std,1,4),str(int(r.params)),f'{r.seconds_per_epoch_mean:.3f}'])
 s+=table('Table 1. HAR recurrent comparison',['Model',r'Accuracy (\%)','Macro-F1','Parameters','sec/epoch'],rows)
-s+='\n'+image('docs/review-evidence/figures/class-balance.png',height='4cm')+'\n'
+s+='\n'+image('problem1/figures/report_class-balance.png',height='4cm')+'\n'
 s+=r'''\par Figure 1. Class balance for all three subject splits and the test set.
 \begin{center}
 \begin{minipage}{.43\linewidth}\centering
-'''+image('docs/review-evidence/figures/confusion.png',height='5.2cm')+r'''
+'''+image('problem1/figures/report_confusion.png',height='5.2cm')+r'''
 \end{minipage}\hfill\begin{minipage}{.53\linewidth}
 Figure 2. Validation-selected GRU, seed 2, epoch 9. Sitting/standing account for
 204 cross-errors (88+116). Mean validation macro-F1 selects GRU (0.9104),
@@ -118,7 +119,7 @@ for T in (50,100,200,400):
  g=adding[adding.seq_len==T].set_index('model')
  rows.append([str(T)]+[pm(g.loc[m,'test_mse_mean'],g.loc[m,'test_mse_std'],places=4) for m in ('RNN','LSTM','GRU')]+[f'{g.iloc[0].baseline_mse:.4f}'])
 s+=table('Table 2. Adding test MSE; every group solved 0/3',['T','RNN','LSTM','GRU','Constant 1'],rows)
-s+=image('docs/review-evidence/figures/adding.png',height='3.4cm')+'\nFigure 3a--b. (a) Test MSE versus length; (b) T=200 train (solid)/validation (dashed) curves.\n'
+s+=image('problem1/figures/report_adding.png',height='3.4cm')+'\nFigure 3a--b. (a) Test MSE versus length; (b) T=200 train (solid)/validation (dashed) curves.\n'
 s+=r'''\vspace{-4pt}Table 3/Figure 4a retain the same 10-epoch HAR protocol; six $h=64$ runs are reused.
 ID ends in 3 (odd): Table 4/Figure 4b compare initial LSTM effective forget bias 0/1 at
 T=200, five epochs, three paired seeds; the other weights and shuffle are identical.
@@ -137,10 +138,10 @@ s+=table('Table 3. HAR sweep: LSTM (left), GRU (right)',
 
 forget=pd.read_csv(P1/'forget_bias_summary.csv')
 s+=table('Table 4. Initial forget-bias ablation',['Bias','Test MSE','Solved'],[[int(r.forget_bias),pm(r.test_mse_mean,r.test_mse_std,places=5),'0/3'] for r in forget.itertuples(index=False)])
-s+=image('docs/review-evidence/figures/sweep-forget.png',height='3cm')+'\nFigure 4a--b. (a) HAR width trade-offs; (b) initial forget-bias comparison.\n'
+s+=image('problem1/figures/report_sweep-forget.png',height='3cm')+'\nFigure 4a--b. (a) HAR width trade-offs; (b) initial forget-bias comparison.\n'
 s+=r'''\newpage
 \topic{Problem 1: gradient evidence and one-page analysis}
-'''+image('docs/review-evidence/figures/gradients.png',height='4cm')+r'''
+'''+image('problem1/figures/report_gradients.png',height='4cm')+r'''
 \par Figure 5. At T=100, mean batch L2 norms of actual $\partial L/\partial h_t$;
 log scale, before/after training, three-seed means. A fixed independent 32-example
 probe uses seed3. Float64 custom unrolls reproduce library predictions and all
@@ -148,13 +149,13 @@ recurrent parameter gradients. LSTM retains a separate cell-state graph.
 '''
 diagnostic_rows=[]
 for kind in ('RNN','LSTM','GRU'):
-    pilot=json.loads((REVIEW/f'adding-{kind}-validation-pilot.json').read_text())
-    over=json.loads((REVIEW/f'adding-{kind}-overfit.json').read_text())
+    pilot=json.loads((ADDING_REVIEW/f'adding-{kind}-validation-pilot.json').read_text())
+    over=json.loads((ADDING_REVIEW/f'adding-{kind}-overfit.json').read_text())
     first5=min(h['val_mse'] for h in pilot['history'][:5])
     diagnostic_rows.append([kind,f'{over["final_train32_mse"]:.3g}',f'{first5:.5f}',f'{pilot["best_val_mse"]:.5f}'])
 s+=table('Table 5. T=50 diagnostic, seed0; test data never evaluated',
          ['Model','32-example train MSE','Val, 5 epochs','Val, 25 epochs'],diagnostic_rows)
-analysis=Path('docs/problem1-analysis.md').read_text().split('\n\n',1)[1]
+analysis='\n'.join(line for line in Path('docs/problem1-analysis.md').read_text().splitlines() if not line.startswith(('#','>'))).strip()
 replacements={'Figure 6':'Figure 5','Figures 4–5':'Figure 3a–b','Figure 7':'Figure 4a','Figure 8':'Figure 4b','‖':r'$\Vert$','∂':r'$\partial$','×':r'$\times$','⁻²²':r'$^{-22}$','⁻¹¹':r'$^{-11}$','⁻⁵':r'$^{-5}$','±':r'$\pm$','≈':r'$\approx$','’':"'",'–':'--','dL/dh\\_t':r'$dL/dh_t$','→':r'$\to$'}
 analysis=re.sub(r'(?<=[a-zA-Z])(?=\d)',' ',analysis).replace('),', '), ').replace('0.16463/0.01327/0.00189','0.16463, 0.01327, 0.00189')
 analysis=esc(analysis)
@@ -195,8 +196,8 @@ matching actual parameters. The general formula is $12d^2+13d$.
 Two blocks, patch embedding, CLS, final norm and6-class head give105222;
 learned positions add1088. The untied65-character LM has108481 parameters.
 
-Task A uses8-step patches (72 values), a d64 embedding, CLS, two blocks/four heads,
-then normalized CLS classification. Nine runs compare none/sinusoidal/learned positions,
+Encoders in Figure6 use8-step patches (72 values), a d64 embedding, CLS, two blocks/four heads,
+then normalized CLS classification. Table6 compares nine runs with none/sinusoidal/learned positions,
 using the exact P1 subjects, frozen training statistics, batch128, Adam$10^{-3}$,
 clipping1 and10 epochs. Architecture, dropout and patching differ from recurrent models.
 '''
@@ -205,7 +206,7 @@ rows=[]
 for r in phar.itertuples(index=False):rows.append([r.model.removeprefix('HAR-Transformer-'),pm(r.acc_mean,r.acc_std,100),pm(r.f1_mean,r.f1_std,places=4),r.params,f'{r.seconds:.3f}'])
 rows.append(['P1 GRU',pm(har.loc['GRU','accuracy_mean'],har.loc['GRU','accuracy_std'],100),pm(har.loc['GRU','macro_f1_mean'],har.loc['GRU','macro_f1_std'],places=4),'14790','2.279'])
 s+=table('Table 6. HAR positional comparison, three seeds',['Positions/model',r'Accuracy (\%)','Macro-F1','Params','sec/epoch'],rows)
-s+=image('docs/review-evidence/figures/positions.png',height='3cm')+r'''
+s+=image('problem2/figures/report_positions.png',height='3cm')+r'''
 \par Figure 6. HAR accuracy with sample std. Mean validation F1 chooses sinusoidal
 (0.9276), not learned (0.9144), despite learned's higher test mean. The selected encoder
 improves accuracy by2.42 points over GRU, using7.11$\times$ the parameters.
@@ -221,7 +222,7 @@ Contiguous nonoverlapping128-step next-character blocks are not shuffled; fewer
 than128 trailing transitions per split are omitted. No targets cross the split boundary.
 CPU uses the assignment FAQ exception: d64, two layers (rather than d128/four),
 context128/four heads. All comparisons use five full epochs, batch64, seed0,
-Adam$10^{-3}$, dropout0.1 and norm1 clipping. Minimum validation loss selects checkpoints.
+Adam$10^{-3}$, dropout0.1 and norm1 clipping. Minimum validation loss selects checkpoints; Figure7 shows continued learning.
 Head/mask variants start with identical parameter values; all have108481 parameters.
 '''
 lm=pd.read_csv(P2/'lm_runs.csv')
@@ -230,7 +231,7 @@ for r in lm.itertuples(index=False):
  import json
  c=json.loads(r.notes); after=continued[f'h{c["heads"]}-causal{int(c["causal"])}'];rows.append([str(c['heads']), 'causal' if c['causal'] else 'leakage',f'{r.val_loss_nats:.5f}',f'{after["best_val_loss"]:.5f}',f'{after["bits_per_char"]:.5f}'])
 s+=table('Table 7. LM validation; BPC = nats / ln 2',['Heads','Mask','5-epoch nats','Continued nats','Continued BPC'],rows)
-s+=image('docs/review-evidence/figures/lm-continued.png',height='4cm')+r'''
+s+=image('problem2/figures/report_lm-continued.png',height='4cm')+r'''
 \par Figure 7a--c. (a) Continued validation curves; (b) selected causal losses;
 (c) mask-removal training loss. Original five-epoch curves remain in the notebook. Uniform baseline is $\ln65=4.17439$ nats.
 Five additional epochs improve causal validation (Table7). All variants restart Adam
@@ -239,15 +240,16 @@ Original ablations have matched initialization; continuations start from their o
 validation-selected weights under a common rule. One seed cannot establish a ranking.
 Heads share the same matrix counts but store different numbers of softmax maps.
 
-In the original five-epoch mask ablation, input t+1 exposes the target at t. Training loss falls to
+In the original five-epoch mask ablation, input $t+1$ exposes the target at $t$. Training loss falls to
 0.59362 versus causal2.26579. Apparent validation0.31769 nats/0.45834 BPC is
 \textbf{contaminated}, not autoregressive quality. Changing future tokens leaves the
 trained causal prefix logits unchanged (max0), but changes unmasked logits by7.15354.
 Its original generation exposes failure:98.4\% of its500 characters
 are newlines and only4 characters are distinct (temperature0.8).
 
-Original samples are in \path{generated_samples.txt}; supplemental draws are in
-\path{continued-generated_samples.txt} (review-evidence directory):
+The primary LM is the continued four-head causal checkpoint (Table7), selected at
+additional epoch5. Its three 500-character draws are in
+\path{problem2/generated_samples.txt}:
 prompt \texttt{ROMEO:\textbackslash n}, top-k20, seed700, temperatures0.2/0.8/1.5.
 Table8 describes single draws, not predictive entropy.
 '''
@@ -265,9 +267,9 @@ by broken words such as ``caingmiely''. Increased case/punctuation variety is no
 improved coherence. All three samples remain weak despite lower validation loss.
 \newpage
 \topic{Problem 2: attention interpretation and context scaling}
-'''+image('docs/review-evidence/figures/attention-heads.png',height='5.5cm')+r'''
-\par Figure 8a--b. Trained layer1, heads1/2 on ``To be, or not to be.''
-Rows are queries and columns keys. Both favor current/nearby characters with different
+'''+image('problem2/figures/report_attention-heads.png',height='5.5cm')+r'''
+\par Figure 8a--b. Five-epoch baseline layer1, heads1/2 on ``To be, or not to be.''
+In Figure8, rows are queries, columns keys. Both favor current/nearby characters with different
 off-diagonal patterns (mean diagonal mass0.3616/0.3736).
 At query17 (b), head1 assigns0.6783 to itself and0.0460 to key3 (earlier b);
 head1's query18 (e) places0.3480 on key17 (b), linking the local be pair.
@@ -276,16 +278,17 @@ query17 attends0.5991 to itself and0.1213 to that space. Such weights describe
 this input and do not establish semantic importance or a causal mechanism.
 Future entries are exactly zero. This single sentence does not establish specialization.
 
-Measure the same causal model at batch8, float32, eval/dropout off, contexts64/128/256/512.
+Figure9 and Table9 measure baseline cost: batch8, float32, dropout off, contexts64/128/256/512.
 Two warmups precede five timed forward+backward repeats; all raw times and three
-independent allocation-event traces per length are retained in context\_raw\_*.json. CPU memory reconstructs
+independent allocation-event traces per length are retained internally; the notebook
+replays matching measurements or measures a fresh run. CPU memory reconstructs
 peak additional live tensor bytes from raw profiler allocation/free events, relative
 to existing model/input baseline; it excludes interpreter/model weights and allocator
 reservation. It is neither process RSS nor reserved GPU memory.
 '''
 scaling=pd.read_csv(P2/'context_scaling.csv')
 s+=table('Table 9. Full-model context cost on CPU',['Context',r'Time (ms), mean $\pm$ std','Peak tensor MiB','Score elements'],[[r.context,pm(r.mean_seconds,r.std_seconds,1000,3),f'{r.peak_incremental_bytes/2**20:.3f}',r.attention_score_elements] for r in scaling.itertuples(index=False)])
-s+=image('docs/review-evidence/figures/context.png',height='4.5cm')+r'''
+s+=image('problem2/figures/report_context.png',height='4.5cm')+r'''
 \par Figure 9a--b. Time and incremental tensor peak versus context; dashed line
 is an anchored quadratic memory reference. With8$\times$ context, score elements
 increase64$\times$, measured time28.29$\times$, tensor peak28.07$\times$.
@@ -293,27 +296,19 @@ Attention products cost$O(T^2d)$; embeddings/FFN add linear-T work, so full-mode
 ratios need not equal64. Short-length timing includes overhead and cache effects.
 Long-context quality and T4/device latency are not evaluated.
 
-The92-row ledger preserves all82 baseline runs plus6 adding diagnostics and4 LM
-continuations. Checkpoint replay and full notebook execution pass; optional bonus is unattempted.
+The92 rows retain 82 baseline runs, 6 adding diagnostics and 4 LM continuations.
+Both notebooks reproduce these results; cached replay is not fresh training. No bonus claimed.
 \newpage
 \topic{AI-use statement and references (excluded from six-page limit)}
-OpenAI Codex was used for assignment review, project setup, data pipelines, tests,
-custom RNN, LSTM, GRU and Transformer implementations, experiment pipelines,
-debugging, execution, plots, result audits, analysis drafting, report generation and
-submission packaging. This includes AI-written from-scratch code. The user reported
-verbal permission from Samsir to use AI. No instructor-authored exemption has been
-provided here. The original brief prohibits AI-written scratch code and requires
-complete disclosure. The size/seed/example clarification does not change that rule.
-This declaration states actual assistance; authorization remains unverified.
-
-No pretrained weights or external datasets were used. Reference framework layers
-occur only in verification for restricted components; permitted library recurrent
-layers run P1 experiments. Experimental values are measured; failed adding runs
-and weak language samples are reported without fabricated success. The subsequent
-instructor email permits chosen sizes/seeds and our own attention example; it does
-not address AI authorship. The original written scratch-code prohibition therefore
-requires the separately reported permission to be valid. That permission has not
-been independently evidenced here; disclosure alone does not waive the rule.
+OpenAI Codex (including Codex CLI) assisted with requirements review, data pipelines,
+RNN, LSTM and GRU cells, Transformer scratch components, training and experiment code,
+tests, debugging, execution, plots, analysis/report drafting, reproducibility audits
+and packaging. This includes AI-written from-scratch code; no independent student
+authorship is claimed for that code. The student reports informal professor permission
+for AI assistance because of time constraints. Its scope is not independently verified
+and is not treated as a written exemption from the original scratch-code restrictions.
+The separate instructor email changes sizes, seeds and the attention example only.
+All experimental results are measured; unsuccessful runs and limitations are retained.
 
 [1] A. Vaswani et al. \emph{Attention Is All You Need}.2017.
 Sections3.2.1,3.2.2,3.5 and Table1: attention, head projections, positions and complexity.
@@ -337,7 +332,7 @@ Transformer}, supplied DOCX. Source of dataset/split/generator instructions,
 marking criteria and CPU exception. The instructor clarification email supplied by
 the user overrides the size/seed table and requests a self-created three-token
 example. It confirms the due date as Saturday14 November2026; the portal link
-is not supplied. It contains no AI-policy exemption.
+is not supplied.
 
 Reproducibility: Python3.14.4, PyTorch2.15.0+cpu and exact package pins in
 requirements.txt; four CPU threads. Original P2 training-only time10.22min; P1 adding25.27min;

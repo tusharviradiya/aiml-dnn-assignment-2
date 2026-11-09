@@ -1,48 +1,58 @@
-# Examiner reassessment — DNN Assignment 2
+# Conditional technical evaluation — final minimal release
 
-Review date:9 November2026; Viradiya Tushar Rajeshbhai,2026aj05073.
+Reassessed against the original100-mark rubric and current code/artifacts, not effort.
+**Estimate: approximately97/100, plausible examiner range94–99.** This is not an
+awarded mark, a guarantee or an authorship determination. The previous98 estimate
+was optimistic while supplemental notebook integration and package scope remained
+incomplete; correcting those issues does not justify automatic score inflation.
+Historical evaluations remain in Git2689b65 and docs/baseline-2026-11-09/.
 
-**Conditional technical estimate:98/100 (plausible examiner range96–99). Prior estimate96/100 (93–98). These are judgments, not awarded marks or guarantees. Eligibility under the AI policy remains unresolved.** The complete earlier evaluation is preserved in baseline-2026-11-09/docs/professor-evaluation.md; commit817a025 anchors the baseline artifacts.
-
-## Evidence and scope
-
-The original DOCX and100-point rubric were read, including the CPU exception, every required figure, exact CSV schema, report format and integrity clauses. User-supplied instructor clarification permits chosen h64/d64/seeds0/1/2 and a self-created attention example. No instructor-authored AI-policy waiver was located; the reported verbal permission is not independently authenticated.
-
-Both actual notebook sources/outputs, raw datasets, checkpoint structures, histories, prediction tables, figures, PDF and ZIP were inspected. Passing progress text was not accepted as proof. Existing component tests/negative controls, cache tests, four baseline checkpoint audits and complete notebooks were rerun; supplemental validation/sample/memory checks also ran. Final extraction replays existing local data/checkpoints; it is not a clean install, network download or fresh retraining of the original82 runs. Six adding diagnostics and four LM continuations were actually trained during this review. No test data were used for their selection.
-
-## Rubric reassessment
-
-Official rubric specifies task totals; finer deductions below are examiner judgments.
-
-| Task | Max | Estimate | Verified evidence / remaining deduction |
+| Task | Available | Conditional estimate | Evidence / possible deduction |
 |---|---:|---:|---|
-| P1.1 Data |5|5|Official shapes/order/labels; four-subject holdouts and frozen training statistics; balance plot; supplied generator and independent target/marker checks.|
-| P1.2 Cells |10|10 technical|All three reference forward/state/gradient tests pass; two-bias/single-bias derivations/counts correct. Source unchanged from baseline. Authorship eligibility unresolved.|
-| P1.3 HAR |10|10|Nine equal-budget runs, three-seed accuracy/F1/counts/CPU time, validation-selected confusion matrix replay.|
-| P1.4 Adding |10|10|All36 required tests/results/four lengths/solved counts/baselines/curves preserved and replayed; performance alone is not penalized.|
-| P1.5 Analysis/ablations |15|15|Actual gradient probes, width/paired-bias studies and wearable trade-off. New overfit/pilot evidence recovers the earlier diagnostic-depth deduction, with explicit limits on T200–400.|
-| P2.1 Attention |10|10 technical|Reference/row-sum/causal tests plus nonuniform QKV scalar hand oracle pass; original masked example retained. Authorship eligibility unresolved.|
-| P2.2 MHA/block |10|10 technical|Pre-LN/residual/dropout/FFN/positions/reference tests and49152+832=49984 count; unchanged scratch source. Authorship eligibility unresolved.|
-| P2.3 HAR encoder |10|9|All nine runs and operational comparison verified. Ordered within-patch offsets versus whole-patch invariance now explained and tested. Retain1-point discretionary deduction for limited controlled architectural comparison: depth/count/patching/dropout differ, and the new synthetic fixed-weight probe does not measure classification consequences. No attention-specific superiority claim is made.|
-| P2.4 LM |10|10|Split/targets/masking/token-weighted loss/selected checkpoint/samples verified; equal additional-budget continuation documented. Main loss improves2.234945 to2.026947; weak language quality/one seed/restart confound remain explicit.|
-| P2.5 Analyses |10|9.5|Heads/mask studies preserved; raw five timing repeats and12 memory-event traces reconstruct peaks. Indexed head links are more concrete. Retain0.5 for interpretation limited to two heads/one short character sentence without intervention.|
-| Technical task subtotal |100|98.5|Conditional on authorship acceptance.|
-| Presentation adjustment |—|−0.5|Sequential figures/subpanels and larger labels improve readability; dense six-page evidence still needs careful reading at final size. Discretionary rather than an official separate tariff.|
-| Estimated total |100|98|Bonus0; not attempted.|
+| P1 data |5|5|Official data/splits/statistics; marker/target tests; balance plot |
+| P1 scratch cells |10|10 technical|Forward/backward reference agreement, registered shapes, correct counts; authorship scope separate |
+| P1 HAR |10|10|Common budgets,3 seeds, actual test mean/sample std/F1/count/time, validation-selected confusion |
+| P1 adding |10|10|Complete36-run grid, baseline/solved table/T200 curves; poor performance alone is not a method deduction |
+| P1 analysis/ablations |15|15|Actual hidden gradients, width/bias controls, evidence-grounded one-page analysis; diagnostic scope limited correctly |
+| P2 attention |10|10 technical|Mask/reference/backward checks plus nonuniform explicit hand/code arithmetic |
+| P2 multi-head/block |10|10 technical|Own tensor implementations, pre-LN/residual/FFN/positions; d64 derivation matches49984 |
+| P2 HAR |10|8.5|Operational comparison valid; lack of matched parameter/depth/patch/dropout controls limits strength of attention-specific comparison |
+| P2 LM |10|10|Complete data/targets/loss/curves/BPC/sample requirements; primary model/sample mapping explicit; weak quality and single seed limit conclusions, not automatic accuracy penalties |
+| P2 analyses |10|9|Heads/mask/context studies complete; interpretation remains two heads on one sentence, without a causal intervention or repeat inputs |
+| Total before discretionary presentation effects |100|97.5|Approximate97 after allowing for dense small-panel presentation; no official fixed tariff is invented |
 
-The estimate changes because specific evidence gaps were filled, not because additional effort automatically earns marks. Deductions overlap with subjective examiner preferences; the range reflects that uncertainty. There is no promise of full marks or freedom from integrity risk.
+All task coverage is present. The estimate's range allows different examiner judgments
+about the stated confounds, dense six-page presentation, CPU-only measurement and
+scope of analysis. Bonus0, not attempted. No deduction arithmetic predicts treatment
+under institutional academic-integrity policy; if the original scratch-authorship
+rule applies without an exception, outcomes could differ materially.
 
-## Before and after under comparable conditions
+## Current verified improvements
 
-- **Adding T50 seed0:** original first-five-epoch train/validation trajectories are exactly replayed in each25-epoch pilot. Best validation drops to0.013271 (LSTM) and0.001890 (GRU), while RNN remains0.164630. All three overfit32 examples. This isolates duration as a limitation for gated short-sequence training with the fixed protocol. It does not demonstrate revised test performance, a three-seed improvement or long-memory success atT400. Original36 unsolved results remain visible.
-- **LM:** four-head selected validation2.234945→2.026947 nats; architecture/data/batch/lr unchanged, five extra epochs and Adam reset. All four variants get the same continuation rule. This is a within-variant comparison, not an isolated duration effect or fresh matched initialization. Original five-epoch head/mask ablations remain the causal-comparison evidence; continued unmasked validation is contaminated.
-- **HAR:** no new accuracy claim. Positional mechanism and the limits of the existing2.42-point encoder/GRU operational gap are clearer. Model count/depth/patch/dropout confounds remain.
-- **Measurement/report:** historical aggregate timings are preserved; new raw repeats/traces add auditability. Numbering is consecutive, matrix arithmetic nontrivial, captions explicit and figures regenerated for final sizing. Context remeasurement is not claimed to be a speed improvement.
+- Both submitted notebooks include all report-used supplemental experiment and figure
+  code; no excluded helper dependency. Minimal extraction runs141/55 code cells.
+- Required samples now come from the primary continuedh4 causal checkpoint; baseline
+  samples remain internal. All3×500 primary characters reproduce exactly from weights.
+- Verification executes definitions only and compares evidence without writing it;
+  all nine audits pass with before/after hashes. Exact92-row ledger retains82 original
+  rows byte-for-byte. Future stochastic Adam resume restoration is tested; no missing
+  historical optimizer/RNG states are invented.
+- Final PDF remains six assessed A4/11pt/2cm pages plus an excluded declaration/reference
+  page. Nine report figures cover all required panels; internal provenance is excluded
+  from the16-file ZIP. These are reproducibility/presentation changes, not new training gains.
 
-## Integrity and external conditions
+## Unchanged experimental outcomes and limitations
 
-Complete AI disclosure remains in the PDF, including AI-written restricted scratch components and this review's analysis/experiment assistance. No independent student derivation or reasoning is invented. Technical success and truthful disclosure do not establish instructor permission. If original restrictions are enforced,30 directly affected scratch-task marks and potentially broader institutional consequences remain exposed; this is not a prediction of penalty or a misconduct finding.
+Adding original36 test runs remain unsolved. T50 seed0 gated validation improves at
+25epochs (LSTM0.013271, GRU0.001890) while RNN remains0.164630; no revised test grid
+or long-memory generalization is established. The primary LM remains2.026947nats /
+2.924266BPC, versus its baseline2.234945nats /3.224344BPC; continuation adds five epochs
+and resets Adam jointly. HAR scores are unchanged. Timings remain historical measured
+CPU timings, not new T4 results. Full fresh training and dependency installation were
+not repeated; cached extraction is accurately identified.
 
-The assignment FAQ states no formal viva; earlier review language suggesting one was a formal requirement is corrected. Understanding preparation and any necessary student-authored remediation are separately flagged in understanding-checklist.md. No clean dependency installation, GPU/T4 timing, wearable energy, external similarity/originality certification, portal upload/download or receipt is claimed.
-
-**Readiness: locally verified technically; awaiting resolution of authorship authorization and external portal submission steps.** See submission-readiness.md for the final archive/check evidence. No commit, push, publication or submission was performed during this review.
+The student reports informal AI permission. The supplied email only changes sizes,
+seeds and the example; no written scratch-code exemption is asserted. Complete,
+concise disclosure remains at report end. No personal understanding, institutional
+approval, originality certification or portal submission is claimed. The internal
+understanding checklist is preparation only; the original FAQ says no formal viva.

@@ -36,3 +36,16 @@ Original brief requires student-authored scratch implementations and declaration
 ## Examiner-led supplemental review
 
 Baseline82 experiments preserved. Six adding diagnostics Completed: all cells overfit32 examples; common25-epoch T50 validation pilots reproduce baseline first five epochs, then gated models generalize below0.05 without accessing test data. Four equal-budget LM continuations Completed; both notebooks and all baseline/supplemental tests passed. Final PDF/archive checked after synchronization. See review-evidence/protocol.md; this work does not change the restricted scratch code or resolve integrity authorization.
+
+## Current reproducibility release — supersedes prior packaging/workflow claims
+
+- Self-contained supplemental adding/LM experiment sections and report graphics:
+  Completed; P1 has141 executed code cells, P2 has55, with no saved errors.
+- Primary LM/sample alignment: Completed; continuedh4 causal2.0269467nats /2.924266BPC;
+  required file regenerated from the recorded selected checkpoint. Baseline preserved.
+- Future optimizer/RNG resume-state saving: Completed; exact next stochastic Adam
+  update/loader sequence restoration test passes. Historical states remain absent.
+- Read-only audit immutability and minimal extraction execution: Completed after
+  actual nine-audit and packaged-notebook checks; see submission-validation.md.
+- Course authorization scope and external portal steps remain unverified; no change
+  to student-reported status. No new scratch implementation or full retraining.

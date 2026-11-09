@@ -1,3 +1,5 @@
+> Chronological internal record. Earlier decisions/claims may be superseded. Current requirements and evidence are in reproducibility-audit.md and submission-validation.md; size/seed/example email and student-reported AI permission are separate sources.
+
 # Development log
 
 ## 2026-11-08 — P1.1 implementation (in progress)
@@ -158,3 +160,62 @@ Report additions initially overflowed to11 pages. Condensed redundant prose and 
 ## 2026-11-09 — Final extraction passed
 
 Fresh ZIP extraction passed all10 commands: strict components, cache fingerprints, both full notebook runners, canonical ledger normalization, four baseline audits and supplemental review checks. Existing local raw data/checkpoints were explicitly reused; no training/download or clean install is claimed for this extraction. The final presentation/documentation rebuild is source-compared with that executed extraction. CRC, manifest hashes, student-ID filename/root, required files, saved notebook execution and <25MB limit pass; data/weights/environment remain excluded. Final report remains six assessed pages plus one excluded declaration/reference page. Technical artifacts locally verified; authorship authorization and portal upload/verification remain unresolved external conditions. No commit or push. Suggested commit: research: diagnose adding failures and strengthen validated submission evidence.
+
+## 2026-11-09 — Self-contained notebooks and minimal submission
+
+Starting revision:2689b65. Read original DOCX/rubric, supplied email and evaluation;
+verified original82 rows rather than trusting progress claims. Preserved pre-change
+PDF/ZIP/notebooks/samples under ignored data/reproducibility-baseline-2026-11-09/;
+Git preserves earlier source/history. No restricted model/cell equations changed.
+
+Moved supplemental adding/LM training and report-figure generation into required
+notebooks; embedded exact reviewed cache aliases and derived checkpoint lookup from
+saved protocols. Primary LM is continued four-head causal2.0269467nats /2.924266BPC;
+required samples now match its selected weights/SHA. Earlier samples remain internal.
+No new assessed experiment or model retraining; a disposable one-update fixture
+exercised fresh diagnostic execution/saving/replay without touching the ledger.
+
+Added future optimizer/model/history/selection and Python/NumPy/Torch/CUDA/loader RNG
+snapshot utilities; stochastic Adam next-update restoration passes exactly on CPU.
+Historical optimizer/RNG states remain absent. Cached logging no longer serializes or
+reorders identical ledger rows. Replaced verifier evidence writes and setup execution
+with definition-only loading/read-only comparisons; Task5 audit cannot download data.
+Canonical-ledger checking is read-only by default; explicit repair requires an opt-in
+flag and saves a backup. All nine audits use before/after evidence hashes.
+
+Full guarded notebooks run141/55 code cells, including all supplemental sections.
+Minimal extraction executes packaged notebooks with no copied helpers, and reproduces
+CSV, primary samples and included figures exactly using explicitly reused local caches.
+PDF validation checks6+1 A4 pages,11pt/2cm, bounding boxes, embedded fonts, captions/
+references; pages rendered for readability. ZIP now contains only16 required artifacts.
+Final artifact details and verification records: submission-validation.md.
+
+Errors resolved: system Python lacked pandas, so used the existing pinned venv;
+cached overfit replay needed the historical128-example evaluation batch, rather than
+its32-example training batch. The immutability harness correctly detected a concurrent
+PDF rebuild; final audits run against stable artifacts. Added figure references briefly
+caused page overflow; concise prose restored the6-page content limit without reducing
+fonts/margins. Removed an unintended literal Markdown heading from PDF analysis.
+Generated sample trailing spaces are retained because stripping them changes actual
+500-character outputs; ordinary source whitespace checks pass separately.
+
+Measured results are unchanged. Baseline head/mask controls and continued results are
+explicitly distinguished; one seed, Adam reset, HAR architectural confounds and CPU
+memory/timing scope remain limitations. Separate email clarifications from student-
+reported informal AI permission. Concise complete disclosure retained at report end.
+No commit/push/portal action. Suggested commit: fix: make submission notebooks self-contained and package only required artifacts.
+
+## 2026-11-09 — Approved reproducibility release commit
+
+The user explicitly requested this commit. Pre-commit review confirmed the exact
+16-file ZIP (1,909,232bytes; SHA256
+85e99a502cf4407056ed0c4b86823f7d4d2bba24fd3d96f4c8ef0b692fd2803c),
+all packaged source hashes and295 audited evidence hashes still match successful
+verification records. Both extracted notebooks passed141/55 code cells and all nine
+read-only audits passed in the preceding implementation work; no retraining was
+needed for committing. Git diff reviewed; source whitespace checks pass, with actual
+generated-sample trailing spaces deliberately preserved. Commit scope is the
+self-contained notebooks, required report/figures/samples, compact evidence, audit/
+packaging tools and synchronized internal documentation. Original assignment DOCX
+is left untracked; ignored ZIP, datasets, checkpoints and environment are excluded.
+No push or external submission is authorized or performed. Parent revision2689b65.

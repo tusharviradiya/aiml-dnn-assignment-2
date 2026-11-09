@@ -1,0 +1,139 @@
+{
+  "model": "LSTM",
+  "mode": "overfit",
+  "seed": 0,
+  "T": 50,
+  "lr": 0.001,
+  "clip": 1.0,
+  "hidden": 64,
+  "epochs": 1200,
+  "batch": 32,
+  "best_val_mse": 0.1757582507719969,
+  "best_epoch": 100,
+  "history": [
+    {
+      "epoch": 1,
+      "train_mse": 1.0393670797348022,
+      "train32_mse": 1.0107303857803345,
+      "val_mse": 1.2273601549950786,
+      "grad_norm_mean": 2.2046687602996826,
+      "seconds": 0.030983028000264312
+    },
+    {
+      "epoch": 100,
+      "train_mse": 0.15296611189842224,
+      "train32_mse": 0.15293604135513306,
+      "val_mse": 0.1757582507719969,
+      "grad_norm_mean": 0.02582406997680664,
+      "seconds": 0.004438327001480502
+    },
+    {
+      "epoch": 200,
+      "train_mse": 0.13753141462802887,
+      "train32_mse": 0.1386108249425888,
+      "val_mse": 0.20071715116755945,
+      "grad_norm_mean": 2.609894037246704,
+      "seconds": 0.0042468250012461795
+    },
+    {
+      "epoch": 300,
+      "train_mse": 0.09415236115455627,
+      "train32_mse": 0.0970621183514595,
+      "val_mse": 0.2213121242955693,
+      "grad_norm_mean": 0.26187261939048767,
+      "seconds": 0.005188621000343119
+    },
+    {
+      "epoch": 400,
+      "train_mse": 0.08515135198831558,
+      "train32_mse": 0.07318810373544693,
+      "val_mse": 0.23596576518275486,
+      "grad_norm_mean": 6.187413215637207,
+      "seconds": 0.004523854000581196
+    },
+    {
+      "epoch": 500,
+      "train_mse": 0.16027602553367615,
+      "train32_mse": 0.1542011797428131,
+      "val_mse": 0.2754991461812443,
+      "grad_norm_mean": 12.270771980285645,
+      "seconds": 0.005097848999866983
+    },
+    {
+      "epoch": 600,
+      "train_mse": 0.06600400060415268,
+      "train32_mse": 0.048957373946905136,
+      "val_mse": 0.2460881561957654,
+      "grad_norm_mean": 2.0490036010742188,
+      "seconds": 0.005476161000842694
+    },
+    {
+      "epoch": 700,
+      "train_mse": 0.05471694469451904,
+      "train32_mse": 0.03876814246177673,
+      "val_mse": 0.2590182227512525,
+      "grad_norm_mean": 27.072368621826172,
+      "seconds": 0.005272667998724501
+    },
+    {
+      "epoch": 800,
+      "train_mse": 0.061781175434589386,
+      "train32_mse": 0.04380292445421219,
+      "val_mse": 0.2514836858139694,
+      "grad_norm_mean": 6.922366142272949,
+      "seconds": 0.0042012639987660805
+    },
+    {
+      "epoch": 900,
+      "train_mse": 0.04171038791537285,
+      "train32_mse": 0.04228149354457855,
+      "val_mse": 0.2728360740901656,
+      "grad_norm_mean": 4.355353355407715,
+      "seconds": 0.004395078000015928
+    },
+    {
+      "epoch": 1000,
+      "train_mse": 0.06003277003765106,
+      "train32_mse": 0.06898018717765808,
+      "val_mse": 0.27379009568847296,
+      "grad_norm_mean": 2.9997541904449463,
+      "seconds": 0.005347892998543102
+    },
+    {
+      "epoch": 1100,
+      "train_mse": 0.04797770082950592,
+      "train32_mse": 0.052163295447826385,
+      "val_mse": 0.26675315621467804,
+      "grad_norm_mean": 2.0090880393981934,
+      "seconds": 0.0041600639997341204
+    },
+    {
+      "epoch": 1200,
+      "train_mse": 0.03190106153488159,
+      "train32_mse": 0.01597578637301922,
+      "val_mse": 0.32767588546347454,
+      "grad_norm_mean": 11.600739479064941,
+      "seconds": 0.004293400999813457
+    }
+  ],
+  "final_train32_mse": 0.01597578637301922,
+  "changed_squared_norm": 55.34550316759851,
+  "wall_seconds": 6.018147583999962,
+  "test_evaluated": false,
+  "checkpoint_sha256": "e33b0787cd1d91d44186a06401c3c27aae9d40b2ed789a9d0fa7fc7e1a00da28",
+  "historical_resume_states_available": false,
+  "row": {
+    "problem": "P1",
+    "model": "LSTM-diagnostic-overfit",
+    "seed": 0,
+    "seq_len": 50,
+    "test_acc": null,
+    "macro_f1": null,
+    "test_mse": null,
+    "params": 17473,
+    "sec_per_epoch": 0.006740387153863244,
+    "val_loss_nats": null,
+    "bits_per_char": null,
+    "notes": "{\"diagnostic\": {\"T\": 50, \"batch\": 32, \"best_epoch\": 100, \"best_val_mse\": 0.1757582507719969, \"changed_squared_norm\": 55.34550316759851, \"clip\": 1.0, \"epochs\": 1200, \"final_train32_mse\": 0.01597578637301922, \"hidden\": 64, \"history\": [], \"lr\": 0.001, \"mode\": \"overfit\", \"model\": \"LSTM\", \"seed\": 0, \"test_evaluated\": false, \"wall_seconds\": 6.018147583999962}, \"review\": \"2026-11-09\"}"
+  }
+}

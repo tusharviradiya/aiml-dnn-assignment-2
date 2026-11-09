@@ -1,3 +1,5 @@
+> Historical experiment analysis retained for provenance. Current primary model, notebook workflow and submission scope are defined in [reproducibility-audit.md](reproducibility-audit.md) and [submission-validation.md](submission-validation.md). Baseline numbers below remain baseline results; they are not automatically primary-model results.
+
 # Supplemental investigation — verified evidence
 
 These experiments supplement the preserved82-run baseline; they do not silently replace it. Original metrics are in baseline-2026-11-09. The protocol was recorded in review-evidence/protocol.md before outcomes. Code is scripts/research_review.py; all selected checkpoints remain outside the submission.

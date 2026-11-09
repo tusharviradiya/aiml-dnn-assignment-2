@@ -1,3 +1,5 @@
+> Chronological internal record. Earlier decisions/claims may be superseded. Current requirements and evidence are in reproducibility-audit.md and submission-validation.md; size/seed/example email and student-reported AI permission are separate sources.
+
 # Decisions and assumptions
 
 ## 2026-11-08 — Task 1
@@ -98,3 +100,29 @@
 - Do not modify restricted scratch implementations without further explicit authorization. A nonuniform hand-test oracle, documentation, diagnostics and plots are permitted changes. No institutional waiver inferred from the reported verbal permission.
 - Preserve raw context timing repeats and three allocation-event traces per length. Report full-model CPU forward/backward with squared-logit loss, not inference latency, RSS or T4 estimates.
 - Patch flattening retains ordered time offsets within each patch. No-position CLS is invariant to whole-patch permutation; that does not imply invariance to arbitrary step permutations. Retain the depth/width/patch/dropout confounds; do not attribute an architectural accuracy gain specifically to attention.
+
+## 2026-11-09 — Minimal, self-contained reproducibility release
+
+- Current authorization evidence supersedes earlier mixed wording: the email changes
+  sizes/seeds/example; AI permission is separately student-reported and its scope is
+  not authenticated. Keep complete concise disclosure at report end. Do not rewrite
+  restricted model/cell implementations; their original model-source hashes remain checked.
+- Choose the continued four-head causal LM as primary; replace required sample file
+  with its actual three500-character draws. Preserve baseline samples/metrics internally.
+  Keep baseline head/mask comparisons, heatmaps and context measurements explicitly
+  distinct from continuation results, with a SHA/config/epoch provenance record.
+- Embed all supplemental experiment and report-figure code in required notebooks;
+  the ZIP has no internal docs/scripts/metrics/manifest. Reconstruct generated metrics
+  on execution. Local replay needs ignored caches; a clean run trains missing runs.
+- Save optimizer/model/history/selection and all RNG states for future epoch-boundary
+  resume. Historical runs did not save them; never retrofit supposed historical states.
+  Retain Adam reset for all historical continuations and its inference limitation.
+- Independent verification must execute definitions only, without setup/write cells.
+  Replace evidence writes with comparisons. Hash all checked artifacts before/after;
+  do not build the PDF concurrently with that immutability check.
+- Make cached ledger upserts byte-preserving when an existing row is identical.
+  Embedded exact source/config aliases preserve independently audited historical
+  caches after infrastructure changes; other source/config changes invalidate reuse.
+- Keep only required root files, notebooks, figures and primary sample file in ZIP.
+  Optional rebuild/audit tools and understanding checklist remain internal. PDF LaTeX
+  rebuilding uses internal tooling; notebook result/figure reproduction is self-contained.

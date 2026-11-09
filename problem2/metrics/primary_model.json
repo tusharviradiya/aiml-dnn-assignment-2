@@ -1,0 +1,26 @@
+{
+  "phase": "five-epoch baseline + five additional epochs with Adam reset",
+  "heads": 4,
+  "causal": true,
+  "config": {
+    "d": 64,
+    "layers": 2,
+    "heads": 4,
+    "context": 128,
+    "dropout": 0.1,
+    "batch_size": 64,
+    "epochs": 5,
+    "lr": 0.001,
+    "clip_norm": 1.0,
+    "seed": 0,
+    "causal": true,
+    "top_k": 20,
+    "generation_seed": 700
+  },
+  "baseline_epoch": 5,
+  "selected_additional_epoch": 5,
+  "validation_nats": 2.0269467236664482,
+  "bits_per_char": 2.924265986379717,
+  "checkpoint": "data/experiments/review/lm-h4-causal1.pt",
+  "checkpoint_sha256": "310136e793bb0f86d3a6fb0ae9579ca1b696be71d406cdd26c69c2e05af04849"
+}

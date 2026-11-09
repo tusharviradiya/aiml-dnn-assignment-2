@@ -20,14 +20,8 @@ ROOT = Path('.')
 METRICS = ROOT/'problem2'/'metrics'
 protocol = json.loads((METRICS/'config.json').read_text())
 notebook = nbformat.read('problem2/problem2.ipynb', as_version=4)
-scope = {}
-# The pre-execution cells contain setup, assertions, model/helper definitions only.
-with contextlib.redirect_stdout(io.StringIO()):
-    for cell in notebook.cells:
-        if cell.source.startswith('## Execute HAR'):
-            break
-        if cell.cell_type == 'code':
-            exec(compile(cell.source, 'problem2/problem2.ipynb', 'exec'), scope)
+from notebook_scope import problem2_scope
+scope = problem2_scope()
 assert scope['RUN_ID'] == protocol['run_id']
 assert scope['CODE_HASH'] == protocol['code_hash']
 cache = scope['P2_CACHE']
@@ -154,7 +148,7 @@ for cell in notebook.cells:
 model=scope['load_language'](lm_results[0])
 samples=json.loads((METRICS/'samples.json').read_text())
 assert [s['temperature'] for s in samples]==[.2,.8,1.5]
-labelled=(ROOT/'problem2'/'generated_samples.txt').read_text()
+labelled=(METRICS/'baseline-generated_samples.txt').read_text()
 for sample in samples:
     assert len(sample['sample'])==500 and sample['sample'] in labelled
     reproduced=scope['generate_characters'](model,sample['prompt'],sample['temperature'],500,sample['top_k'],sample['seed'])

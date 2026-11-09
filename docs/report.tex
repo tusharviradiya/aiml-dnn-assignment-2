@@ -48,11 +48,11 @@ RNN & $70.52\pm4.91$ & $0.6814\pm0.0495$ & 5190 & 0.677\\
 LSTM & $87.71\pm0.29$ & $0.8768\pm0.0023$ & 19590 & 1.182\\
 GRU & $88.19\pm1.04$ & $0.8819\pm0.0104$ & 14790 & 2.279\\
 \bottomrule\end{tabular}\end{center}
-\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{docs/review-evidence/figures/class-balance.png}\par
+\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem1/figures/report_class-balance.png}\par
 \par Figure 1. Class balance for all three subject splits and the test set.
 \begin{center}
 \begin{minipage}{.43\linewidth}\centering
-\includegraphics[width=\linewidth,height=5.2cm,keepaspectratio]{docs/review-evidence/figures/confusion.png}\par
+\includegraphics[width=\linewidth,height=5.2cm,keepaspectratio]{problem1/figures/report_confusion.png}\par
 \end{minipage}\hfill\begin{minipage}{.53\linewidth}
 Figure 2. Validation-selected GRU, seed 2, epoch 9. Sitting/standing account for
 204 cross-errors (88+116). Mean validation macro-F1 selects GRU (0.9104),
@@ -76,7 +76,7 @@ T & RNN & LSTM & GRU & Constant 1\\\midrule
 100 & $0.1700\pm0.0005$ & $0.1700\pm0.0008$ & $0.1693\pm0.0008$ & 0.1697\\
 200 & $0.1686\pm0.0008$ & $0.1684\pm0.0005$ & $0.1685\pm0.0003$ & 0.1679\\
 400 & $0.1545\pm0.0003$ & $0.1538\pm0.0005$ & $0.1535\pm0.0003$ & 0.1527\\
-\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=3.4cm,keepaspectratio]{docs/review-evidence/figures/adding.png}\par
+\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=3.4cm,keepaspectratio]{problem1/figures/report_adding.png}\par
 Figure 3a--b. (a) Test MSE versus length; (b) T=200 train (solid)/validation (dashed) curves.
 \vspace{-4pt}Table 3/Figure 4a retain the same 10-epoch HAR protocol; six $h=64$ runs are reused.
 ID ends in 3 (odd): Table 4/Figure 4b compare initial LSTM effective forget bias 0/1 at
@@ -95,11 +95,11 @@ h & LSTM acc. (\%) & Params & sec & GRU acc. (\%) & Params & sec\\\midrule
 Bias & Test MSE & Solved\\\midrule
 0 & $0.16840\pm0.00045$ & 0/3\\
 1 & $0.16849\pm0.00039$ & 0/3\\
-\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=3cm,keepaspectratio]{docs/review-evidence/figures/sweep-forget.png}\par
+\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=3cm,keepaspectratio]{problem1/figures/report_sweep-forget.png}\par
 Figure 4a--b. (a) HAR width trade-offs; (b) initial forget-bias comparison.
 \newpage
 \topic{Problem 1: gradient evidence and one-page analysis}
-\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{docs/review-evidence/figures/gradients.png}\par
+\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem1/figures/report_gradients.png}\par
 \par Figure 5. At T=100, mean batch L2 norms of actual $\partial L/\partial h_t$;
 log scale, before/after training, three-seed means. A fixed independent 32-example
 probe uses seed 3. Float64 custom unrolls reproduce library predictions and all
@@ -121,7 +121,6 @@ The paired odd-ID study changes only initial effective forget bias. Table 4/Figu
 On HAR, Table 1 gives 70.52$\pm$4.91\% (RNN), 87.71$\pm$0.29\% (LSTM), 88.19$\pm$1.04\% (GRU); Figure 2 shows sitting/standing confusion. Table 3/Figure 4a show GRU h 32$\to$128 raises accuracy 87.41$\to$89.04\% while parameters grow 4326$\to$54150. LSTM h 128 reaches 88.28\% with 71942 parameters. CPU training favors LSTM over comparable GRU widths on this backend; it does not measure deployment energy.
 
 For a memory-constrained wearable, these measurements favor prototyping GRU h 32:71\% fewer parameters than h 64 for 0.78 points lower accuracy, and better accuracy than LSTM h 32. Float 32 weights occupy 16.9KiB before activations/runtime. Device latency and energy remain unmeasured; three seeds and short budgets limit certainty.
-
 \newpage
 \topic{Problem 2: scratch Transformer and HAR encoder}
 Custom scaled dot-product attention computes
@@ -157,8 +156,8 @@ matching actual parameters. The general formula is $12d^2+13d$.
 Two blocks, patch embedding, CLS, final norm and 6-class head give 105222;
 learned positions add 1088. The untied65-character LM has 108481 parameters.
 
-Task A uses 8-step patches (72 values), a $d=64$ embedding, CLS, two blocks/four heads,
-then normalized CLS classification. Nine runs compare none/sinusoidal/learned positions,
+Encoders in Figure 6 use8-step patches (72 values), a $d=64$ embedding, CLS, two blocks/four heads,
+then normalized CLS classification. Table 6 compares nine runs with none/sinusoidal/learned positions,
 using the exact P1 subjects, frozen training statistics, batch 128, Adam$10^{-3}$,
 clipping 1 and 10 epochs. Architecture, dropout and patching differ from recurrent models.
 \begin{center}
@@ -169,7 +168,7 @@ learned & $91.20\pm0.53$ & $0.9121\pm0.0057$ & 106310 & 1.521\\
 none & $90.54\pm1.82$ & $0.9045\pm0.0182$ & 105222 & 1.419\\
 sinusoidal & $90.61\pm1.02$ & $0.9062\pm0.0106$ & 105222 & 1.544\\
 P1 GRU & $88.19\pm1.04$ & $0.8819\pm0.0104$ & 14790 & 2.279\\
-\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=3cm,keepaspectratio]{docs/review-evidence/figures/positions.png}\par
+\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=3cm,keepaspectratio]{problem2/figures/report_positions.png}\par
 \par Figure 6. HAR accuracy with sample std. Mean validation F1 chooses sinusoidal
 (0.9276), not learned (0.9144), despite learned's higher test mean. The selected encoder
 improves accuracy by 2.42 points over GRU, using 7.11$\times$ the parameters.
@@ -185,7 +184,7 @@ Contiguous nonoverlapping 128-step next-character blocks are not shuffled; fewer
 than 128 trailing transitions per split are omitted. No targets cross the split boundary.
 CPU uses the assignment FAQ exception: $d=64$, two layers (rather than $d=128$/four),
 context 128/four heads. All comparisons use five full epochs, batch 64, seed 0,
-Adam$10^{-3}$, dropout 0.1 and norm1 clipping. Minimum validation loss selects checkpoints.
+Adam$10^{-3}$, dropout 0.1 and norm1 clipping. Minimum validation loss selects checkpoints; Figure 7 shows continued learning.
 Head/mask variants start with identical parameter values; all have 108481 parameters.
 \begin{center}
 \textbf{Table 7. LM validation; BPC = nats / ln 2}\par\vspace{2pt}
@@ -195,7 +194,7 @@ Heads & Mask & 5-epoch nats & Continued nats & Continued BPC\\\midrule
 1 & causal & 2.20279 & 1.99610 & 2.87976\\
 8 & causal & 2.25598 & 2.07216 & 2.98949\\
 4 & leakage & 0.31769 & 0.03194 & 0.04608\\
-\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{docs/review-evidence/figures/lm-continued.png}\par
+\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem2/figures/report_lm-continued.png}\par
 \par Figure 7a--c. (a) Continued validation curves; (b) selected causal losses;
 (c) mask-removal training loss. Original five-epoch curves remain in the notebook. Uniform baseline is $\ln65=4.17439$ nats.
 Five additional epochs improve causal validation (Table 7). All variants restart Adam
@@ -204,15 +203,16 @@ Original ablations have matched initialization; continuations start from their o
 validation-selected weights under a common rule. One seed cannot establish a ranking.
 Heads share the same matrix counts but store different numbers of softmax maps.
 
-In the original five-epoch mask ablation, input t+1 exposes the target at t. Training loss falls to
+In the original five-epoch mask ablation, input $t+1$ exposes the target at $t$. Training loss falls to
 0.59362 versus causal 2.26579. Apparent validation 0.31769 nats/0.45834 BPC is
 \textbf{contaminated}, not autoregressive quality. Changing future tokens leaves the
 trained causal prefix logits unchanged (max 0), but changes unmasked logits by 7.15354.
 Its original generation exposes failure: 98.4\% of its 500 characters
 are newlines and only 4 characters are distinct (temperature 0.8).
 
-Original samples are in \path{generated_samples.txt}; supplemental draws are in
-\path{continued-generated_samples.txt} (review-evidence directory):
+The primary LM is the continued four-head causal checkpoint (Table 7), selected at
+additional epoch 5. Its three 500-character draws are in
+\path{problem2/generated_samples.txt}:
 prompt \texttt{ROMEO:\textbackslash n}, top-k 20, seed 700, temperatures 0.2/0.8/1.5.
 Table 8 describes single draws, not predictive entropy.
 \begin{center}
@@ -229,9 +229,9 @@ by broken words such as ``caingmiely''. Increased case/punctuation variety is no
 improved coherence. All three samples remain weak despite lower validation loss.
 \newpage
 \topic{Problem 2: attention interpretation and context scaling}
-\includegraphics[width=\linewidth,height=5.5cm,keepaspectratio]{docs/review-evidence/figures/attention-heads.png}\par
-\par Figure 8a--b. Trained layer 1, heads 1/2 on ``To be, or not to be.''
-Rows are queries and columns keys. Both favor current/nearby characters with different
+\includegraphics[width=\linewidth,height=5.5cm,keepaspectratio]{problem2/figures/report_attention-heads.png}\par
+\par Figure 8a--b. Five-epoch baseline layer 1, heads 1/2 on ``To be, or not to be.''
+In Figure 8, rows are queries, columns keys. Both favor current/nearby characters with different
 off-diagonal patterns (mean diagonal mass 0.3616/0.3736).
 At query 17 (b), head 1 assigns 0.6783 to itself and 0.0460 to key 3 (earlier b);
 head 1's query 18 (e) places 0.3480 on key 17 (b), linking the local be pair.
@@ -240,9 +240,10 @@ query 17 attends 0.5991 to itself and 0.1213 to that space. Such weights describ
 this input and do not establish semantic importance or a causal mechanism.
 Future entries are exactly zero. This single sentence does not establish specialization.
 
-Measure the same causal model at batch 8, float 32, eval/dropout off, contexts 64/128/256/512.
+Figure 9 and Table 9 measure baseline cost: batch 8, float 32, dropout off, contexts 64/128/256/512.
 Two warmups precede five timed forward+backward repeats; all raw times and three
-independent allocation-event traces per length are retained in context\_raw\_*.json. CPU memory reconstructs
+independent allocation-event traces per length are retained internally; the notebook
+replays matching measurements or measures a fresh run. CPU memory reconstructs
 peak additional live tensor bytes from raw profiler allocation/free events, relative
 to existing model/input baseline; it excludes interpreter/model weights and allocator
 reservation. It is neither process RSS nor reserved GPU memory.
@@ -254,7 +255,7 @@ Context & Time (ms), mean $\pm$ std & Peak tensor MiB & Score elements\\\midrule
 128 & $14.602\pm0.810$ & 12.714 & 524288\\
 256 & $45.767\pm0.897$ & 41.331 & 2097152\\
 512 & $187.750\pm6.799$ & 146.753 & 8388608\\
-\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{docs/review-evidence/figures/context.png}\par
+\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=4.5cm,keepaspectratio]{problem2/figures/report_context.png}\par
 \par Figure 9a--b. Time and incremental tensor peak versus context; dashed line
 is an anchored quadratic memory reference. With 8$\times$ context, score elements
 increase 64$\times$, measured time 21.56$\times$, tensor peak 28.07$\times$.
@@ -262,27 +263,19 @@ Attention products cost $O(T^2d)$; embeddings/FFN add linear-T work, so full-mod
 ratios need not equal 64. Short-length timing includes overhead and cache effects.
 Long-context quality and T4/device latency are not evaluated.
 
-The 92-row ledger preserves all 82 baseline runs plus 6 adding diagnostics and 4 LM
-continuations. Checkpoint replay and full notebook execution pass; optional bonus is unattempted.
+The 92 rows retain 82 baseline runs, 6 adding diagnostics and 4 LM continuations.
+Both notebooks reproduce these results; cached replay is not fresh training. No bonus claimed.
 \newpage
 \topic{AI-use statement and references (excluded from six-page limit)}
-OpenAI Codex was used for assignment review, project setup, data pipelines, tests,
-custom RNN, LSTM, GRU and Transformer implementations, experiment pipelines,
-debugging, execution, plots, result audits, analysis drafting, report generation and
-submission packaging. This includes AI-written from-scratch code. The user reported
-verbal permission from Samsir to use AI. No instructor-authored exemption has been
-provided here. The original brief prohibits AI-written scratch code and requires
-complete disclosure. The size/seed/example clarification does not change that rule.
-This declaration states actual assistance; authorization remains unverified.
-
-No pretrained weights or external datasets were used. Reference framework layers
-occur only in verification for restricted components; permitted library recurrent
-layers run P1 experiments. Experimental values are measured; failed adding runs
-and weak language samples are reported without fabricated success. The subsequent
-instructor email permits chosen sizes/seeds and our own attention example; it does
-not address AI authorship. The original written scratch-code prohibition therefore
-requires the separately reported permission to be valid. That permission has not
-been independently evidenced here; disclosure alone does not waive the rule.
+OpenAI Codex (including Codex CLI) assisted with requirements review, data pipelines,
+RNN, LSTM and GRU cells, Transformer scratch components, training and experiment code,
+tests, debugging, execution, plots, analysis/report drafting, reproducibility audits
+and packaging. This includes AI-written from-scratch code; no independent student
+authorship is claimed for that code. The student reports informal professor permission
+for AI assistance because of time constraints. Its scope is not independently verified
+and is not treated as a written exemption from the original scratch-code restrictions.
+The separate instructor email changes sizes, seeds and the attention example only.
+All experimental results are measured; unsuccessful runs and limitations are retained.
 
 [1] A. Vaswani et al. \emph{Attention Is All You Need}.2017.
 Sections 3.2.1,3.2.2,3.5 and Table 1: attention, head projections, positions and complexity.
@@ -306,7 +299,7 @@ Transformer}, supplied DOCX. Source of dataset/split/generator instructions,
 marking criteria and CPU exception. The instructor clarification email supplied by
 the user overrides the size/seed table and requests a self-created three-token
 example. It confirms the due date as Saturday14 November 2026; the portal link
-is not supplied. It contains no AI-policy exemption.
+is not supplied.
 
 Reproducibility: Python 3.14.4, PyTorch 2.15.0+cpu and exact package pins in
 requirements.txt; four CPU threads. Original P2 training-only time 10.22min; P1 adding 25.27min;
