@@ -50,3 +50,11 @@
 - Fingerprint Task 3 source, full experiment config and raw inputs/labels/subjects for cache reuse. Store checkpoints and detailed JSON in ignored data/experiments; atomic CSV upsert records each completed run immediately. Track compact metrics, history and predictions as evidence. Full reruns reuse matching cache unless FORCE_HAR_RERUN is true.
 - Preserve results.csv schema and other tasks' rows; notes identify task/config/run fingerprint. No val_loss_nats is populated for HAR (reserved for the language-model metric here). Report sample std with ddof=1.
 - Bound the quick verification runners at the Task 3 header so checker tests cannot accidentally launch training.
+
+## 2026-11-09 — Adding experiment protocol
+
+- Use library recurrent layers for Task 4, h=64 and final hidden-state scalar linear head. Fixed five-epoch CPU budget, batch 128, Adam 1e-3 and norm-1 clipping for every model/length/seed; select lowest validation MSE, ties earliest. Do not extend budget based on test results. Low solved counts will be reported honestly and discussed as a limitation.
+- Generated training/validation/test data exactly follow assignment sizes 10000/1000/1000 and data seeds 0/1/2. Independently seed model/shuffle with 0/1/2. Targets are not normalized. Evaluate MSE in float64 from float32 model predictions to avoid batch-weighting artifacts.
+- Keep measured constant-1 baselines by length as well as analytical 1/6. Define solved strictly as test MSE <0.05; aggregate with sample std ddof=1.
+- Use Task 4 source/config fingerprint, length-specific filenames and length in notes to preserve all 36 rows in the shared atomic logger. Local checkpoints/JSON remain ignored. Track histories, predictions and compact summaries.
+- Add a targeted Task 4 runner using earlier setup/generator/logger definitions without rerunning HAR or rewriting earlier notebook cells. Appending new sections changes the existing HAR notebook-wide source fingerprint on future full executions, which correctly invalidates its old cache; such a full execution may retrain HAR and log a distinct fingerprint. Current Task 3 evidence is preserved.

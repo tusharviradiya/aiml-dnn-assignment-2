@@ -1,6 +1,6 @@
 # DNN Programming Assignment 2
 
-Problem 1 Tasks 1–3 are implemented and verified; later experiments and Transformer implementations remain pending. See `docs/assignment-progress.md` for rubric tracking.
+Problem 1 Tasks 1–3 are implemented and verified; Task 4 adding experiments are implemented and verified; later experiments and Transformer implementations remain pending. See `docs/assignment-progress.md` for rubric tracking.
 
 ## Environment and execution
 
@@ -22,9 +22,14 @@ Student ID: 2026aj05073; odd-ID forget-bias ablation. Variant table missing: pro
 ```sh
 .venv/bin/python scripts/test_verification.py
 .venv/bin/python scripts/audit_har.py
+.venv/bin/python scripts/execute_adding.py
+.venv/bin/python scripts/audit_adding.py
 .venv/bin/python scripts/execute_checks.py problem1
 .venv/bin/python scripts/execute_checks.py problem2
 ```
 
 These save verification outputs and report pending student work honestly. Add `--strict`
 to require custom components to pass (Problem 1 passes; Problem 2 remains pending). See `docs/student-work-map.md` for the remaining student-authored work.
+
+Task 4 uses five epochs per run on CPU; results may remain unsolved under this short budget. The targeted adding runner preserves earlier outputs and reuses its matching completed runs.
+ Adding training took 25.3 CPU minutes excluding evaluation/setup; all 36 runs remained unsolved.

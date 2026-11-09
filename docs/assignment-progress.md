@@ -1,14 +1,14 @@
 # Assignment progress
 
 Updated: 2026-11-09. Status values: Not Started, In Progress, Completed, Blocked.
-Overall: Tasks 1–3 Completed: 25/100 marks of rubric coverage verified (not an awarded grade). Transformer scaffolding exists. User-reported professor permission now allows AI implementation of remaining work. Nine HAR experiments completed and saved. Marks below denote rubric coverage, not awarded marks.
+Overall: Tasks 1–4 Completed: 35/100 marks of rubric coverage verified (not an awarded grade). Transformer scaffolding exists. User-reported professor permission now allows AI implementation of remaining work. Nine HAR experiments completed and saved. Marks below denote rubric coverage, not awarded marks.
 
 | Task | Marks | Status | Acceptance criteria / pending work |
 |---|---:|---|---|
 | P1.1 Data pipelines | 5 | Completed | Official HAR download; nine ordered channels; shapes/labels; subject splits; training-only normalization; class balance; exact adding generator and assertions; executed notebook |
 | P1.2 Scratch cells | 10 | Completed | Student implements RNN/LSTM/GRU; library agreement 1e-5; hand counts and dual biases |
 | P1.3 HAR comparisons | 10 | Completed | Equal budgets; three seeds/model; accuracy and macro-F1 mean/sample std; parameters/time; best confusion matrix |
-| P1.4 Adding comparisons | 10 | Not Started | Four lengths × three models × three seeds; MSE/baseline; solved counts; T=200 curves; MSE vs length |
+| P1.4 Adding comparisons | 10 | Completed | Four lengths × three models × three seeds; MSE/baseline; solved counts; T=200 curves; MSE vs length |
 | P1.5a Gradients | part of 15 | Not Started | T=100, all models, before/after training, log-scale hidden-state gradient norms |
 | P1.5b Hidden sweep | part of 15 | Not Started | HAR LSTM/GRU at 16/32/64/128 |
 | P1.5c Individual ablation | part of 15 | Not Started | ID parity: RNN clipping or LSTM forget bias, T=200 |
@@ -83,3 +83,11 @@ Implemented last-hidden-state library classifiers, seeded loaders, training-only
 - Test accuracy mean ± sample std: RNN 70.52 ± 4.91%, LSTM 87.71 ± 0.29%, GRU 88.19 ± 1.04%. CPU timings only; variant h=64/seeds 0/1/2 remain provisional.
 
 - Cache restart verified: nine cached runs reused without retraining or duplicate rows. Targeted Task 2 verification preserves Task 3 outputs exactly. All existing Task 1/2 source and saved cells preserved.
+
+## Task 4 execution (2026-11-09)
+
+Implemented 36 matched-budget adding runs, scalar regressors, parameter/gradient checks, sample-weighted MSE evaluation, validation checkpoint selection, atomic per-run logging, solved-run aggregation and required plots. Training budget fixed before results: 5 epochs, batch 128, h=64, Adam 1e-3, clipping 1.0, all prescribed data sizes and seeds. Execution and actual evidence pending.
+
+### Task 4 acceptance
+
+All 36 full-data runs and 180 epochs completed. Classifier/count/gradient and sample-weighted MSE assertions passed. Independent checkpoint audit verified all 36000 predictions, selected epochs, MSE, baseline, solved flags, counts, timing and summary statistics. Both required plots generated and visually inspected. Cache restart reused all 36 runs without duplicates. results.csv contains 45 rows (9 HAR + 36 adding). Earlier Task 1–3 cells/outputs unchanged. All runs unsolved; five-epoch budget limitation documented in task4-results.md.
