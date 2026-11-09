@@ -6,7 +6,7 @@ CPU threads; exact dependencies are pinned in `requirements.txt`.
 From the repository/submission root:
 
 ```sh
-python3 -m venv .venv
+python3.14 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python scripts/execute_problem1.py
 .venv/bin/python scripts/execute_problem2.py
@@ -28,11 +28,18 @@ epochs; the HAR encoder uses patch8, CLS and two layers. We retain the odd-ID
 LSTM initial forget-bias 0/1 ablation from the original experimental instructions.
 Our own 3×2 Q/K/V example has a hand calculation verified against code.
 
-All82 experiments total44.7 CPU training minutes, excluding evaluation,
+The original82 experiments total44.7 CPU training minutes, excluding evaluation,
 setup, generation and profiling. **T4 runtime was not measured.**
 
-Both full notebooks and independent audits pass. All36 adding runs remain unsolved
-under five epochs; language samples are weak. The due date is Saturday14 November2026.
+Both full notebooks and independent audits pass for the baseline; supplemental
+checks are documented in `docs/research-review.md`. All36 adding runs remain unsolved
+under five epochs. Supplemental T50 validation pilots and equal-budget LM
+continuations are documented in `docs/review-evidence/`; original results are preserved.
+Run `scripts/research_review.py adding` and then `scripts/research_review.py language`
+for these additional experiments (CPU; approximately15 minutes including audits).
+Then run `scripts/review_artifacts.py`, `scripts/normalize_review_ledger.py`,
+and `scripts/review_checks.py`. Ten additional runs preserve the baseline82 rows.
+Language samples remain limited; supplemental samples come from actual continued checkpoints. The due date is Saturday14 November2026.
 AI assistance, including scratch implementations, is fully disclosed. The user reports
 professor permission, but the supplied clarification email does not waive the original
 AI-writing prohibition: permission evidence remains an integrity condition. No optional

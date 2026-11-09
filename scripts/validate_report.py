@@ -17,11 +17,12 @@ assert 'Viradiya Tushar Rajeshbhai' in pages[0] and '2026aj05073' in pages[0]
 assert re.search(r'h\s*=\s*64', pages[0]) and re.search(r'd\s*=\s*64', pages[0])
 assert re.search(r'seeds\s+0,\s*1,\s*2',pages[0])
 body='\n'.join(pages[:6])
-for n in range(1,9):assert f'Table {n}' in body
-for n in (1,2,4,5,6,7,8,9,10,11,12,13,14):
-    # Some adjacent figures have combined captions and title text in raster images.
-    assert re.search(rf'Figure(?:s)?\s+(?:{n}(?=\D|$)|\d+[–-]{n}(?=\D|$))',body) or n in (5,8,11,14)
-for term in ('2.23495','3.22434','105222','108481','0.59362','0.31769','0/3','chosen','contaminated'):
+for n in range(1,10):assert f'Table {n}' in body
+for n in range(1,10):
+    assert re.search(rf'Figure\s+{n}(?=\D|$)',body),n
+# Every numbered item has both a caption and a prose reference or explicit
+# explanation adjoining it; final visual inspection checks panel readability.
+for term in ('2.23495','2.92427','105222','108481','0.59362','0.31769','0/3','nonuniform','contaminated','0.01327','0.00189'):
     assert term in body,term
 assert 'AI-written from-scratch code' in ' '.join(pages[-1].split())
 assert 'post-LN' in pages[-1]

@@ -1,0 +1,164 @@
+[
+  {
+    "head": 1,
+    "query": 16,
+    "character": " ",
+    "links": [
+      {
+        "key": 16,
+        "character": " ",
+        "weight": 0.18521977961063385
+      },
+      {
+        "key": 13,
+        "character": " ",
+        "weight": 0.15947626531124115
+      },
+      {
+        "key": 14,
+        "character": "t",
+        "weight": 0.12363903969526291
+      },
+      {
+        "key": 15,
+        "character": "o",
+        "weight": 0.1197642832994461
+      }
+    ]
+  },
+  {
+    "head": 1,
+    "query": 17,
+    "character": "b",
+    "links": [
+      {
+        "key": 17,
+        "character": "b",
+        "weight": 0.6782578825950623
+      },
+      {
+        "key": 14,
+        "character": "t",
+        "weight": 0.0759848952293396
+      },
+      {
+        "key": 16,
+        "character": " ",
+        "weight": 0.04895162209868431
+      },
+      {
+        "key": 3,
+        "character": "b",
+        "weight": 0.046024173498153687
+      }
+    ]
+  },
+  {
+    "head": 1,
+    "query": 18,
+    "character": "e",
+    "links": [
+      {
+        "key": 17,
+        "character": "b",
+        "weight": 0.34800416231155396
+      },
+      {
+        "key": 15,
+        "character": "o",
+        "weight": 0.16332489252090454
+      },
+      {
+        "key": 18,
+        "character": "e",
+        "weight": 0.14341045916080475
+      },
+      {
+        "key": 14,
+        "character": "t",
+        "weight": 0.053141575306653976
+      }
+    ]
+  },
+  {
+    "head": 2,
+    "query": 16,
+    "character": " ",
+    "links": [
+      {
+        "key": 16,
+        "character": " ",
+        "weight": 0.3379157781600952
+      },
+      {
+        "key": 15,
+        "character": "o",
+        "weight": 0.28487691283226013
+      },
+      {
+        "key": 13,
+        "character": " ",
+        "weight": 0.08425861597061157
+      },
+      {
+        "key": 11,
+        "character": "o",
+        "weight": 0.07015736401081085
+      }
+    ]
+  },
+  {
+    "head": 2,
+    "query": 17,
+    "character": "b",
+    "links": [
+      {
+        "key": 17,
+        "character": "b",
+        "weight": 0.5990889668464661
+      },
+      {
+        "key": 16,
+        "character": " ",
+        "weight": 0.12127012759447098
+      },
+      {
+        "key": 15,
+        "character": "o",
+        "weight": 0.11132491379976273
+      },
+      {
+        "key": 11,
+        "character": "o",
+        "weight": 0.039089132100343704
+      }
+    ]
+  },
+  {
+    "head": 2,
+    "query": 18,
+    "character": "e",
+    "links": [
+      {
+        "key": 17,
+        "character": "b",
+        "weight": 0.2981868088245392
+      },
+      {
+        "key": 18,
+        "character": "e",
+        "weight": 0.22549603879451752
+      },
+      {
+        "key": 16,
+        "character": " ",
+        "weight": 0.18911221623420715
+      },
+      {
+        "key": 15,
+        "character": "o",
+        "weight": 0.11360606551170349
+      }
+    ]
+  }
+]

@@ -18,7 +18,7 @@ required=['README.md','requirements.txt','report.pdf','results.csv','problem1/pr
 files=[Path(name) for name in required]
 for directory in ('docs','scripts','problem1/figures','problem1/metrics','problem2/figures','problem2/metrics'):
     files.extend(p for p in Path(directory).rglob('*') if p.is_file() and
-                 p.suffix in ('.md','.tex','.py','.json','.csv','.png','.npz'))
+                 p.suffix in ('.md','.tex','.py','.json','.csv','.png','.npz','.txt'))
 files=sorted(set(files))
 assert all(p.is_file() and not p.is_symlink() for p in files)
 assert all(not set(p.parts)&{'data','.venv','.git','.cache','__pycache__'} for p in files)
@@ -29,7 +29,7 @@ for path in (Path('problem1/problem1.ipynb'),Path('problem2/problem2.ipynb')):
     assert all(c.execution_count is not None for c in cells)
     assert not any(o.output_type=='error' for c in cells for o in c.outputs)
 ledger=pd.read_csv('results.csv')
-assert len(ledger)==82 and ledger.problem.value_counts().to_dict()=={'P1':69,'P2':13}
+assert len(ledger)==92 and ledger.problem.value_counts().to_dict()=={'P1':75,'P2':17}
 assert not ledger.duplicated(['problem','model','seed','notes']).any()
 assert len(Path('README.md').read_text().split())<=550, 'README exceeds one-page word budget'
 info=subprocess.check_output(['pdfinfo','report.pdf'],text=True)

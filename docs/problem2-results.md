@@ -1,3 +1,5 @@
+> Baseline training results are preserved below; new continuation results are in research-review.md. Figure numbers here refer to notebook plots; the final PDF uses consecutive report numbering. Context measurements below were refreshed with raw evidence.
+
 # Problem 2 results and analysis
 
 All 13 runs and110 epochs completed. Full notebook execution and cache restart passed; independent checkpoint/sample replay passed. The instructor clarification permits our own three-token example; its strict tests pass. AI-assisted code follows professor permission reported by the user.
@@ -63,15 +65,19 @@ Fixed trained four-head model, batch 8, float32, eval/dropout off; two warmups a
 
 | Context | Mean ± sample std (ms) | Peak additional tensors (MiB) | One score tensor elements |
 |---|---:|---:|---:|
-| 64 | 5.361 ± 0.695 | 5.228 | 131072 |
-| 128 | 14.849 ± 2.053 | 12.714 | 524288 |
-| 256 | 50.965 ± 2.001 | 41.331 | 2097152 |
-| 512 | 165.871 ± 5.762 | 146.753 | 8388608 |
+| 64 | 8.709 ± 0.402 | 5.228 | 131072 |
+| 128 | 14.602 ± 0.810 | 12.714 | 524288 |
+| 256 | 45.767 ± 0.897 | 41.331 | 2097152 |
+| 512 | 187.750 ± 6.799 | 146.753 | 8388608 |
 
-Table 8: measured full-model cost; Figure 14 (`context_scaling.png`) plots time and memory, including an anchored quadratic reference. An8× context increase gives64× as many score elements, 30.94× measured time and 28.07× additional tensor peak. Each score product/weighted sum has O(T²d) work; FFN/embeddings add linear-T cost, so the total need not scale exactly64×. Hardware/cache/thread/allocation overhead also affects short-context time. CPU results do not establish T4 runtime or wearable inference energy.
+Table 8: measured full-model cost; Figure 14 (`context_scaling.png`) plots time and memory, including an anchored quadratic reference. An8× context increase gives64× as many score elements, 21.56× measured time and 28.07× additional tensor peak. Each score product/weighted sum has O(T²d) work; FFN/embeddings add linear-T cost, so the total need not scale exactly64×. Hardware/cache/thread/allocation overhead also affects short-context time. CPU results do not establish T4 runtime or wearable inference energy.
 
 ## Verification and remaining work
 
-Full Restart & Run All passed twice (initial training, then13 cache hits). Shared ledger now82 rows, including all 69 unchanged P1 rows and13 unique P2 runs. Independent audit reproduces nine HAR checkpoints/26523 predictions, all four LM validation losses, all 2000 generated characters, statistics and perturbation evidence; verifies sample standard deviations, selected epochs, counts, source fingerprints and absence of forbidden framework layers in model code. All four image files visually inspected. Total P2 training-only CPU time613.14 seconds (10.22 min), excluding validation/generation/profiling/setup. No T4 measurement.
+Full Restart & Run All passed twice (initial training, then13 cache hits). The baseline ledger has82 rows, including69 P1 and13 P2 runs; the final ledger additionally contains10 explicitly labelled diagnostics/continuations. Independent audit reproduces nine HAR checkpoints/26523 predictions, all four LM validation losses, all 2000 generated characters, statistics and perturbation evidence; verifies sample standard deviations, selected epochs, counts, source fingerprints and absence of forbidden framework layers in model code. All four image files visually inspected. Total P2 training-only CPU time613.14 seconds (10.22 min), excluding validation/generation/profiling/setup. No T4 measurement.
 
 The instructor email permits chosen h/d/seeds and a self-created three-token example. We choose h=64, d=64 and seeds0/1/2. Hand/code agreement passes. The mathematical reference remains Vaswani et al. The email confirms Saturday14 November2026 as the due date. It does not address AI authorship; the original written prohibition needs the separately user-reported permission to apply. Optional bonus is unattempted; portal submission remains external.
+
+## Supplemental examiner-led evidence
+
+See research-review.md and review-evidence/: equal five-epoch LM continuations, new actual samples, concrete indexed head links and trained patch-order probe. All five raw timings and three full memory traces per context are retained under problem2/metrics/context_raw_*.json. Original baseline learning failures and generation are retained; no claimed causal architectural improvement.

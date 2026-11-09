@@ -89,3 +89,12 @@
 - The confirmed date is Saturday14 November2026. Original odd-ID forget-bias ablation remains a valid completed experiment; no size/seed lookup is required.
 - Do not retrain for comment/markdown changes. Exact reviewed cache aliases preserve historical measured runs; verification rejects optimizer creation if a cache is absent.
 - Keep AI-use declaration truthful and comprehensive. User-reported verbal permission and non-disclosure instruction do not independently resolve the original written authorship/disclosure rule. Report technical PASS separately from authorization NOT VERIFIED; do not certify unconditional readiness or silently remove AI-written scratch-code disclosure.
+
+## 2026-11-09 — Evidence-led improvements
+
+- Preserve commit817a025 as the audited baseline. Supplemental runs append exact-schema rows and keep all82 original rows/metrics. Baseline required grid remains primary; T50 pilots do not become a post-hoc replacement36-run test grid.
+- Diagnose adding with fixed small-batch training and common25-epoch validation-only pilots, seed0, unchanged lr/architecture. Exact first-five-epoch replay isolates duration for the gated short-sequence failure. RNN overfitting does not establish learned addition; longer-sequence generalization remains untested under the extra budget.
+- Continue each LM variant for five extra epochs using the same resume/reset rule. Original weights-only checkpoints lack optimizer state: resetting Adam is necessary and disclosed; no claim that duration alone caused the gain. Selection uses validation only; unmasked losses remain leakage diagnostics. Keep original samples and add separately labelled continued samples.
+- Do not modify restricted scratch implementations without further explicit authorization. A nonuniform hand-test oracle, documentation, diagnostics and plots are permitted changes. No institutional waiver inferred from the reported verbal permission.
+- Preserve raw context timing repeats and three allocation-event traces per length. Report full-model CPU forward/backward with squared-logit loss, not inference latency, RSS or T4 estimates.
+- Patch flattening retains ordered time offsets within each patch. No-position CLS is invariant to whole-patch permutation; that does not imply invariance to arbitrary step permutations. Retain the depth/width/patch/dropout confounds; do not attribute an architectural accuracy gain specifically to attention.

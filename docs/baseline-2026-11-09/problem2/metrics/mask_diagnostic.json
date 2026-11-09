@@ -1,0 +1,12 @@
+{
+  "causal_prefix_max_change": 0.0,
+  "unmasked_prefix_max_change": 7.153540134429932,
+  "diagonal_attention_means": [
+    0.3616173565387726,
+    0.37360960245132446
+  ],
+  "first_token_attention_means": [
+    0.07208552956581116,
+    0.0746879130601883
+  ]
+}

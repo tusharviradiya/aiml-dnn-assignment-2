@@ -26,7 +26,7 @@ local_data.symlink_to(os.path.relpath(root/'data',extracted),target_is_directory
 environment={**os.environ,'MPLCONFIGDIR':'.cache/matplotlib','JUPYTER_RUNTIME_DIR':'.cache/jupyter','DNN_VERIFY_CACHED_ONLY':'1'}
 commands=['scripts/test_verification.py','scripts/test_cache_fingerprints.py',
           'scripts/execute_problem1.py','scripts/execute_problem2.py',
-          'scripts/audit_har.py','scripts/audit_adding.py','scripts/audit_task5.py','scripts/audit_problem2.py']
+          'scripts/normalize_review_ledger.py','scripts/audit_har.py','scripts/audit_adding.py','scripts/audit_task5.py','scripts/audit_problem2.py','scripts/review_checks.py']
 for script in commands:
     log=root/'.cache'/('extracted-'+Path(script).stem+'.log')
     print('VERIFY',script,'log:',log.relative_to(root),flush=True)

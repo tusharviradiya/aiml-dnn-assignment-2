@@ -1,0 +1,161 @@
+{
+  "commit": "817a0258cb5082f58e4743dad2306e656f4f6532",
+  "files": {
+    "results.csv": {
+      "bytes": 30450,
+      "sha256": "7729bf8a6f85c8a209f63950a26bdddcdc954b6065f813bf1569a42b3346a627"
+    },
+    "report.pdf": {
+      "bytes": 916451,
+      "sha256": "03a265625f0fc853d88f89692dd69a66538f4e7834e1ab9f2c6f40c5a2d0ef4e"
+    },
+    "2026aj05073_DNN_Assignment.zip": {
+      "bytes": 3245412,
+      "sha256": "b9b92e32cd841638389dc6dc1339bfb06725eae648478a5933ec290dc5c3d94f"
+    },
+    "docs/professor-evaluation.md": {
+      "bytes": 20896,
+      "sha256": "e2d9f47f582df0ec621779c635182bad3011b7ac3f88d3d831b8ab1ca7b54df8"
+    },
+    "problem1/metrics/adding_config.json": {
+      "bytes": 286,
+      "sha256": "a541c96a75b995300d231d0d063a6534c0e8c586740d8e4fdd6264bd599fd3b7"
+    },
+    "problem1/metrics/forget_bias_predictions.csv": {
+      "bytes": 160467,
+      "sha256": "7f1bc9f6ed101b883fabe6b88aac88896c0dc32b8761c275b55fcf1efd8a13d4"
+    },
+    "problem1/metrics/har_hidden_sweep_history.csv": {
+      "bytes": 25678,
+      "sha256": "d1b081974e0d189b697d5b89a9f42f213e920603e66046e6d91980292accc836"
+    },
+    "problem1/metrics/forget_bias_runs.csv": {
+      "bytes": 359,
+      "sha256": "711d941fd601d6c4328b7408e9e7176aa16da9c8e5b04de24e6abad80c99e448"
+    },
+    "problem1/metrics/har_config.json": {
+      "bytes": 292,
+      "sha256": "62544ba6c8607a24eb8e169689b0890bf12f991f6a1ac092c08cc0e8fab4e192"
+    },
+    "problem1/metrics/har_runs.csv": {
+      "bytes": 886,
+      "sha256": "e72c960e9c9d1adde0b332f1f309366e0ba69c3a07e3c5ad3368605e0bcf9f9f"
+    },
+    "problem1/metrics/hidden_gradients.csv": {
+      "bytes": 102958,
+      "sha256": "bd0516ef764fa06114790333ef52b5cbf88154c3f1bbfe22b87fbbe3372c9dd5"
+    },
+    "problem1/metrics/har_hidden_sweep_predictions.csv": {
+      "bytes": 1158094,
+      "sha256": "7a1509cf751dc825ea7f309553f39ac81219238c0441d73d9269512304687016"
+    },
+    "problem1/metrics/forget_bias_history.csv": {
+      "bytes": 2245,
+      "sha256": "dfa4426f1c689191859e5799017498c9ea22039d7748c9a5d292d11724ace9e8"
+    },
+    "problem1/metrics/adding_runs.csv": {
+      "bytes": 3720,
+      "sha256": "6f59cfdcc9bc081b295d1079c3fd392766274f433fa909f1ab4763340d5653c3"
+    },
+    "problem1/metrics/adding_predictions.csv": {
+      "bytes": 1179916,
+      "sha256": "4bea4a5a06d9aa13a24194a459e4c7e08a01de498470877d6efe3388a8db1f34"
+    },
+    "problem1/metrics/cache_aliases.json": {
+      "bytes": 1178,
+      "sha256": "89e10fbd887ea973fe1beac5154dbde2061fffff7c06b9d02c927f5f7abed584"
+    },
+    "problem1/metrics/adding_history.csv": {
+      "bytes": 12629,
+      "sha256": "b8f2410599d41344a478450add7ff6e07b728b31f61809c9a4af469707c6e762"
+    },
+    "problem1/metrics/adding_summary.csv": {
+      "bytes": 935,
+      "sha256": "99c7b110ca7cf21d148410b9da1b0ee2a01ad4fbe43f948f373fef56d7cb205a"
+    },
+    "problem1/metrics/task5_config.json": {
+      "bytes": 907,
+      "sha256": "d1ee272f1b81fd0ce0c8ddb7947167eda85a3718a30b90d379a5657c343fe320"
+    },
+    "problem1/metrics/har_summary.csv": {
+      "bytes": 575,
+      "sha256": "1db72d8c1fbfeb6d218e190f00a371004515c8f666cecb39d77ce0528e6891d7"
+    },
+    "problem1/metrics/har_predictions.csv": {
+      "bytes": 396729,
+      "sha256": "9a6a744641b5b7fb529aed86659d96af9d88f1b3672b881b8fbc773f48dff11d"
+    },
+    "problem1/metrics/forget_bias_summary.csv": {
+      "bytes": 137,
+      "sha256": "af9f9480224ef5df755b5511abc1373b30a2b42a91273f3b20cf8f2cc9cf15e0"
+    },
+    "problem1/metrics/har_hidden_sweep_runs.csv": {
+      "bytes": 2324,
+      "sha256": "c4532baad09cd4ee6eecc3cde161b207f5ccd58093d28290589889c7cd98b6f9"
+    },
+    "problem1/metrics/experiment_ledger.csv": {
+      "bytes": 25650,
+      "sha256": "a8a919abf1718a4771c264aa4cebefc681ab8c08ddf9a0af9b6bd899a707a517"
+    },
+    "problem1/metrics/har_hidden_sweep_summary.csv": {
+      "bytes": 970,
+      "sha256": "a1320bcd2567d86f121ffb1c2e176397ad8e605943cc31e631268130f4bfa1c0"
+    },
+    "problem1/metrics/har_history.csv": {
+      "bytes": 9358,
+      "sha256": "28ae82685300bf8bcc0a2197615e145744d4a5dc5c00b88cd543d96bf25a41b1"
+    },
+    "problem2/metrics/attention_heads.npz": {
+      "bytes": 3796,
+      "sha256": "89e797529782bf69ce161e008bcd8cf6ba17c8cb5df87996dca819c093f6ea12"
+    },
+    "problem2/metrics/har_runs.csv": {
+      "bytes": 3393,
+      "sha256": "0b1fe7196aeaa9efcd993564496df7c27fc39d9cb621523d1ee6d9ad59a12826"
+    },
+    "problem2/metrics/config.json": {
+      "bytes": 825,
+      "sha256": "e55af265495bfb71aeecaa74f2a48986a5786343bfafcea61eb1fba1c11520bc"
+    },
+    "problem2/metrics/context_scaling.csv": {
+      "bytes": 384,
+      "sha256": "e78a8e3056cfb4497514f6bbc7de277a4e146b4b2a90c8047f64f846972d5399"
+    },
+    "problem2/metrics/lm_runs.csv": {
+      "bytes": 1625,
+      "sha256": "e42314c3daffe74c5a918841b8749e3d12105359cd953f0c50d8666abff22b65"
+    },
+    "problem2/metrics/sample_statistics.csv": {
+      "bytes": 326,
+      "sha256": "5e2111ff01c86eb951ae67d07f18ea9a2d91f505d5d4daee9a679081a09456d4"
+    },
+    "problem2/metrics/no_mask_sample.txt": {
+      "bytes": 500,
+      "sha256": "72bc0164434b440f3b92d87c14b32e70e3bb578f6214754011bd57ef897ae2b8"
+    },
+    "problem2/metrics/samples.json": {
+      "bytes": 1864,
+      "sha256": "f2c0d0e23e212a9063e558940f3e0ec44d7213afd155a9bd656fe0b82919bf4e"
+    },
+    "problem2/metrics/lm_history.csv": {
+      "bytes": 1345,
+      "sha256": "ecbe4255ebba39758be795e48d5ee09968ca937289a0c7c5ce02d6f9c296ae3d"
+    },
+    "problem2/metrics/har_summary.csv": {
+      "bytes": 443,
+      "sha256": "974cb193fc285767e30f4ec493dbbed34f8cda776f5b01d08843db7b74f90c70"
+    },
+    "problem2/metrics/mask_diagnostic.json": {
+      "bytes": 261,
+      "sha256": "3aba788405989d48c0e068e91b24e5d18229d05e89d7cb52eaa0591c27c5fce6"
+    },
+    "problem2/metrics/har_predictions.csv": {
+      "bytes": 493985,
+      "sha256": "687f334b20cba0ad1a030cd418251817f319eb40608a45677058c41dc1aca3c4"
+    },
+    "problem2/metrics/har_history.csv": {
+      "bytes": 9762,
+      "sha256": "11deba19fead0fc0ea836d8bc4b46bcfb0783ed7a72b6ef85e46ee707230b1f8"
+    }
+  }
+}

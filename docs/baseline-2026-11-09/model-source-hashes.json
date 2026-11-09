@@ -1,0 +1,15 @@
+{
+  "class MyRNNCell(nn.Module):": "8358b8a03856be5d1ec9fdfb23c08b2f4b0648c1bc4061217206734c39da4995",
+  "class MyLSTMCell(nn.Module):": "b4cd7510ddfbbfdb75e1474b55fd17a20159e6b9cd8dd7bfdb101116689a7d60",
+  "class MyGRUCell(nn.Module):": "819c4be689cf8260307ae0acab4ae3f4b4bde13591913d5d744265e4bd42072b",
+  "def scaled_dot_product_attention(q, k, v, allowed=None):": "9b9def7721c2d3a75097754c14fdc5a35db645795481dca56994532c6a424b28",
+  "class MyMultiHeadAttention(nn.Module):": "540191de7f7f9879574bc662c3c6e87a6b850681209d3e5e6c4e0da75829f101",
+  "class MyEncoderBlock(nn.Module):": "35259e4aaf527faafe30bb28da5de9a9a7a2eb87763eb9863a0d4b8701b41552",
+  "def sinusoidal_positions(length, d):": "e5b6902559f4f90878d723ce026eee591558907c4945c2c1bf9d50293ba5710a",
+  "def seed_everything(seed):": "557f0478d904a460e3efa5acc26aa4d322bf989a21d292aca6f110d10d288d3c",
+  "class HAREncoder(nn.Module):": "75843b153dca056d7ecdfdebe1bab4daf878ebff2394ad623ec3d77deb3487e2",
+  "class CharacterTransformer(nn.Module):": "df098d481ec92343a1f6288e47881d846c8608e68db57ea237722e3f30fb7e57",
+  "def prepare_shakespeare():": "906d8b89b75e35492d747557f7562e98d0254e6430f1add62eca0ce09e74d3b2",
+  "def evaluate_classifier(model,loader):": "8e35a6b3231da7f5ae868c556b88f894e9a34e903a7563f40663b0407b197103",
+  "def run_encoder(position,seed):": "c7f7ed8f48eea2388be16562a5db801047f5c2eb4cbdb40258ba68b3bdb4b011"
+}

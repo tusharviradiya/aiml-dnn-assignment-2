@@ -1,6 +1,6 @@
 # Submission readiness after instructor clarification
 
-**Technical readiness: PASS. Overall unconditional submission clearance: FAIL / authorization unresolved.** This is not a finding of misconduct: the supplied written rules prohibit AI-written scratch code, while the user reports verbal permission. We cannot certify that exception from the supplied evidence.
+**Technical readiness: PASS after examiner-led review. Overall unconditional submission clearance: FAIL / authorization unresolved.** This is not a finding of misconduct: the supplied written rules prohibit AI-written scratch code, while the user reports verbal permission. We cannot certify that exception from the supplied evidence.
 
 Chosen settings: P1 h=64 for RNN/LSTM/GRU baselines; P2 d=64, main heads4, ablation heads1/4/8; seeds0/1/2 for three-seed runs. Confirmed deadline: Saturday14 November2026. The original brief states11:59PM IST; the email changes the weekday/date clarification, not that time. Portal upload is not performed.
 
@@ -32,11 +32,11 @@ Technical rubric coverage is100 points, not an awarded score or integrity approv
 | Reproducibility | PASS | Python/NumPy/Torch seeds, paired splits/shuffles, training-only normalization, matching budgets and validation-only checkpoint selection |
 | Tests and saved notebooks | PASS | Assert cells around implemented components/data; strict negative controls/backward checks; full notebook runs saved; optimizer guard prevents retraining during clarification verification |
 | Relative paths | PASS | Notebook/project paths relative to root or problem directory; no user-specific absolute source paths |
-| results.csv | PASS | Exact12-column schema;82 actual runs; task-inapplicable values blank; per-run persistence; no duplicate rows; prior measurements unchanged |
+| results.csv | PASS | Exact12-column schema;92 actual runs (82 baseline,6 adding diagnostics,4 LM continuations); task-inapplicable values blank; per-run persistence; no duplicate rows; prior measurements unchanged |
 | Report settings/format | PASS | h64/d64/seeds0/1/2 on title page and README; explicit count derivations; six content A4 pages,11pt,≥2cm margins; numbered/cited required figures/tables; separate AI/reference page |
 | Samples | PASS | Three labelled500-new-character strings, recorded prompts/temperature/top-k/seed; independently reproduced; no-mask diagnostic separate |
-| README | PASS with hardware limitation | One-page-sized instructions, environment, settings, limitations; measured CPU training44.7min. T4 runtime not measured, explicitly stated under permitted CPU workflow |
-| ZIP | PASS | Exact2026aj05073_DNN_Assignment.zip and outer folder; all required files; approximately3.25MB <25MB; CRC and every manifest hash verified. Extracted notebooks and audits passed; final documentation-only rebuild preserves their tested source |
+| README | PASS with hardware limitation | One-page-sized instructions, environment, settings, limitations; baseline CPU training44.7min plus9.13min measured LM training and123.4sec adding diagnostic wall time. T4 runtime not measured, explicitly stated under permitted CPU workflow |
+| ZIP | PASS | Exact2026aj05073_DNN_Assignment.zip and outer folder; all required files; below25MB; CRC and every manifest hash verified. Extracted notebooks and audits passed; final documentation-only rebuild preserves their tested source |
 | Portal submission | NOT PERFORMED | User must upload, download/open uploaded copy, retain confirmation; portal URL not supplied |
 
 ## Academic-integrity audit
@@ -50,4 +50,10 @@ No further model training is needed for these clarification changes. Technical a
 
 ## Final execution evidence — 2026-11-09
 
-Fresh extraction passed all eight commands: component verification, cache fingerprint tests, both complete notebook runners, and HAR/adding/Task5/Problem2 audits. Execution reused local datasets/checkpoints with an optimizer guard that aborts if training would start. All82 original experiment rows are byte-for-byte unchanged. No fresh download or uncached training is claimed. The final documentation-only package rebuild is checked against the tested notebook sources and verification scripts. Local machine-readable records are `.cache/extracted-verification.json`, `.cache/submission-verification.json` and `.cache/final-source-verification.json`; archive file hashes are included in its manifest.
+Fresh extraction passed all ten commands: component verification, cache fingerprint tests, both complete notebook runners, HAR/adding/Task5/Problem2 audits, canonical ledger normalization and supplemental review checks. Execution reused local datasets/checkpoints with an optimizer guard that aborts if training would start. All82 original experiment rows and ordering are byte-for-byte preserved;10 supplemental rows are separately labelled. No fresh download or uncached training is claimed. The final package is freshly extracted and both notebooks, baseline audits and review_checks are executed with local caches; no fresh installation/network/training replay is claimed. Local machine-readable records are `.cache/extracted-verification.json`, `.cache/submission-verification.json` and `.cache/final-source-verification.json`; archive file hashes are included in its manifest.
+
+## Examiner-led improvements
+
+See research-review.md and professor-evaluation.md for the independent claims/evidence assessment. Actual extra training: six adding diagnostics and four equal-budget LM continuations. All restricted scratch source hashes match the baseline. The chosen four-head causal LM improves2.234945→2.026947nats (3.224344→2.924266BPC), with an explicit Adam-restart confound. T50 gated validation improves under a longer fixed protocol; original36 unsuccessful test runs remain. Twelve raw memory traces and all timing repeats are retained; indexed head links and whole-patch/within-patch distinction are verified. Final figures are consecutively numbered with labelled panels; report pages3–6 rendered and inspected.
+
+Conditional estimated technical mark98/100 (96–99 range), previously96/100; not a guaranteed or awarded score. No formal viva is required by the supplied FAQ; understanding/student-authorship conditions are listed separately. No bonus, clean-install verification, T4 runtime, parameter-matched HAR accuracy or portal submission is claimed.

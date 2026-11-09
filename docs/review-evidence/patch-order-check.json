@@ -1,0 +1,6 @@
+{
+  "input": "fixed synthetic normalized Gaussian probe, seed13; trained none_0 weights",
+  "patch_reversal_max_logit_delta": 1.9073486328125e-06,
+  "within_patch_reversal_max_logit_delta": 5.520951271057129,
+  "interpretation": "whole-patch permutation invariant; within-patch offsets retain order; no predictive-accuracy or causal-superiority claim"
+}

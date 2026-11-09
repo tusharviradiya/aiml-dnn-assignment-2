@@ -1,0 +1,34 @@
+[
+  {
+    "causal": true,
+    "temperature": 0.2,
+    "sample": "I shall make cour have me to not he the have and the here in her and the the sear\nFo have he he her to the he sear and and the a he are him seart\nAnd the have so halll and here the and the sear and and the he are the the he he the hear hear the the and the he be hard\nAnd here hear and with seare and the and the the the he and the be the so hard the he had sore the and the seare\nAnd the she so to mand the the he the he and the hear sare the me harther\nAnd and the and the me to as halll the so so ",
+    "prompt": "ROMEO:\n",
+    "top_k": 20,
+    "seed": 700
+  },
+  {
+    "causal": true,
+    "temperature": 0.8,
+    "sample": "Blode the a brongace anor hikin the I suty do gre him with,\nThat pray here you sliang, noteng I you fearse comince\nOne alliond hand welles cons to cour seaint harm dand\nTher halll is hear hid make to be gell.\nTor me bord in of ive this flie.\n\nSthou seard hear best so be a be thus.\nTharst worrd I not of care the as gelland her speas.\n\nINELO:\nYou mise pealt:\nA punor heelriour and for tor\nI his wor muse telar, eapte deamer of it;\nall hus of ar my conce antifong tialy\nTo mothet: ur, the which heast ",
+    "prompt": "ROMEO:\n",
+    "top_k": 20,
+    "seed": 700
+  },
+  {
+    "causal": true,
+    "temperature": 1.5,
+    "sample": "Bloded me sooownor pusomir,\nDy wir, 'Cath: bet:\nTho roncesie, flid is tuf I houlo be usaty.\n\nLRIENCUS:\nFraye:\nHive lard caingmiely? whant, do waysd allo! mife ame:\nI ham cther's I dardizetem.\n\n\nJullamsy Pay inge; wil hell gave dveatcter'lyal depriine noth\nTo if meatiabllisonind; yo isellitithtourd me;\nAn, ide fou sant thoughtur'ser;\nAnreldim'Tir:\nFiecr tit hat glean yhoners:\nYot\nProu; a deno, theak'l hyoven, famat, scot ourd-sur\nAs,, your thoorine; my arggesatidis? be\nCspoppiy:.eet silmonse,\nYef",
+    "prompt": "ROMEO:\n",
+    "top_k": 20,
+    "seed": 700
+  },
+  {
+    "causal": false,
+    "temperature": 0.8,
+    "sample": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "prompt": "ROMEO:\n",
+    "top_k": 20,
+    "seed": 700
+  }
+]
