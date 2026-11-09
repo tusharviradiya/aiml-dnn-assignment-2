@@ -59,3 +59,13 @@ Reviewed Task 3 commit f1ad770 and existing notebook/logger. Added adding regres
 ## 2026-11-09 — Task 4 completed and audited
 
 36 runs, 180 epochs, 36000 predictions completed with exit 0. All shape/count/gradient/MSE assertions and independent checkpoint audits passed; audited selection, predictions, errors, solved flags, baselines, timings and sample std. Both required plots saved and visually inspected. All 12 groups have 0/3 solved; baseline-level results and five-epoch limitation are explicitly discussed. Training-only CPU time 25.3 minutes; longest LSTM epochs 42–45 seconds. Cache restart exited 0, reused all 36 runs and preserved earlier notebook cells. A documentation helper initially used system Python without pandas; reran in .venv successfully. No model numerical errors occurred. No commit/push.
+
+## 2026-11-09 — Task 5 preparation and launch
+
+Reviewed Task 4 commit c1913a9 and prior configs/checkpoints. Generalized HAR/adding run helpers to explicit config/cache/run-ID arguments; defaults retain prior behavior. Added graph-based gradient probes, three-seed hidden sweep (18 new/6 reused), six paired effective-forget-bias runs, summaries and figures. Initial runner dependency lookup raised StopIteration before any execution; corrected lookup for the reference-helper cell, whose first line is a comment. Relaunched targeted Task 5 execution. Acceptance remains pending actual tests/results. No commit/push.
+
+## 2026-11-09 — Task 5 results and audit
+
+Targeted notebook execution exited 0. Saved 1800 gradient records, 24 sweep points (240 epoch histories; six cached width64 runs), six forget-bias points (30 histories), predictions and Figures 6–8. All 18 gradient probes matched library outputs and parameter gradients. Mean post-training first/last hidden-gradient ratios: RNN 3.55e-22, LSTM 1.25e-11, GRU 6.45e-5. Interpret LSTM hidden gradients separately from cell memory.
+
+HAR GRU h32 accuracy 87.41±0.73% with 4326 parameters; h128 89.04±0.70% with 54150. Effective forget bias 0/1 MSE: 0.168400745±0.000449405 / 0.168494318±0.000389646; no solved runs and no reliable benefit inferred. scripts/audit_task5.py independently replayed all 24 sweep/six ablation checkpoints and all 18 gradient probes, checked initial paired parameters, metrics, selection, counts and 69-row ledger; exited 0. Plots visually inspected. Prepared concise evidence-based one-page report text in docs/problem1-analysis.md (final PDF pagination pending). Cache restart passed: 24 cached runs and six reused baseline runs, no new training or duplicate ledger rows. Default-argument regression checks on the generalized HAR/adding helpers reused original caches and preserved all 69 rows in a temporary results copy. No commit/push.

@@ -1,7 +1,7 @@
 # Assignment progress
 
 Updated: 2026-11-09. Status values: Not Started, In Progress, Completed, Blocked.
-Overall: Tasks 1–4 Completed: 35/100 marks of rubric coverage verified (not an awarded grade). Transformer scaffolding exists. User-reported professor permission now allows AI implementation of remaining work. Nine HAR experiments completed and saved. Marks below denote rubric coverage, not awarded marks.
+Overall: Problem 1 Tasks 1–5 Completed: 50/100 marks of rubric coverage verified (not an awarded grade). Transformer scaffolding exists. User-reported professor permission now allows AI implementation of remaining work. Nine HAR experiments completed and saved. Marks below denote rubric coverage, not awarded marks.
 
 | Task | Marks | Status | Acceptance criteria / pending work |
 |---|---:|---|---|
@@ -9,10 +9,10 @@ Overall: Tasks 1–4 Completed: 35/100 marks of rubric coverage verified (not an
 | P1.2 Scratch cells | 10 | Completed | Student implements RNN/LSTM/GRU; library agreement 1e-5; hand counts and dual biases |
 | P1.3 HAR comparisons | 10 | Completed | Equal budgets; three seeds/model; accuracy and macro-F1 mean/sample std; parameters/time; best confusion matrix |
 | P1.4 Adding comparisons | 10 | Completed | Four lengths × three models × three seeds; MSE/baseline; solved counts; T=200 curves; MSE vs length |
-| P1.5a Gradients | part of 15 | Not Started | T=100, all models, before/after training, log-scale hidden-state gradient norms |
-| P1.5b Hidden sweep | part of 15 | Not Started | HAR LSTM/GRU at 16/32/64/128 |
-| P1.5c Individual ablation | part of 15 | Not Started | ID parity: RNN clipping or LSTM forget bias, T=200 |
-| P1.5d Analysis | part of 15 | Not Started | One page: memory, failures, trade-offs, wearable choice supported by evidence |
+| P1.5a Gradients | part of 15 | Completed | T=100, all models, before/after training, log-scale hidden-state gradient norms |
+| P1.5b Hidden sweep | part of 15 | Completed | HAR LSTM/GRU at 16/32/64/128 |
+| P1.5c Individual ablation | part of 15 | Completed | ID parity: RNN clipping or LSTM forget bias, T=200 |
+| P1.5d Analysis | part of 15 | Completed | One page: memory, failures, trade-offs, wearable choice supported by evidence |
 | P2.1 Attention | 10 | Not Started | Student code; normalization/reference/causality tests; hand example |
 | P2.2 Multi-head/block | 10 | Not Started | Student code; pre-LN/residual/dropout/4d FFN/sinusoidal positions; parameter derivation |
 | P2.3 HAR encoder | 10 | Not Started | CLS classifier; recurrent comparison; none/sinusoidal/learned positions |
@@ -91,3 +91,13 @@ Implemented 36 matched-budget adding runs, scalar regressors, parameter/gradient
 ### Task 4 acceptance
 
 All 36 full-data runs and 180 epochs completed. Classifier/count/gradient and sample-weighted MSE assertions passed. Independent checkpoint audit verified all 36000 predictions, selected epochs, MSE, baseline, solved flags, counts, timing and summary statistics. Both required plots generated and visually inspected. Cache restart reused all 36 runs without duplicates. results.csv contains 45 rows (9 HAR + 36 adding). Earlier Task 1–3 cells/outputs unchanged. All runs unsolved; five-epoch budget limitation documented in task4-results.md.
+
+## Task 5 execution (2026-11-09)
+
+Three-seed gradient probes, 24-point HAR sweep (6 existing h=64 runs reused; 18 new runs) and six odd-ID forget-bias runs implemented. Uses exact previous budgets (10 HAR epochs, 5 adding epochs). Gradient graph verified by matching library predictions and all recurrent parameter gradients. Completion pending measured evidence and audit.
+
+### Task 5 acceptance
+
+Completed 18 graph-verified gradient probes, 24 HAR sweep points (six reused/eighteen new) and six paired forget-bias runs. All predictions, parameter counts, validation selections, metrics and sample-standard-deviation summaries independently audited. Initial paired models differ only in effective forget bias. Saved all histories/predictions, three required plots (visually inspected), task5-results.md and the concise report analysis problem1-analysis.md. results.csv now has 69 rows; no duplicates for reused width64 runs. Targeted Task 5 notebook execution passed; fresh full-notebook integration and final report pagination remain part of final packaging.
+
+- Restart verification: 24 cached new runs + six reused h64 baseline runs; 69 ledger rows remain. Generalized helper defaults verified against the original caches using a temporary ledger.
