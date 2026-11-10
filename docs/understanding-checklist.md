@@ -1,5 +1,3 @@
-> Superseded policy assessment: the latest DOCX removes the AI-use restriction and declaration requirement. See final-verification.md for current status. Earlier provenance disclosures remain historical evidence.
-
 # Student authorship and understanding
 
 The supplied FAQ answers “Will there be a viva?” with “No”. This checklist is preparation for understanding and any later instructor questions, not a claim that a viva is required. AI-produced explanations here are not evidence that the student independently derived or demonstrated them.

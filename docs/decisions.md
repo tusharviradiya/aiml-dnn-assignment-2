@@ -1,4 +1,4 @@
-> Historical review record: authorship/completion judgments below predate the student’s final manual-implementation statement and are superseded by `ai-policy-resolution.md` and `final-verification.md`. Earlier AI assistance remains disclosed; no historical permission or clarification assertion establishes authorization.
+> Historical review record. Current verification and policy status are in [submission-validation.md](submission-validation.md). Prior authorship or permission assertions are not evidence of instructor authorization.
 
 > Chronological internal record. Earlier decisions/claims may be superseded. Current requirements and evidence are in reproducibility-audit.md and submission-validation.md; the clarification source is unverified and the written authorship restriction controls. Unsupported informal-permission claims below are withdrawn; see student-work-map.md.
 
@@ -168,3 +168,13 @@
 ## 2026-11-10 — Policy resolution requires instructor evidence
 - Preserve current truthful disclosure and historical records. The supplied sizes/seeds/example clarification does not authorize AI-written scratch components. Seek explicit scope/remediation using the unsent draft in `ai-policy-resolution.md`; no replacement scratch implementation pending resolution.
 - Understanding assessment is separate from authorship; answers remain unassessed. Existing package stays technically unchanged and cannot be certified course-compliant.
+
+## 2026-11-10 — Controlling source and final audit decision
+
+Use the supplied original DOCX, not unauthenticated local edits, for academic rules.
+The student confirms no verified exemption. Keep the complete required report-end
+AI declaration and flag all six restricted implementations; no rewrite is authorized
+as a remedy. Preserve experiment values/samples/source, distinguish cached execution
+from full fresh training, package only the 16 prescribed deliverables, and record
+current status in submission-validation.md. Technical estimate 95/100 is conditional;
+academic compliance remains blocked. No push or portal submission.

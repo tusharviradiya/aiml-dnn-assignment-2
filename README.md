@@ -2,7 +2,7 @@
 
 Viradiya Tushar Rajeshbhai.
 
-AI assistance during development included earlier scratch-code drafts, pipelines, experiments, tests, debugging, plots, analysis/report drafting, verification and packaging. The student reports manually implementing the final scratch components; this review verifies correctness, not personal authorship. The latest supplied assignment removes the earlier AI-use restriction and declaration requirement; AI permission is reported by the student.
+OpenAI Codex (including Codex CLI) assisted with requirements review, data pipelines, training/experiment code, tests, debugging, execution, plots, analysis/report drafting, reproducibility audits and packaging. Earlier development records identify AI-written RNN/LSTM/GRU cells and Transformer attention, multi-head attention and encoder-block implementations. The submitted scratch code matches the preserved baseline. The student previously reported manual implementation; independent replacement is unverified. The supplied assignment prohibits AI-written scratch parts and requires disclosure. No verified instructor exemption is available (confirmed by the student on 10 November 2026). Academic compliance remains blocked; passing technical checks and providing disclosure do not authorize restricted work.
 
 Tested: Python 3.14.4, PyTorch 2.15.0+cpu, four CPU threads. Exact package versions
 are in `requirements.txt`; the assignment requires Python 3.10 or later.
@@ -37,8 +37,8 @@ Matching local `data/` caches replay results; absent caches trigger training.
 Set `DNN_VERIFY_CACHED_ONLY=1` to fail on missing caches. Data, checkpoints and
 environments are excluded from the ZIP. Fresh execution regenerates metrics,
 figures and samples; hardware timings vary. Historical optimizer/RNG states are
-missing; future runs save resume snapshots. The pinned dependencies were freshly installed in a separate environment;
-`pip check` passed. Both notebooks were verified there using existing experiment
+missing; future runs save resume snapshots. The pinned environment was installed in a preceding review and reused for this audit;
+`pip check` passed again. Both notebooks were verified there using existing experiment
 caches. Full uncached training was not repeated.
 
 Measured baseline training: 44.7 CPU minutes; LM continuation: 9.13 additional
@@ -46,5 +46,5 @@ training minutes; adding diagnostics: 123 seconds wall time. Other execution
 and validation overhead is excluded. **T4 runtime is unmeasured**, leaving that
 README requirement unmet. All 36 original adding runs are unsolved; LM evidence
 is single-seed. No bonus is claimed. The PDF has six assessed A4 pages plus one
-excluded references-only page. Portal upload, download/open verification
+excluded AI-use/reference page. Portal upload, download/open verification
 and receipt remain outstanding.

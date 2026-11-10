@@ -1,21 +1,26 @@
-# Latest assignment review — 10 November 2026
+# AI policy assessment — 10 November 2026
 
-Latest DOCX SHA-256: `4d3f7c56e29ae5111ddef3563db44e77538202d697c1f03d8f12305b455dcfa1`.
-The latest supplied brief removes the AI-use restriction and mandatory declaration.
-The student reports AI permission. The earlier policy-blocked status is superseded;
-this does not independently establish personal authorship. Actual development
-assistance remains disclosed in the README and notebooks.
+The controlling supplied original assignment has SHA-256
+`37311ac57faf68aaf1adc2e69c312fe9325154f3d3de93b2abbd2304e14e950d`.
+It requires student-authored scratch components, prohibits AI writing those parts,
+and requires a report-end statement naming the AI tool and each use. The AI-use
+statement and references are excluded from the six-content-page limit.
 
-Only references are now exempt from the six-page report limit. The regenerated
-report has six assessed pages plus a references-only page. Technical requirements
-are unchanged. All required implementations and experiments are present; the ten
-audits and clean-environment notebook checks passed in the preceding review. This
-revision changes documentation only, preserving all code and experiment results.
+No authenticated instructor amendment was located. Public searches for the exact
+assignment/instructor did not locate an official amendment; no connected document
+session was available. The private course portal and instructor mailbox were not
+accessible. The student explicitly confirmed on 10 November 2026 that no verified
+instructor authorization is available. Locally edited DOCX versions and old summaries
+claiming permission do not change the controlling rules. In particular the prior
+`4d3f7c56...` review claiming that AI restrictions/declarations were removed is withdrawn.
 
-T4 runtime remains unmeasured because this machine has no GPU. Full uncached training
-was not repeated; historical optimizer states are absent and LM continuations reset
-Adam. Original adding runs remain unsolved, and LM ablations are single-seed; these
-limitations are documented without fabricated results. The optional bonus is not
-claimed. Missing variant/hand-example information is handled with stated assumptions.
-Portal upload, download/open verification and receipt retention remain outstanding.
-Full marks cannot be guaranteed. The source DOCX remains local and ignored.
+Development records identify AI-written MyRNNCell, MyLSTMCell, MyGRUCell,
+scaled_dot_product_attention, MyMultiHeadAttention and MyEncoderBlock. Current code
+matches the preserved baseline. A prior student statement of manual completion is
+recorded as a statement, not established authorship. Tests assess correctness only.
+README, both notebooks and the report now disclose the tool and actual scope.
+
+**Academic compliance is blocked.** Disclosure does not cure a prohibited use.
+Only an applicable written instructor exemption or instructor-approved remediation
+can resolve this. No restricted implementation was rewritten in this audit, and no
+instructor message, GitHub push or university submission was performed.

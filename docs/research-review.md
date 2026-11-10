@@ -1,4 +1,4 @@
-> Historical review record: authorship/completion judgments below predate the student’s final manual-implementation statement and are superseded by `ai-policy-resolution.md` and `final-verification.md`. Earlier AI assistance remains disclosed; no historical permission or clarification assertion establishes authorization.
+> Historical review record. Current verification and policy status are in [submission-validation.md](submission-validation.md). Prior authorship or permission assertions are not evidence of instructor authorization.
 
 > Historical experiment analysis retained for provenance. Current primary model, notebook workflow and submission scope are defined in [reproducibility-audit.md](reproducibility-audit.md) and [submission-validation.md](submission-validation.md). Baseline numbers below remain baseline results; they are not automatically primary-model results.
 

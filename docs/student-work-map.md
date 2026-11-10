@@ -1,5 +1,3 @@
-> Superseded policy assessment: the latest DOCX removes the AI-use restriction and declaration requirement. See final-verification.md for current status. Earlier provenance disclosures remain historical evidence.
-
 # Final scratch-component map
 
 | Notebook | One-based cell | Completed component (student reports manual implementation) |

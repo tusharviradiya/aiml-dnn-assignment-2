@@ -1,21 +1,17 @@
-# Latest assignment review — 10 November 2026
+# Assignment progress — final review, 10 November 2026
 
-Latest DOCX SHA-256: `4d3f7c56e29ae5111ddef3563db44e77538202d697c1f03d8f12305b455dcfa1`.
-The latest supplied brief removes the AI-use restriction and mandatory declaration.
-The student reports AI permission. The earlier policy-blocked status is superseded;
-this does not independently establish personal authorship. Actual development
-assistance remains disclosed in the README and notebooks.
+| Workstream | Status | Evidence / limitation |
+|---|---|---|
+| Read supplied original assignment and 100-mark rubric | Complete | SHA-256 `37311ac57faf68aaf1adc2e69c312fe9325154f3d3de93b2abbd2304e14e950d`; original AI rules apply |
+| Verify newer instructor-approved rules | No amendment verified | Local edits are not authority; student confirms no verified authorization |
+| P1 data/cells/HAR/adding/gradients/ablations | Technical audits passed | 69 baseline ledger rows plus 6 validation-only diagnostics; 0/36 original adding runs solved |
+| P2 components/HAR/LM/ablations | Technical audits passed | 13 baseline rows plus 4 LM continuations; single-seed LM and CPU exception disclosed |
+| AI disclosure and authorization claims | Corrected; compliance blocked | Tool/scope in README, both notebook introductions, report end; restricted source preserved |
+| Report | Format validation passed | Six A4/11pt/2cm content pages plus excluded AI-use/reference page; d=128 calculation restored |
+| Final notebooks/ZIP | Technical PASS, cached replay | [submission-validation.md](submission-validation.md) contains the actual final results and hash |
+| Conditional technical estimate | 95/100 | [Strict rubric](professor-evaluation.md); integrity acceptance remains separate |
+| Push / course submission | Not performed | User explicitly prohibited both |
 
-Only references are now exempt from the six-page report limit. The regenerated
-report has six assessed pages plus a references-only page. Technical requirements
-are unchanged. All required implementations and experiments are present; the ten
-audits and clean-environment notebook checks passed in the preceding review. This
-revision changes documentation only, preserving all code and experiment results.
-
-T4 runtime remains unmeasured because this machine has no GPU. Full uncached training
-was not repeated; historical optimizer states are absent and LM continuations reset
-Adam. Original adding runs remain unsolved, and LM ablations are single-seed; these
-limitations are documented without fabricated results. The optional bonus is not
-claimed. Missing variant/hand-example information is handled with stated assumptions.
-Portal upload, download/open verification and receipt retention remain outstanding.
-Full marks cannot be guaranteed. The source DOCX remains local and ignored.
+The archive is built locally for review. No unconditional academic-compliance or
+from-scratch-training reproduction claim is made. Internal records, datasets,
+checkpoints, environments and the course brief are excluded from submission.

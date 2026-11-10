@@ -4,7 +4,7 @@ No helper file is copied into extraction. Fresh training is guarded off. This te
 self-contained portability and saved evidence, not a clean download/training run.
 """
 from pathlib import Path
-import hashlib,json,os,sys
+import hashlib,json,os,shutil,sys
 import nbformat
 from nbclient import NotebookClient
 from jupyter_client import KernelManager
@@ -16,7 +16,12 @@ assert hashlib.sha256((root/record['archive']).read_bytes()).hexdigest()==record
 for name,m in record['manifest'].items():assert hashlib.sha256((extracted/name).read_bytes()).hexdigest()==m['sha256']
 assert not any((extracted/name).exists() for name in ('scripts','docs','problem1/metrics','problem2/metrics'))
 local_data=extracted/'data';assert not local_data.exists()
-local_data.symlink_to(os.path.relpath(root/'data',extracted),target_is_directory=True)
+# Stage independent copies of the allowed raw datasets and historical caches.
+# These files are verification inputs, never members of the submission archive.
+local_data.mkdir()
+for name in ('har','tiny_shakespeare','experiments','measurements'):
+ shutil.copytree(root/'data'/name,local_data/name)
+assert not any(p.is_symlink() for p in local_data.rglob('*'))
 os.environ.update(DNN_VERIFY_CACHED_ONLY='1',MPLCONFIGDIR=str(root/'.cache/matplotlib'),JUPYTER_RUNTIME_DIR=str(root/'.cache/jupyter'))
 results_before=(extracted/'results.csv').read_bytes()
 samples_before=(extracted/'problem2/generated_samples.txt').read_bytes()
@@ -55,7 +60,7 @@ for problem in ('problem1','problem2'):
  for name in record['manifest']:
   if name.startswith(problem+'/figures/'):
    assert (extracted/name).read_bytes()==(root/name).read_bytes(),name
-result=dict(passed=True,mode='minimal ZIP, self-contained notebooks, reused local data/checkpoints, Adam guard, no fresh training',
+result=dict(passed=True,mode='isolated minimal ZIP extraction, self-contained notebooks, copied historical data/checkpoints/measurements, Adam guard, no fresh training',
             archive_sha256=record['sha256'],code_cells=counts,exact_csv_samples_and_figures=True,
             timing_mode='Original raw timing repeats replayed exactly; no fresh timing observations',extraction=str(extracted))
 (root/'.cache/extracted-verification.json').write_text(json.dumps(result,indent=2)+'\n')

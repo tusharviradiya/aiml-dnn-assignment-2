@@ -38,5 +38,15 @@
     "run_id": "cee2760cd83588bd",
     "task": "task5",
     "reason": "Exact reviewed hash: bound to Task5 cells; future resume capture, numerical operations unchanged."
+  },
+  "314deab134de3324": {
+    "run_id": "878cc93e6862a042",
+    "task": "HAR",
+    "reason": "Replaced unauthenticated permission comment with explicit assumption; executable AST identical. Exact config/source/data fingerprint only; historical evidence independently replay-audited, no retraining."
+  },
+  "cdf81af934e727c9": {
+    "run_id": "7d60ee6ede81051e",
+    "task": "adding",
+    "reason": "Replaced unauthenticated permission comment with explicit assumption; executable AST identical. Exact config/source/data fingerprint only; historical evidence independently replay-audited, no retraining."
   }
 }

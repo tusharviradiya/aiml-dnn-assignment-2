@@ -1,63 +1,37 @@
-> Historical review record: authorship/completion judgments below predate the student’s final manual-implementation statement and are superseded by `ai-policy-resolution.md` and `final-verification.md`. Earlier AI assistance remains disclosed; no historical permission or clarification assertion establishes authorization.
+# Strict rubric review — 10 November 2026
 
-> Historical technical estimate only; not a current grade or compliance clearance.
-> Current blockers and validation are in submission-validation.md (10 November 2026).
+**Estimated technical score: 95/100, conditional on instructor acceptance of authorship.**
+This is a review estimate, not an awarded mark. It supersedes older optimistic estimates.
+The original rubric rewards method and evidence, so weak adding performance or LM loss
+outside the sanity range does not automatically lose marks. The original discretionary
+reproducibility/format deduction is up to ten; the allowance below is our estimate.
 
-# Conditional technical evaluation — final minimal release
-
-Reassessed against the original100-mark rubric and current code/artifacts, not effort.
-**Estimate: approximately97/100, plausible examiner range94–99.** This is not an
-awarded mark, a guarantee or an authorship determination. The previous98 estimate
-was optimistic while supplemental notebook integration and package scope remained
-incomplete; correcting those issues does not justify automatic score inflation.
-Historical evaluations remain in Git2689b65 and docs/baseline-2026-11-09/.
-
-| Task | Available | Conditional estimate | Evidence / possible deduction |
+| Rubric item | Maximum | Estimated technical credit | Evidence and remaining reservation |
 |---|---:|---:|---|
-| P1 data |5|5|Official data/splits/statistics; marker/target tests; balance plot |
-| P1 scratch cells |10|10 technical|Forward/backward reference agreement, registered shapes, correct counts; authorship scope separate |
-| P1 HAR |10|10|Common budgets,3 seeds, actual test mean/sample std/F1/count/time, validation-selected confusion |
-| P1 adding |10|10|Complete36-run grid, baseline/solved table/T200 curves; poor performance alone is not a method deduction |
-| P1 analysis/ablations |15|15|Actual hidden gradients, width/bias controls, evidence-grounded one-page analysis; diagnostic scope limited correctly |
-| P2 attention |10|10 technical|Mask/reference/backward checks plus nonuniform explicit hand/code arithmetic |
-| P2 multi-head/block |10|10 technical|Own tensor implementations, pre-LN/residual/FFN/positions; d64 derivation matches49984 |
-| P2 HAR |10|8.5|Operational comparison valid; lack of matched parameter/depth/patch/dropout controls limits strength of attention-specific comparison |
-| P2 LM |10|10|Complete data/targets/loss/curves/BPC/sample requirements; primary model/sample mapping explicit; weak quality and single seed limit conclusions, not automatic accuracy penalties |
-| P2 analyses |10|9|Heads/mask/context studies complete; interpretation remains two heads on one sentence, without a causal intervention or repeat inputs |
-| Total before discretionary presentation effects |100|97.5|Approximate97 after allowing for dense small-panel presentation; no official fixed tariff is invented |
+| P1.1 Data pipelines | 5 | 5 | Prescribed HAR shapes/channels, subject split, training-only normalization, balance plot; exact adding generator/assertions |
+| P1.2 Scratch cells | 10 | 10* | Forward/backward reference agreement, registration and both bias-count conventions; authorship blocked |
+| P1.3 HAR | 10 | 10 | Nine matched-budget runs; accuracy/F1 mean and sample std, counts, timings, validation-selected confusion |
+| P1.4 Adding | 10 | 10 | All 36 runs, four lengths, seeds, baseline, solved counts and T=200 curves; no deduction solely for unsolved runs |
+| P1.5 Gradients/ablations/analysis | 15 | 15 | 18 gradient probes, 24 sweep results (six reused), six paired forget-bias runs; quantitative one-page interpretation |
+| P2.1 Attention | 10 | 9* | Mask/reference/gradient tests and nonuniform hand calculation; instructor fixture missing, substitute acceptance unverified |
+| P2.2 Multi-head/block | 10 | 10* | Shapes, pre-LN/residual/4d FFN/positions; d=64 and required d=128 weight/bias/norm counts; authorship blocked |
+| P2.3 HAR encoder | 10 | 9 | Three position choices × three seeds and P1 reuse; architecture/patching/dropout/size confound mechanism comparisons |
+| P2.4 Character LM | 10 | 10 | CPU exception, split/targets, validation curve/nats/BPC, three reproducible labelled 500-character samples |
+| P2.5 Analyses/ablations | 10 | 9 | Heads/mask/context studies and actual allocation traces; interpretation covers two heads on one sentence, no broad specialization claim |
+| Subtotal | 100 | 97 | Method/evidence estimate; no invented official fixed deduction tariffs |
+| Cross-cutting allowance | — | -2 | T4 total runtime remains missing; dense small figure panels and incomplete full-training reproducibility verification |
+| Conditional technical estimate | 100 | **95** | Plausible examiner range 92–98; bonus 0 |
 
-All task coverage is present. The estimate's range allows different examiner judgments
-about the stated confounds, dense six-page presentation, CPU-only measurement and
-scope of analysis. Bonus0, not attempted. No deduction arithmetic predicts treatment
-under institutional academic-integrity policy; if the original scratch-authorship
-rule applies without an exception, outcomes could differ materially.
+The starred 30 points concern explicitly restricted scratch work. Technical correctness
+cannot establish eligibility for those marks. Development records identify AI-written
+code, current source matches that baseline, and the student confirmed no verified
+instructor exemption is available. Disclosure has been restored, but this does not
+resolve the prohibition. An actual grade cannot be responsibly predicted under the
+institute's integrity policy; it may be substantially lower than 95, including zero
+if the applicable policy so determines. No specific institutional sanction is asserted.
 
-## Current verified improvements
-
-- Both submitted notebooks include all report-used supplemental experiment and figure
-  code; no excluded helper dependency. Minimal extraction runs141/55 code cells.
-- Required samples now come from the primary continuedh4 causal checkpoint; baseline
-  samples remain internal. All3×500 primary characters reproduce exactly from weights.
-- Verification executes definitions only and compares evidence without writing it;
-  all nine audits pass with before/after hashes. Exact92-row ledger retains82 original
-  rows byte-for-byte. Future stochastic Adam resume restoration is tested; no missing
-  historical optimizer/RNG states are invented.
-- Final PDF remains six assessed A4/11pt/2cm pages plus an excluded declaration/reference
-  page. Nine report figures cover all required panels; internal provenance is excluded
-  from the16-file ZIP. These are reproducibility/presentation changes, not new training gains.
-
-## Unchanged experimental outcomes and limitations
-
-Adding original36 test runs remain unsolved. T50 seed0 gated validation improves at
-25epochs (LSTM0.013271, GRU0.001890) while RNN remains0.164630; no revised test grid
-or long-memory generalization is established. The primary LM remains2.026947nats /
-2.924266BPC, versus its baseline2.234945nats /3.224344BPC; continuation adds five epochs
-and resets Adam jointly. HAR scores are unchanged. Timings remain historical measured
-CPU timings, not new T4 results. Full fresh training and dependency installation were
-not repeated; cached extraction is accurately identified.
-
-No verified scratch-code exemption exists. The local size/seed/example clarification
-summary is unauthenticated; the written authorship restriction controls. Complete,
-concise disclosure remains at report end. No personal understanding, institutional
-approval, originality certification or portal submission is claimed. The internal
-understanding checklist is preparation only; the original FAQ says no formal viva.
+All 92 rows are supported by preserved checkpoint/metric evidence and the ten read-only
+audits. Final clean-extraction execution and packaging evidence are recorded in
+[submission-validation.md](submission-validation.md). Full uncached training and T4
+runtime were not measured in this audit. Historical optimizer/RNG states are unavailable;
+continued LM training resets Adam. Single-seed LM evidence remains single-seed.

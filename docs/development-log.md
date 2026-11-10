@@ -1,4 +1,4 @@
-> Historical review record: authorship/completion judgments below predate the student’s final manual-implementation statement and are superseded by `ai-policy-resolution.md` and `final-verification.md`. Earlier AI assistance remains disclosed; no historical permission or clarification assertion establishes authorization.
+> Historical review record. Current verification and policy status are in [submission-validation.md](submission-validation.md). Prior authorship or permission assertions are not evidence of instructor authorization.
 
 > Chronological internal record. Earlier decisions/claims may be superseded. Current requirements and evidence are in reproducibility-audit.md and submission-validation.md; the clarification source is unverified and the written authorship restriction controls. Unsupported informal-permission claims below are withdrawn; see student-work-map.md.
 
@@ -322,3 +322,19 @@ sources preserved. Rebuilt PDF/ZIP and synchronized visible submission folder.
 Final independent audits and extraction evidence are recorded in final-verification.md.
 T4 timing unavailable (no GPU), authorship provenance unresolved, no full retraining
 or portal action claimed. The original course DOCX remains local/ignored. No push.
+
+## 2026-11-10 — Final submission-readiness correction
+
+Read the supplied original DOCX in full (SHA-256 37311ac57faf68aaf1adc2e69c312fe9325154f3d3de93b2abbd2304e14e950d).
+It retains the scratch-authorship restriction and mandatory AI-use declaration.
+Withdrawn: the preceding review's inference that a locally edited brief proved a
+policy change. No authenticated amendment was located; the student explicitly
+confirmed no verified instructor authorization exists. README/notebooks/report now
+identify Codex's actual uses and the unresolved authorship discrepancy. Restricted
+implementations remain unchanged. Restored required d=128 encoder count; report
+reflowed without relaxing 11pt/A4/2cm/six-content-page checks. All ten read-only audits
+passed with 296 evidence files unchanged. Full notebook/isolated extraction checks,
+final archive digest and conditional 95/100 rubric review are recorded in
+submission-validation.md. Jupyter's local TCP sockets required escalation beyond the
+sandbox; this is an execution restriction, not a component-test failure. No push,
+instructor communication or university submission performed.

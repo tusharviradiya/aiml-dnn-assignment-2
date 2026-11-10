@@ -148,11 +148,11 @@ and branch outputs. With dropout off, MHA/block reference errors are $1.80\cdot1
 $PE_{p,2i}=\sin(p/10000^{2i/d})$, $PE_{p,2i+1}=\cos(p/10000^{2i/d})$
 matches scalar tests within $5.96\cdot10^{-8}$; backward/causality tests pass.
 
-At our $d=64$, $d_{ff}=256$, block matrices contribute
-$4(64)^2+2(64)(256)=16384+32768=49152$ weights.
-Attention biases add $4(64)=256$; FFN biases $256+64=320$;
-two LayerNorms add $4(64)=256$. Total $49152+256+320+256=49984$,
-matching actual parameters. The general formula is $12d^2+13d$.
+Block matrices have $4d^2+2d d_{ff}$ weights: $196608$ at $d=128,d_{ff}=512$.
+Biases/norms add $13d=1664$, giving $198272$ total.
+At our $d=64,d_{ff}=256$, weights are $16384+32768=49152$.
+Attention biases add $256$; FFN biases $320$; two LayerNorms $256$.
+Total $49152+256+320+256=49984$ matches code; in general $12d^2+13d$.
 Two blocks, patch embedding, CLS, final norm and 6-class head give 105222;
 learned positions add 1088. The untied 65-character LM has 108481 parameters.
 
@@ -265,9 +265,20 @@ Long-context quality and T4/device latency are not evaluated.
 
 The 92 rows retain 82 baseline runs, 6 adding diagnostics and 4 LM continuations.
 Both notebooks reproduce these results; cached replay is not fresh training.
-AI development assistance is disclosed in the README.
+No bonus is claimed. See the AI-use statement on the excluded final page.
 \newpage
-\topic{References (excluded from six-page limit)}
+\topic{AI-use statement and references (excluded from six-page limit)}
+OpenAI Codex (including Codex CLI) assisted with requirements review, data
+pipelines, training/experiment code, tests, debugging, execution, plots,
+analysis/report drafting, reproducibility audits and packaging. Earlier development
+records identify AI-written RNN, LSTM and GRU cells and Transformer attention,
+multi-head attention and encoder-block implementations. The submitted scratch code
+matches the preserved baseline; passing tests does not establish personal authorship.
+The student previously reported manual implementation, but independent replacement
+is unverified. The supplied assignment prohibits AI-written scratch parts and requires
+this declaration. No verified instructor exemption is available. Academic compliance
+remains unresolved; disclosure alone does not authorize restricted work.
+
 [1] A. Vaswani et al. \emph{Attention Is All You Need}. 2017.
 Sections 3.2.1, 3.2.2, 3.5 and Table 1: attention, head projections, positions and complexity.
 \url{https://arxiv.org/abs/1706.03762}.
@@ -286,7 +297,7 @@ MultiheadAttention and TransformerEncoderLayer (verification only).
 \url{https://pytorch.org/docs/stable/nn.html}.
 
 [5] Course assignment: \emph{DNN Programming Assignment--2: RNN, LSTM, GRU and
-Transformer}, updated supplied DOCX reviewed 10 November 2026. Source of dataset/split/generator instructions,
+Transformer}, supplied original DOCX reviewed 10 November 2026. Source of dataset/split/generator instructions,
 marking criteria, CPU exception and permission to state reasonable assumptions for
 missing information. The referenced variant table and instructor hand example were
 not supplied; chosen sizes/seeds and self-created examples are assumptions, not
