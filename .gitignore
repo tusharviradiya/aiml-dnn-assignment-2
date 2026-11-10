@@ -7,3 +7,6 @@ data/
 *.pth
 *.ckpt
 *.zip
+
+# Original course assignment brief stays local.
+/DNN Programming Assignment – RNN, LSTM, GRU and Transformer.docx
