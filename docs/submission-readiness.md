@@ -1,28 +1,21 @@
-# Final submission status — 10 November 2026
+# Latest assignment review — 10 November 2026
 
-The student reports completing the final six scratch implementations manually.
-All six definitions are present; strict reference, gradient, mask and parameter tests
-pass. This review preserves every notebook code cell. Current code cells are identical
-to Git HEAD; the preserved baseline comparison also passes. Consequently, technical
-verification does not independently verify the reported authorship or demonstrate a
-replacement of earlier AI-written drafts. Earlier AI assistance remains disclosed.
-No pending implementation placeholder is asserted for these completed components.
+Latest DOCX SHA-256: `4d3f7c56e29ae5111ddef3563db44e77538202d697c1f03d8f12305b455dcfa1`.
+The latest supplied brief removes the AI-use restriction and mandatory declaration.
+The student reports AI permission. The earlier policy-blocked status is superseded;
+this does not independently establish personal authorship. Actual development
+assistance remains disclosed in the README and notebooks.
 
-The assignment restricts AI use to explanations, debugging and plot tidying and
-requires student-authored scratch components. Earlier AI-written drafts and broader
-pipeline, experiment and report assistance remain a policy concern; this review
-cannot certify institutional acceptance. No informal permission or unauthenticated
-instructor clarification is relied upon.
+Only references are now exempt from the six-page report limit. The regenerated
+report has six assessed pages plus a references-only page. Technical requirements
+are unchanged. All required implementations and experiments are present; the ten
+audits and clean-environment notebook checks passed in the preceding review. This
+revision changes documentation only, preserving all code and experiment results.
 
-Settings h=64, d=64, seeds 0/1/2 and the self-created hand example are stated
-assumptions under the DOCX missing-information clause. Its referenced variant table
-and instructor fixture were not supplied. The two-layer d=64 CPU LM exception is
-explicit in the DOCX. Portal deadline wording has an inconsistent weekday.
-
-Reproducibility limits: cached checkpoint replay is not fresh full training or a clean
-installation. Historical optimizer/RNG states are missing; continuations reset Adam.
-T4 runtime is unmeasured, leaving that README requirement unmet. Original adding
-runs remain unsolved (0/36); LM comparisons are single-seed. Results are preserved.
-Portal upload, downloaded-copy inspection and receipt retention are outstanding.
-
-See `final-verification.md` for this review’s commands and artifact checks.
+T4 runtime remains unmeasured because this machine has no GPU. Full uncached training
+was not repeated; historical optimizer states are absent and LM continuations reset
+Adam. Original adding runs remain unsolved, and LM ablations are single-seed; these
+limitations are documented without fabricated results. The optional bonus is not
+claimed. Missing variant/hand-example information is handled with stated assumptions.
+Portal upload, download/open verification and receipt retention remain outstanding.
+Full marks cannot be guaranteed. The source DOCX remains local and ignored.

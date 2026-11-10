@@ -306,3 +306,19 @@ Ten audits passed over 296 unchanged files. Final ZIP cached replay passed 141/5
 notebook code cells and byte-identical CSV/samples/nine figures. Report layout/ZIP
 checks passed. Exact hash, checklist and unresolved blockers: submission-validation.md.
 No fresh full training, clean install, T4 timing, external message/upload or commit.
+
+
+## Updated DOCX and clean-environment review — 10 November 2026
+
+Compared latest local DOCX (SHA-256 ca533fa4237248115aa6f686f0ae5d81c1cd7ebafb81995ab7eeef27acacd02d)
+with prior copy. Only two deletions; required tasks unchanged, AI-tools ban and FAQ
+verification exception retained. No new scratch implementation generated. Fixed P1
+verification to call its existing strict gate during Run All, replacing the old
+non-failing incomplete summary. Updated introductions, report reference, reproducibility
+status and current review records. Fresh dependency install and pip check passed;
+both notebooks passed in clean venv with existing caches, and disposable uncached
+training/resume/replay test passed. All result/sample bytes and graded implementation
+sources preserved. Rebuilt PDF/ZIP and synchronized visible submission folder.
+Final independent audits and extraction evidence are recorded in final-verification.md.
+T4 timing unavailable (no GPU), authorship provenance unresolved, no full retraining
+or portal action claimed. The original course DOCX remains local/ignored. No push.

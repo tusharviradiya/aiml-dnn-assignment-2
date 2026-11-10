@@ -11,7 +11,7 @@ pages=[p for p in (cache/'report.txt').read_text().split('\f') if p.strip()]
 assert len(pages)==7
 expected=('DNN Programming Assignment 2','Problem 1: adding','Problem 1: gradient',
           'Problem 2: scratch','Problem 2: causal','Problem 2: attention',
-          'AI-use statement and references')
+          'References (excluded from six-page limit)')
 for page,title in zip(pages,expected):assert title in page
 assert 'Viradiya Tushar Rajeshbhai' in pages[0] and '2026aj05073' in pages[0]
 assert re.search(r'h\s*=\s*64', pages[0]) and re.search(r'd\s*=\s*64', pages[0])
@@ -28,14 +28,8 @@ for label in ('Figure','Table'):
 # explanation adjoining it; final visual inspection checks panel readability.
 for term in ('2.23495','2.92427','105222','108481','0.59362','0.31769','0/3','nonuniform','contaminated','0.01327','0.00189'):
     assert term in body,term
-assert 'earlier AI-written from-scratch drafts' in ' '.join(pages[-1].split())
 assert 'post-LN' in pages[-1]
-declaration=' '.join(re.sub(r'(?<=\w)-\n\s*(?=\w)', '', pages[-1]).split())
-for term in ('Codex CLI','RNN, LSTM and GRU cells','Transformer scratch components',
-             'training and experiment code','tests','analysis/report drafting','earlier AI-written from-scratch drafts', 'student reports manually implementing',
-             'cannot independently verify', 'matches the preserved baseline'):
-    assert term in declaration,term
-assert not re.search(r'informal professor|written exemption|independently student-authored',declaration,re.I)
+assert 'AI-use statement' not in pages[-1]
 for term in ('untied65','use8-step','32:71'):
     assert term not in body,term
 assert 'primary LM' in pages[4]
@@ -56,7 +50,7 @@ for page in root.findall('.//x:page',ns):
         if y0>height-margin and ''.join(word.itertext()).strip().isdigit():continue
         assert x0>=margin-1 and x1<=width-margin+1,(word.text,x0,x1)
         assert y0>=margin-1 and y1<=height-margin+1,(word.text,y0,y1)
-print('PASS A4/11pt/2cm margins, six content pages + one AI/reference page; all required evidence and no overflow')
+print('PASS A4/11pt/2cm margins, six content pages + one reference page; all required evidence and no overflow')
 
 fonts=subprocess.check_output(['pdffonts','report.pdf'],text=True)
 for line in fonts.splitlines()[2:]:

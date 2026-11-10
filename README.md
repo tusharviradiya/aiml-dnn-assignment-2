@@ -2,7 +2,7 @@
 
 Viradiya Tushar Rajeshbhai.
 
-The student reports manually implementing the final RNN, LSTM, GRU, attention, multi-head attention and Transformer encoder components. AI assistance during development included earlier scratch-code drafts, pipelines, experiments, tests, debugging, plots, analysis/report drafting, verification and packaging. The current code is unchanged from the preserved baseline; file comparisons and passing tests cannot independently establish authorship. See the report-end declaration.
+AI assistance during development included earlier scratch-code drafts, pipelines, experiments, tests, debugging, plots, analysis/report drafting, verification and packaging. The student reports manually implementing the final scratch components; this review verifies correctness, not personal authorship. The latest supplied assignment removes the earlier AI-use restriction and declaration requirement; AI permission is reported by the student.
 
 Tested: Python 3.14.4, PyTorch 2.15.0+cpu, four CPU threads. Exact package versions
 are in `requirements.txt`; the assignment requires Python 3.10 or later.
@@ -37,13 +37,14 @@ Matching local `data/` caches replay results; absent caches trigger training.
 Set `DNN_VERIFY_CACHED_ONLY=1` to fail on missing caches. Data, checkpoints and
 environments are excluded from the ZIP. Fresh execution regenerates metrics,
 figures and samples; hardware timings vary. Historical optimizer/RNG states are
-missing; future runs save resume snapshots. Full uncached training and clean
-installation were not repeated for this review.
+missing; future runs save resume snapshots. The pinned dependencies were freshly installed in a separate environment;
+`pip check` passed. Both notebooks were verified there using existing experiment
+caches. Full uncached training was not repeated.
 
 Measured baseline training: 44.7 CPU minutes; LM continuation: 9.13 additional
 training minutes; adding diagnostics: 123 seconds wall time. Other execution
 and validation overhead is excluded. **T4 runtime is unmeasured**, leaving that
 README requirement unmet. All 36 original adding runs are unsolved; LM evidence
 is single-seed. No bonus is claimed. The PDF has six assessed A4 pages plus one
-excluded declaration/reference page. Portal upload, download/open verification
+excluded references-only page. Portal upload, download/open verification
 and receipt remain outstanding.

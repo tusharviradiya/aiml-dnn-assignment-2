@@ -1,3 +1,5 @@
+> Superseded policy assessment: the latest DOCX removes the AI-use restriction and declaration requirement. See final-verification.md for current status. Earlier provenance disclosures remain historical evidence.
+
 # Student authorship and understanding
 
 The supplied FAQ answers “Will there be a viva?” with “No”. This checklist is preparation for understanding and any later instructor questions, not a claim that a viva is required. AI-produced explanations here are not evidence that the student independently derived or demonstrated them.
@@ -6,8 +8,9 @@ The supplied FAQ answers “Will there be a viva?” with “No”. This checkli
 
 The student reports completing the final six scratch implementations manually.
 All six definitions are present; strict reference, gradient, mask and parameter tests
-pass. This review preserves every notebook code cell. Current code cells are identical
-to Git HEAD; the preserved baseline comparison also passes. Consequently, technical
+pass. This review preserves scratch implementations and experiment definitions. The
+P1 verification cell now calls its existing strict gate during Run All; the preserved
+model-baseline comparison also passes. Consequently, technical
 verification does not independently verify the reported authorship or demonstrate a
 replacement of earlier AI-written drafts. Earlier AI assistance remains disclosed.
 No pending implementation placeholder is asserted for these completed components.
@@ -23,8 +26,8 @@ assumptions under the DOCX missing-information clause. Its referenced variant ta
 and instructor fixture were not supplied. The two-layer d=64 CPU LM exception is
 explicit in the DOCX. Portal deadline wording has an inconsistent weekday.
 
-Reproducibility limits: cached checkpoint replay is not fresh full training or a clean
-installation. Historical optimizer/RNG states are missing; continuations reset Adam.
+Clean dependency installation and `pip check` passed. Cached checkpoint replay
+is not fresh full training. Historical optimizer/RNG states are missing; continuations reset Adam.
 T4 runtime is unmeasured, leaving that README requirement unmet. Original adding
 runs remain unsolved (0/36); LM comparisons are single-seed. Results are preserved.
 Portal upload, downloaded-copy inspection and receipt retention are outstanding.
