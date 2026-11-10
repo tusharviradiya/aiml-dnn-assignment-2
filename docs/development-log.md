@@ -1,4 +1,6 @@
-> Chronological internal record. Earlier decisions/claims may be superseded. Current requirements and evidence are in reproducibility-audit.md and submission-validation.md; size/seed/example email and student-reported AI permission are separate sources.
+> Historical review record: authorship/completion judgments below predate the student’s final manual-implementation statement and are superseded by `ai-policy-resolution.md` and `final-verification.md`. Earlier AI assistance remains disclosed; no historical permission or clarification assertion establishes authorization.
+
+> Chronological internal record. Earlier decisions/claims may be superseded. Current requirements and evidence are in reproducibility-audit.md and submission-validation.md; the clarification source is unverified and the written authorship restriction controls. Unsupported informal-permission claims below are withdrawn; see student-work-map.md.
 
 # Development log
 
@@ -14,11 +16,11 @@ Installed pinned dependencies in ignored `.venv`; Python 3.14.4 and PyTorch 2.15
 
 Verified shapes 7352×128×9 and 2947×128×9; all nine channel positions; labels; 21/9 non-overlapping subjects; three four-subject validation splits; training-only channel statistics; finite normalized values; constant-channel rejection; class-balance image; all 12 prescribed adding datasets; reproducibility. Split train/validation counts: seed 0 = 5886/1466, seed 1 = 5905/1447, seed 2 = 6017/1335. Constant-1 test MSE at T=50/100/200/400: 0.175392/0.169709/0.167942/0.152720. These are data baselines, not trained-model results.
 
-Instructor clarification now permits chosen h=64, d=64, seeds0/1/2 and our own three-token example; hand/code agreement is verified. Instructor clarification now permits chosen h=64, d=64, seeds0/1/2 and our own three-token example; hand/code agreement is verified. Results CSV remains header-only. User approved the Task 1 commit on 2026-11-08. Commit message: `feat(problem1): implement and validate Task 1 data pipelines`. No push requested or performed. The commit hash is available through `git log` after creation.
+Chosen h=64, d=64, seeds0/1/2 and the self-created example are assumptions under the DOCX missing-information clause; hand/code agreement is verified. Chosen h=64, d=64, seeds0/1/2 and the self-created example are assumptions under the DOCX missing-information clause; hand/code agreement is verified. Results CSV remains header-only. User approved the Task 1 commit on 2026-11-08. Commit message: `feat(problem1): implement and validate Task 1 data pipelines`. No push requested or performed. The commit hash is available through `git log` after creation.
 
 ## 2026-11-08 — P1.2 infrastructure preparation (In Progress)
 
-Reviewed tracking documents, Task 1 source/saved assertions, project structure, installed PyTorch equation documentation and Git status. Task 1 is committed as `702ce01`; only the source assignment was untracked before this task. Instructor clarification now permits chosen h=64, d=64, seeds0/1/2 and our own three-token example; hand/code agreement is verified.
+Reviewed tracking documents, Task 1 source/saved assertions, project structure, installed PyTorch equation documentation and Git status. Task 1 is committed as `702ce01`; only the source assignment was untracked before this task. Chosen h=64, d=64, seeds0/1/2 and the self-created example are assumptions under the DOCX missing-information clause; hand/code agreement is verified.
 
 Appended student-only MyRNNCell/MyLSTMCell/MyGRUCell interfaces, shape contracts, equation guidance, single-/two-bias parameter derivations, weight-copy verification, sequence/state comparisons and honest pending/strict-completion handling. Added negative controls for invalid outputs and unfinished implementations. No custom cell equations were implemented. Full notebook execution is pending. No commit/push performed.
 
@@ -38,11 +40,11 @@ Verification execution completed: targeted P1 Task 2 and full P2 notebook runs b
 
 ## 2026-11-09 — Task 2 implemented and verified
 
-The user reported professor permission for full AI assistance and supplied student ID 2026aj05073. Instructor clarification now permits chosen h=64, d=64, seeds0/1/2 and our own three-token example; hand/code agreement is verified. Prior scaffolding commit: a95269d.
+Student ID 2026aj05073 was supplied. An earlier informal-permission assertion is withdrawn as unsupported. Chosen h=64, d=64, seeds0/1/2 and the self-created example are assumptions under the DOCX missing-information clause; hand/code agreement is verified. Prior scaffolding commit: a95269d.
 
 Implemented MyRNNCell, MyLSTMCell and MyGRUCell using only direct parameters and tensor equations, preserving the existing test contract. Constructors initialize uniformly within ±1/sqrt(h). Used PyTorch-compatible gate order and two-bias GRU candidate semantics. Added backward-gradient verification for inputs, initial states and all parameters.
 
-Strict Task 2 execution passed: 8 cases per model across two dtypes, two seeds and two shapes. Maximum forward errors: RNN 1.1920928955078125e-7; LSTM and GRU 2.384185791015625e-7. Actual counts: 4800/19200/14400. Constructor finite-value, registration, shape, reproducibility and dtype checks passed. Maximum gradient errors: RNN 0, LSTM 1.110e-16, GRU 2.220e-16. Full Problem 1 notebook executed top to bottom with exit 0 and saved outputs; Task 1 assertions still pass. Task 2 marked Completed under reported professor permission, with AI authorship disclosed in notebook/docs. No training experiments, results rows, commits or pushes.
+Strict Task 2 execution passed: 8 cases per model across two dtypes, two seeds and two shapes. Maximum forward errors: RNN 1.1920928955078125e-7; LSTM and GRU 2.384185791015625e-7. Actual counts: 4800/19200/14400. Constructor finite-value, registration, shape, reproducibility and dtype checks passed. Maximum gradient errors: RNN 0, LSTM 1.110e-16, GRU 2.220e-16. Full Problem 1 notebook executed top to bottom with exit 0 and saved outputs; Task 1 assertions still pass. Task 2 was technically implemented with AI authorship disclosed; its student-authorship requirement remains unmet. No training experiments, results rows, commits or pushes.
 
 ## 2026-11-09 — Task 3 implementation and experiment launch
 
@@ -90,7 +92,7 @@ Run13613c052b7f52c4 completed13 runs/110 epochs: nine HAR/90 epochs and four LM/
 
 Initial complete notebook run passed; added actual trained prefix-perturbation and empirical sample diagnostics plus evidence-based analysis. Final full restart passed with13 cache hits and82 ledger rows unchanged. Causal prefix change0 versus unmasked7.15354 verifies future dependence. scripts/audit_problem2.py independently reproduced all 9 HAR checkpoints/26523 predictions, four LM losses and2000 generated characters; checked selected epochs, counts, statistics, paired initialization, histories, source hashes, forbidden-layer absence and all 69 preserved P1 rows. Extended audit of diagnostics passed. Component regression suite passed. Source and notebook schemas/diff checks reviewed; final Git review pending. No model numerical failures.
 
-The user supplied arXiv1706.03762 as a possible instructor example. Reviewed the paper's attention equation, relevant sections and appendix: a worked numerical three-token fixture was not found. Instructor clarification now permits chosen h=64, d=64, seeds0/1/2 and our own three-token example; hand/code agreement is verified. P2.2–5 marked Completed only after these checks; optional bonus/report/packaging pending. No commit/push.
+The user supplied arXiv1706.03762 as a possible instructor example. Reviewed the paper's attention equation, relevant sections and appendix: a worked numerical three-token fixture was not found. Chosen h=64, d=64, seeds0/1/2 and the self-created example are assumptions under the DOCX missing-information clause; hand/code agreement is verified. P2.2–5 marked Completed only after these checks; optional bonus/report/packaging pending. No commit/push.
 
 Final checks: all 48 notebook code cells have saved execution counts and no error outputs; notebook schema valid. Final component/negative-control regression suite passed. git diff --check passed; reviewed changes and artifact sizes, and confirmed problem1/ has no diff. Source assignment remains untracked; no raw data, model checkpoints, environment or large generated files included. Suggested commit: feat(problem2): implement and verify Transformer experiments and ablations. Awaiting user approval; no commit/push.
 
@@ -122,7 +124,7 @@ ZIP structural validation passed (about3.25MB,79 files, CRC and all hashes). Fir
 
 After fixing .cache creation, fresh extraction passed all eight checks: component regression, cache invalidation, full Problem1, full Problem2, HAR audit, adding audit, Task5 audit and P2 audit. No .git is required. Both notebooks have identical source to the package. Validation explicitly reused local data/checkpoints via a relative symlink outside the archive; no claim of uncached training/network-download verification. Updated targeted adding runner independently passed36 cache hits. Restored saved full-Run-All outputs after that targeted check and original82-row ledger ordering after atomic-cache logger upserts; values unchanged.
 
-Report validated: seven total pages (six assessed + one excluded), A4/11pt/2cm source and text margins, all required figures/tables, title/ID/name, AI disclosure, no overflow and embedded fonts. All rendered pages inspected. ZIP uses exact2026aj05073 naming, required root folder, compact evidence/source files and manifest; CRC/hash/extraction/size pass, about3.25MB. Local report/package marked Completed; portal submission separately Not Started. Instructor clarification now permits chosen h=64, d=64, seeds0/1/2 and our own three-token example; hand/code agreement is verified. Final rebuild includes this evidence; no commit/push. Suggested commit: build: assemble verified assignment report and submission package.
+Report validated: seven total pages (six assessed + one excluded), A4/11pt/2cm source and text margins, all required figures/tables, title/ID/name, AI disclosure, no overflow and embedded fonts. All rendered pages inspected. ZIP uses exact2026aj05073 naming, required root folder, compact evidence/source files and manifest; CRC/hash/extraction/size pass, about3.25MB. Local report/package marked Completed; portal submission separately Not Started. Chosen h=64, d=64, seeds0/1/2 and the self-created example are assumptions under the DOCX missing-information clause; hand/code agreement is verified. Final rebuild includes this evidence; no commit/push. Suggested commit: build: assemble verified assignment report and submission package.
 
 ## 2026-11-09 — Final report/package commit approved
 
@@ -133,13 +135,13 @@ User approved `build: assemble verified assignment report and submission package
 
 Reviewed the instructor email supplied by the user: freely chosen h/d/seeds and a self-created three-token example now apply; due Saturday14 November2026. Updated title/README/notebook explanations, explicit d64 count and current progress. Strict attention/hand/reference tests pass, so P2.1 is Completed. No model/training algorithm changed (AST comparison to HEAD passed). P1 comment/hash changes get exact legacy aliases; P2 training fingerprint unchanged. All82 checkpoints exist. A preflight source lookup initially searched for run_language at cell start although it shares the run_encoder cell; corrected the lookup.
 
-Full notebook verification now rejects Adam optimizer construction on cache misses, preventing unintended retraining. Both full guarded notebook runs passed. Final PDF validation and extracted ZIP execution/audits subsequently passed (see final entry below). User further reports verbal permission from Samsir coupled with instructions to omit AI use for manual parts. The supplied email contains no such waiver. Accurate comprehensive disclosure retained; authorization conflict recorded, not concealed or asserted resolved. No commits/pushes.
+Full notebook verification now rejects Adam optimizer construction on cache misses, preventing unintended retraining. Both full guarded notebook runs passed. Final PDF validation and extracted ZIP execution/audits subsequently passed (see final entry below). No verified authorship or disclosure waiver is available. Accurate comprehensive disclosure retained; authorization conflict recorded, not concealed or asserted resolved. No commits/pushes.
 
 ## 2026-11-09 — Clarified submission verification completed
 
 Both full notebooks and all eight extracted-package checks passed: component/negative-control tests, cache fingerprint tests, both notebook runners, HAR, adding, Task5 and Problem2 audits. Verification used existing local data/checkpoints and rejected optimizer construction to prevent retraining. All82 experiment rows are byte-identical to commit f0db40f. Context timing was remeasured without training; report uses the current measured ratio. The report passes seven-page allocation (six assessed plus excluded references/AI declaration), A4,11pt, margins, title settings and explicit d64 count checks. Rendered title/count pages inspected.
 
-Final archive uses the prescribed student-ID filename/folder, contains required files and per-file hashes, passes CRC/extraction checks and remains approximately3.25MB below25MB. Final documentation-only rebuild is source-compared to the successfully executed extraction. Technical rubric requirements pass; AI authorization remains unverified because reported verbal permission conflicts with the supplied written restriction. Truthful disclosure retained. Portal submission not performed; no commit or push. Suggested commit: docs: apply instructor clarifications and verify final submission.
+Final archive uses the prescribed student-ID filename/folder, contains required files and per-file hashes, passes CRC/extraction checks and remains approximately3.25MB below25MB. Final documentation-only rebuild is source-compared to the successfully executed extraction. Technical rubric requirements pass; The written authorship restriction remains unmet; no verified exemption exists. Truthful disclosure retained. Portal submission not performed; no commit or push. Suggested commit: docs: apply instructor clarifications and verify final submission.
 
 ## 2026-11-09 — Examiner-led improvement audit started
 
@@ -201,8 +203,7 @@ Generated sample trailing spaces are retained because stripping them changes act
 
 Measured results are unchanged. Baseline head/mask controls and continued results are
 explicitly distinguished; one seed, Adam reset, HAR architectural confounds and CPU
-memory/timing scope remain limitations. Separate email clarifications from student-
-reported informal AI permission. Concise complete disclosure retained at report end.
+memory/timing scope remain limitations. The clarification summary is unauthenticated; no verified authorship exemption exists. Concise complete disclosure retained at report end.
 No commit/push/portal action. Suggested commit: fix: make submission notebooks self-contained and package only required artifacts.
 
 ## 2026-11-09 — Approved reproducibility release commit
@@ -286,3 +287,22 @@ untracked; ZIP, datasets, checkpoints and environment remain excluded from Git.
 Technical readiness and the unresolved academic-integrity authorization blocker are
 unchanged. No retraining, push, publication or external submission is authorized or
 performed by this commit step. The resulting commit hash is available in Git history.
+
+## 2026-11-10 — AI-policy resolution audit
+- Re-read original DOCX rules and supplied clarification record. Explicit permission for AI-written scratch components remains absent; compliance blocked pending instructor decision.
+- Added `docs/ai-policy-resolution.md`: source locations, affected notebook cells, unsent professor message, conditional remediation and understanding questions (answers pending).
+- Existing report declaration already accurately names all material Codex uses; preserved unchanged. No scratch code changes or retraining.
+- Verified actual PDF declaration, ZIP CRC and exact equality of all 16 packaged files with repository artifacts; internal records remain excluded. No submission or message sent.
+
+
+## 2026-11-10 — Final submission compliance review
+
+Re-read original DOCX body/tables/rubric/FAQ. Withdrew unsupported informal-permission
+assertions from current records while preserving actual AI authorship disclosure.
+Flagged six restricted implementations for independent student replacement; no graded
+implementation was rewritten. Qualified the unauthenticated clarification summary.
+Updated one-page README, concise declaration and report; preserved numerical evidence.
+Ten audits passed over 296 unchanged files. Final ZIP cached replay passed 141/55
+notebook code cells and byte-identical CSV/samples/nine figures. Report layout/ZIP
+checks passed. Exact hash, checklist and unresolved blockers: submission-validation.md.
+No fresh full training, clean install, T4 timing, external message/upload or commit.

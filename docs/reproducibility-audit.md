@@ -1,6 +1,11 @@
-# Minimal-submission audit — 2026-11-09
+> Historical review record: authorship/completion judgments below predate the student’s final manual-implementation statement and are superseded by `ai-policy-resolution.md` and `final-verification.md`. Earlier AI assistance remains disclosed; no historical permission or clarification assertion establishes authorization.
 
-Controlling sources: original DOCX and its100-point rubric, supplied instructor email,
+# Requirement-to-evidence audit — updated 2026-11-10
+
+Current release status and executed checks: `submission-validation.md`. Authorship
+compliance is blocked; technical evidence below is not a claim of student authorship.
+
+Controlling sources: original DOCX and its100-point rubric, an unauthenticated local clarification summary,
 and the CPU exception in the original FAQ. Progress records are claims checked against
 code, artifacts and checkpoint replay. The prior release is preserved in Git2689b65;
 pre-change notebooks/PDF/ZIP/samples are also retained in ignored
@@ -28,10 +33,10 @@ pre-change notebooks/PDF/ZIP/samples are also retained in ignored
 | Exact12 CSV columns; per-run saving; irrelevant fields empty; fixed seeds/relative paths |cross-cutting|92 unique rows; original82 bytes unchanged; direct notebook assertions and independent audits |
 | Restart & Run All, saved outputs; assert cells following tested components; shape comments |cross-cutting|Both required notebooks include baseline and supplemental experiments, all code inline |
 | A4/11pt/≥2cm/≤6 assessed pages; numbered/captioned/cited required figures/tables |cross-cutting|PDF validator plus rendered-page inspection; AI statement/references on excluded seventh page |
-| README≤1 page; pinned dependencies/settings/runtime/limitations |cross-cutting|384-word README; measured CPU time; T4 runtime explicitly unmeasured |
+| README≤1 page; pinned dependencies/settings/runtime/limitations |cross-cutting|One-page rendered README; measured CPU time; T4 runtime explicitly unmeasured |
 | Prescribed ZIP name/root;≤25MB; required files only; no data/weights/env |cross-cutting|Explicit allowlist in internal packager; fresh extraction/CRC/hash checks |
 | Portal upload/download/open confirmation |external|Not performed; cannot infer success from local ZIP |
-| AI-use declaration |integrity|Concise complete report-end declaration includes AI-written scratch code; scope of informal permission remains student-reported |
+| AI-use declaration |integrity|Concise complete report-end declaration includes AI-written scratch code; written scratch-code authorship rule remains unmet |
 | Optional bonus |0 claimed|Not attempted |
 
 ## Design and provenance
@@ -92,6 +97,6 @@ Current observed baseline hashes are retrospective, not proof of training-time i
 Only three recurrent class docstrings changed in graded implementation cells; exact
 executable-AST comparison against39112c6 passes. Full disclosure is consolidated at
 report end; no informal-permission narrative remains in submitted sources/outputs.
-Permission history stays internal and the unresolved authorization remains a blocker.
+No verified exemption exists; independent student reimplementation remains required.
 Root and final extracted notebooks pass141/55 code cells; ten audits leave296 checked
 files unchanged. Exact final artifact details are in submission-validation.md.

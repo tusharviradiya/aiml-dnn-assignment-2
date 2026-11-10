@@ -1,46 +1,28 @@
-# Current submission readiness
+# Final submission status — 10 November 2026
 
-**Technical: locally verified. Academic integrity: blocked pending verified instructor authorization.
-Portal: external steps not performed.** No unconditional course-policy clearance,
-awarded marks or proof of personal understanding is claimed.
+The student reports completing the final six scratch implementations manually.
+All six definitions are present; strict reference, gradient, mask and parameter tests
+pass. This review preserves every notebook code cell. Current code cells are identical
+to Git HEAD; the preserved baseline comparison also passes. Consequently, technical
+verification does not independently verify the reported authorship or demonstrate a
+replacement of earlier AI-written drafts. Earlier AI assistance remains disclosed.
+No pending implementation placeholder is asserted for these completed components.
 
-Controlling requirements and every rubric mapping are in reproducibility-audit.md.
-Current artifact hashes, exact contents and executed checks are in
-submission-validation.md. Earlier packaging/workflow statements in chronological
-logs refer to previous releases and are superseded by this record.
+The assignment restricts AI use to explanations, debugging and plot tidying and
+requires student-authored scratch components. Earlier AI-written drafts and broader
+pipeline, experiment and report assistance remain a policy concern; this review
+cannot certify institutional acceptance. No informal permission or unauthenticated
+instructor clarification is relied upon.
 
-- Required notebooks contain all baseline and report-used supplemental experiments,
-  tests and figure code. The minimal ZIP needs no internal docs/scripts/metric files.
-- Primary LM is continuedh4 causal, additional epoch5, validation2.0269467236664482nats
-  /2.924265986379717BPC. Its required three500-character samples are checkpoint-aligned.
-  Baseline ablations, heatmaps and context measurements are labelled separately.
-- Original82 CSV rows remain byte-identical;10 labelled supplemental rows remain.
-  Adding pilots are validation-only, and the required36 test runs remain unsolved.
-- Checkpoint replay, validation selection, marker/target rules, state/gradient behavior,
-  masking, character targets/loss aggregation, parameter counts and report numbers
-  are supported by direct assertions and independent audits.
-- Six A4 content pages at11pt/2cm margins plus an excluded declaration/reference page;
-  all required figures/tables have captions and text references. Rendered figures checked.
-- No full fresh training, clean dependency installation, fresh network download,
-  T4 runtime, wearable energy, portal upload/download or receipt is claimed.
+Settings h=64, d=64, seeds 0/1/2 and the self-created hand example are stated
+assumptions under the DOCX missing-information clause. Its referenced variant table
+and instructor fixture were not supplied. The two-layer d=64 CPU LM exception is
+explicit in the DOCX. Portal deadline wording has an inconsistent weekday.
 
-The student reports informal professor permission for AI assistance. The available
-email changes sizes/seeds/example, not authorship rules; no written scratch-code
-exception is invented. Complete concise assistance disclosure remains in the report.
-Restricted scratch implementations were preserved, not substantively rewritten here.
-The internal understanding/viva-style checklist is excluded from submission; the
-original FAQ does not require a formal viva. Personal review and any necessary
-instructor authorization clarification remain student responsibilities.
+Reproducibility limits: cached checkpoint replay is not fresh full training or a clean
+installation. Historical optimizer/RNG states are missing; continuations reset Adam.
+T4 runtime is unmeasured, leaving that README requirement unmet. Original adding
+runs remain unsolved (0/36); LM comparisons are single-seed. Results are preserved.
+Portal upload, downloaded-copy inspection and receipt retention are outstanding.
 
-Conditional technical estimate: approximately97/100 (94–99), with architectural
-comparison/interpretation/presentation uncertainty; see professor-evaluation.md.
-The focused final revision passes ten audits with296 checked evidence files unchanged,
-23 stale-cache negative controls and both packaged notebooks. No informal-permission
-narrative remains in submitted artifacts; the required declaration still names actual
-AI-written scratch components and other material assistance. Retrospective cache
-bindings establish the current compatibility boundary, not missing training-time hashes.
-
-Upload through the actual course portal, download/open that uploaded copy and retain
-confirmation before claiming submission. The prior release was committed as39112c6;
-the user has authorized a local commit of this revision. No push, publication or upload
-is authorized or performed.
+See `final-verification.md` for this review’s commands and artifact checks.

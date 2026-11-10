@@ -28,13 +28,14 @@ for label in ('Figure','Table'):
 # explanation adjoining it; final visual inspection checks panel readability.
 for term in ('2.23495','2.92427','105222','108481','0.59362','0.31769','0/3','nonuniform','contaminated','0.01327','0.00189'):
     assert term in body,term
-assert 'AI-written from-scratch code' in ' '.join(pages[-1].split())
+assert 'earlier AI-written from-scratch drafts' in ' '.join(pages[-1].split())
 assert 'post-LN' in pages[-1]
-declaration=' '.join(pages[-1].split())
+declaration=' '.join(re.sub(r'(?<=\w)-\n\s*(?=\w)', '', pages[-1]).split())
 for term in ('Codex CLI','RNN, LSTM and GRU cells','Transformer scratch components',
-             'training and experiment code','tests','analysis/report drafting','AI-written from-scratch code'):
+             'training and experiment code','tests','analysis/report drafting','earlier AI-written from-scratch drafts', 'student reports manually implementing',
+             'cannot independently verify', 'matches the preserved baseline'):
     assert term in declaration,term
-assert not re.search(r'informal|permission|written exemption|independently student-authored',declaration,re.I)
+assert not re.search(r'informal professor|written exemption|independently student-authored',declaration,re.I)
 for term in ('untied65','use8-step','32:71'):
     assert term not in body,term
 assert 'primary LM' in pages[4]

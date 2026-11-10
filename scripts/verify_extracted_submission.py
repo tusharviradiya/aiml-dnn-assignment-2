@@ -29,7 +29,7 @@ for problem in ('problem1','problem2'):
  first.source="import torch\ndef _reject_training(*args, **kwargs):\n    raise RuntimeError('Cached-only extraction: attempted training')\ntorch.optim.Adam=_reject_training\n"+source
  manager=KernelManager(kernel_name='python3')
  manager.kernel_spec.argv=[sys.executable,'-m','ipykernel_launcher','-f','{connection_file}']
- client=NotebookClient(notebook,km=manager,timeout=600,resources={'metadata':{'path':str(extracted/problem)}})
+ client=NotebookClient(notebook,km=manager,timeout=600,startup_timeout=30,resources={'metadata':{'path':str(extracted/problem)}})
  try:client.execute()
  finally:first.source=source
  nbformat.write(notebook,path)

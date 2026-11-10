@@ -1,3 +1,8 @@
+> Historical review record: authorship/completion judgments below predate the student’s final manual-implementation statement and are superseded by `ai-policy-resolution.md` and `final-verification.md`. Earlier AI assistance remains disclosed; no historical permission or clarification assertion establishes authorization.
+
+> Historical technical estimate only; not a current grade or compliance clearance.
+> Current blockers and validation are in submission-validation.md (10 November 2026).
+
 # Conditional technical evaluation — final minimal release
 
 Reassessed against the original100-mark rubric and current code/artifacts, not effort.
@@ -51,8 +56,8 @@ and resets Adam jointly. HAR scores are unchanged. Timings remain historical mea
 CPU timings, not new T4 results. Full fresh training and dependency installation were
 not repeated; cached extraction is accurately identified.
 
-The student reports informal AI permission. The supplied email only changes sizes,
-seeds and the example; no written scratch-code exemption is asserted. Complete,
+No verified scratch-code exemption exists. The local size/seed/example clarification
+summary is unauthenticated; the written authorship restriction controls. Complete,
 concise disclosure remains at report end. No personal understanding, institutional
 approval, originality certification or portal submission is claimed. The internal
 understanding checklist is preparation only; the original FAQ says no formal viva.

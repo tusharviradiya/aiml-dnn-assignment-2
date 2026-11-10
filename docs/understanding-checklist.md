@@ -2,9 +2,32 @@
 
 The supplied FAQ answers “Will there be a viva?” with “No”. This checklist is preparation for understanding and any later instructor questions, not a claim that a viva is required. AI-produced explanations here are not evidence that the student independently derived or demonstrated them.
 
-## Authorship requirement still unresolved
+## Final authorship status
 
-The written rules require student-authored RNN/LSTM/GRU cells, attention, multi-head attention and encoder block. Existing versions are disclosed as AI-written. No instructor-authored waiver is available. Do not relabel these implementations as independently written. If the instructor rejects the reported exception, follow their remediation instructions; no purported student rewrite has been generated during this audit.
+The student reports completing the final six scratch implementations manually.
+All six definitions are present; strict reference, gradient, mask and parameter tests
+pass. This review preserves every notebook code cell. Current code cells are identical
+to Git HEAD; the preserved baseline comparison also passes. Consequently, technical
+verification does not independently verify the reported authorship or demonstrate a
+replacement of earlier AI-written drafts. Earlier AI assistance remains disclosed.
+No pending implementation placeholder is asserted for these completed components.
+
+The assignment restricts AI use to explanations, debugging and plot tidying and
+requires student-authored scratch components. Earlier AI-written drafts and broader
+pipeline, experiment and report assistance remain a policy concern; this review
+cannot certify institutional acceptance. No informal permission or unauthenticated
+instructor clarification is relied upon.
+
+Settings h=64, d=64, seeds 0/1/2 and the self-created hand example are stated
+assumptions under the DOCX missing-information clause. Its referenced variant table
+and instructor fixture were not supplied. The two-layer d=64 CPU LM exception is
+explicit in the DOCX. Portal deadline wording has an inconsistent weekday.
+
+Reproducibility limits: cached checkpoint replay is not fresh full training or a clean
+installation. Historical optimizer/RNG states are missing; continuations reset Adam.
+T4 runtime is unmeasured, leaving that README requirement unmet. Original adding
+runs remain unsolved (0/36); LM comparisons are single-seed. Results are preserved.
+Portal upload, downloaded-copy inspection and receipt retention are outstanding.
 
 ## Questions to answer from the actual submission
 
@@ -51,5 +74,5 @@ Complete these independently; this document is preparation, not proof of underst
    O(T²d) attention products from linear FFN terms, and explain why this is not process
    RSS or wearable energy. Distinguish cached measurement replay from remeasurement.
 9. **Authorship/reproduction:** accurately state actual AI contributions, the written
-   rule and the scope of student-reported informal permission. Explain which commands
+   rule and the required independent reimplementation. Explain which commands
    trained models, replayed weights, checked evidence read-only, and executed extraction.

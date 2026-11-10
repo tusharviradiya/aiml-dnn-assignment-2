@@ -1,10 +1,12 @@
 # DNN Assignment 2 — 2026aj05073
 
-Viradiya Tushar Rajeshbhai. Tested on Python 3.14.4 / PyTorch 2.15.0+cpu,
-four CPU threads; exact versions are in `requirements.txt`. Python 3.10+ is
-required by the assignment; the pinned environment was tested on 3.14.4.
+Viradiya Tushar Rajeshbhai.
 
-From the extracted submission root:
+The student reports manually implementing the final RNN, LSTM, GRU, attention, multi-head attention and Transformer encoder components. AI assistance during development included earlier scratch-code drafts, pipelines, experiments, tests, debugging, plots, analysis/report drafting, verification and packaging. The current code is unchanged from the preserved baseline; file comparisons and passing tests cannot independently establish authorship. See the report-end declaration.
+
+Tested: Python 3.14.4, PyTorch 2.15.0+cpu, four CPU threads. Exact package versions
+are in `requirements.txt`; the assignment requires Python 3.10 or later.
+From the extracted `2026aj05073_DNN_Assignment/` directory:
 
 ```sh
 python3.14 -m venv .venv
@@ -12,39 +14,36 @@ python3.14 -m venv .venv
 .venv/bin/python -m ipykernel install --user --name dnn-assignment
 ```
 
-Open `problem1/problem1.ipynb`, select that kernel, Restart & Run All; then do
-the same for `problem2/problem2.ipynb`. All experiment, test and report-figure
-code is in those two notebooks. No internal scripts, reviews or metric files
-are required. Run Problem 1 first. Relative paths work from the root or each
-notebook directory. Outputs are saved in the supplied notebooks; save again
-after execution. Initial downloads require internet: official UCI HAR (~61 MB)
-and Tiny Shakespeare (~1.1 MB). Only the prescribed datasets are used.
+Open `problem1/problem1.ipynb` in a Jupyter-compatible notebook editor, select
+`dnn-assignment`, and Restart & Run All; then repeat for `problem2/problem2.ipynb`.
+Save both notebooks after execution. The editor is separate from the pinned kernel
+environment. All experiment, test and figure code is inside the notebooks;
+internal scripts and metric files are unnecessary. Paths work from the extracted
+root or notebook directories. Initial downloads need internet: UCI HAR (~61 MB)
+and Tiny Shakespeare (~1.1 MB).
 
-**Chosen settings: h=64, d=64, seeds 0, 1, 2.** These are freely chosen under
-the instructor's size/seed clarification. CPU LM: two layers, context128,
-four heads (the assignment CPU exception). HAR runs use10 epochs; the
-required36-run adding grid uses5. The odd-ID initial LSTM forget-bias0/1
-ablation is retained. The three-token attention example is self-created.
+**Settings:** h=64, d=64, seeds 0, 1, 2 and a self-created three-token example are explicit assumptions under the DOCX missing-information clause: its referenced variant table and instructor example were not supplied. The official
+CPU exception allows the two-layer d=64 LM (context 128, four heads).
+HAR uses 10 epochs; the 36-run adding grid uses 5. The odd-ID forget-bias 0/1
+ablation is included.
 
-The primary LM is the four-head causal continuation: five extra epochs from
-its selected five-epoch baseline, with Adam reset for every continued variant.
-`problem2/generated_samples.txt` contains its three500-new-character samples
-at temperatures0.2/0.8/1.5, top-k20, prompt `ROMEO:\n`, sampling seed700.
-Baseline head/mask comparisons retain matched initialization and budgets;
-continuations, validation-only adding pilots and test results are labelled separately.
-The CSV's92 rows retain82 baseline runs,6 adding diagnostics and4 continuations.
+The primary four-head causal LM continues its selected five-epoch baseline for
+five extra epochs, resetting Adam for every continued variant. Its three samples
+have 500 new characters each, temperatures 0.2/0.8/1.5, top-k 20, prompt
+`ROMEO:\n`, and sampling seed 700. The 92 CSV rows comprise 82 baseline runs,
+6 validation-only adding diagnostics and 4 LM continuations.
 
-Matching local `data/` checkpoints replay results; absent caches trigger fresh
-training. Set `DNN_VERIFY_CACHED_ONLY=1` to abort on a missing cache. Fresh runs
-regenerate metrics, figures and samples; timings vary by hardware. Historical
-runs lack optimizer/RNG states. Future training saves separate resume snapshots.
-Raw data/checkpoints are excluded as required; cached replay requires local
-caches. Full uncached reproduction was not repeated for this release.
+Matching local `data/` caches replay results; absent caches trigger training.
+Set `DNN_VERIFY_CACHED_ONLY=1` to fail on missing caches. Data, checkpoints and
+environments are excluded from the ZIP. Fresh execution regenerates metrics,
+figures and samples; hardware timings vary. Historical optimizer/RNG states are
+missing; future runs save resume snapshots. Full uncached training and clean
+installation were not repeated for this review.
 
-Measured original training totals44.7 CPU minutes; LM continuation adds9.13
-training minutes and adding diagnostics123 seconds wall time, excluding other
-execution/validation overhead. **T4 runtime was not measured.** All36 original
-adding runs are unsolved; the single-seed LM remains limited. No bonus claimed.
-The report has six A4 content pages plus an excluded AI-use/reference page.
-AI assistance is accurately disclosed there. Portal upload, download/open
-verification and receipt remain external steps.
+Measured baseline training: 44.7 CPU minutes; LM continuation: 9.13 additional
+training minutes; adding diagnostics: 123 seconds wall time. Other execution
+and validation overhead is excluded. **T4 runtime is unmeasured**, leaving that
+README requirement unmet. All 36 original adding runs are unsolved; LM evidence
+is single-seed. No bonus is claimed. The PDF has six assessed A4 pages plus one
+excluded declaration/reference page. Portal upload, download/open verification
+and receipt remain outstanding.

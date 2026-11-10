@@ -4,11 +4,11 @@
 
 # Problem 2 results and analysis
 
-All 13 runs and110 epochs completed. Full notebook execution and cache restart passed; independent checkpoint/sample replay passed. The instructor clarification permits our own three-token example; its strict tests pass. AI-assisted code follows professor permission reported by the user.
+All 13 runs and110 epochs completed. Full notebook execution and cache restart passed; independent checkpoint/sample replay passed. The self-created three-token example is an explicit missing-information assumption; its strict tests pass. No professor-permission claim is relied upon.
 
 ## Component evidence and parameter derivation
 
-Attention max absolute error3.576279e-7 versus functional SDPA; multi-head1.804112e-16 versus nn.MultiheadAttention; encoder8.881784e-16 versus the pre-LN reference; sinusoidal5.960464e-8 versus scalar math. Input gradients match within8.881784e-16. Row sums, future zeros, finite gradients, invalid masks and dimensions, and whole-block/LM causality assertions pass. No library attention/Transformer is used in model implementations. The chosen hand example agrees by hand/code; the chosen example satisfies the clarified instruction.
+Attention max absolute error3.576279e-7 versus functional SDPA; multi-head1.804112e-16 versus nn.MultiheadAttention; encoder8.881784e-16 versus the pre-LN reference; sinusoidal5.960464e-8 versus scalar math. Input gradients match within8.881784e-16. Row sums, future zeros, finite gradients, invalid masks and dimensions, and whole-block/LM causality assertions pass. No library attention/Transformer is used in model implementations. The chosen hand example agrees by hand/code; the chosen example is a stated assumption, not a verified instructor fixture.
 
 Block matrices contribute4d²+2d(4d)=12d²; attention biases4d, FF biases5d, two LayerNorm scale/bias vectors4d add13d. At d=128:196608+1664=198272 total, verified against actual parameters. At d=64:49152+832=49984. HAR has2×49984 + (72×64+64) embedding +64 CLS +128 final norm +(64×6+6) head =105222; learned positions add17×64=1088, giving106310. LM has2×49984 +65×64 embedding +128 final norm +(64×65+65) untied output =108481.
 
@@ -78,7 +78,7 @@ Table 8: measured full-model cost; Figure 14 (`context_scaling.png`) plots time 
 
 Full Restart & Run All passed twice (initial training, then13 cache hits). The baseline ledger has82 rows, including69 P1 and13 P2 runs; the final ledger additionally contains10 explicitly labelled diagnostics/continuations. Independent audit reproduces nine HAR checkpoints/26523 predictions, all four LM validation losses, all 2000 generated characters, statistics and perturbation evidence; verifies sample standard deviations, selected epochs, counts, source fingerprints and absence of forbidden framework layers in model code. All four image files visually inspected. Total P2 training-only CPU time613.14 seconds (10.22 min), excluding validation/generation/profiling/setup. No T4 measurement.
 
-The instructor email permits chosen h/d/seeds and a self-created three-token example. We choose h=64, d=64 and seeds0/1/2. Hand/code agreement passes. The mathematical reference remains Vaswani et al. The email confirms Saturday14 November2026 as the due date. It does not address AI authorship; the original written prohibition needs the separately user-reported permission to apply. Optional bonus is unattempted; portal submission remains external.
+Sizes/seeds and the hand example are explicit assumptions; no instructor email or authorship exemption is relied upon. Optional bonus is unattempted; portal submission remains external.
 
 ## Supplemental examiner-led evidence
 
