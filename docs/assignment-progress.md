@@ -15,3 +15,15 @@
 The archive is built locally for review. No unconditional academic-compliance or
 from-scratch-training reproduction claim is made. Internal records, datasets,
 checkpoints, environments and the course brief are excluded from submission.
+
+## Pre-submission audit — 11 November 2026
+
+Current evidence and the student-executable adding-rerun plan are in
+[SUBMISSION_AUDIT.md](../SUBMISSION_AUDIT.md). Page-specific manual report review is
+in [REPORT_MANUAL_EDITS.md](../REPORT_MANUAL_EDITS.md); no report regeneration was run.
+Ten read-only audits, all nine report tables and isolated cached ZIP execution
+(141/55 code cells) passed. Original notebooks/outputs, report, CSV, samples,
+figures, implementations and source DOCX remain byte-identical. The 16-file ZIP is
+1,916,033 bytes and was reopened/hash-checked. Both audit documents stay outside it.
+T4 runtime and academic authorization remain unresolved; full fresh training was
+not repeated. No push or university submission performed.
