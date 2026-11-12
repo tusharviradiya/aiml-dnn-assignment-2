@@ -3,8 +3,8 @@
   "heads": 4,
   "causal": true,
   "config": {
-    "d": 64,
-    "layers": 2,
+    "d": 128,
+    "layers": 4,
     "heads": 4,
     "context": 128,
     "dropout": 0.1,
@@ -19,8 +19,8 @@
   },
   "baseline_epoch": 5,
   "selected_additional_epoch": 5,
-  "validation_nats": 2.0269467236664482,
-  "bits_per_char": 2.924265986379717,
+  "validation_nats": 1.7444184278100558,
+  "bits_per_char": 2.51666381503689,
   "checkpoint": "data/experiments/review/lm-h4-causal1.pt",
-  "checkpoint_sha256": "310136e793bb0f86d3a6fb0ae9579ca1b696be71d406cdd26c69c2e05af04849"
+  "checkpoint_sha256": "9a4aecc840d0d8cf201119631261b0875e79156f7660527e57a06da8021958cb"
 }

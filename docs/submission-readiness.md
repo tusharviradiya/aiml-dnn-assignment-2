@@ -1,3 +1,5 @@
+> Historical CPU development/reference record. The current GPU submission and verified measurements are documented in [submission-validation.md](submission-validation.md).
+
 # Final submission status — 10 November 2026
 
 The authoritative current check results, archive hash, exact path, test scope and

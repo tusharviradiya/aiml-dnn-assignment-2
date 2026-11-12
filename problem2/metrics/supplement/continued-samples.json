@@ -2,7 +2,7 @@
   {
     "causal": true,
     "temperature": 0.2,
-    "sample": "I shall make cour have me to not he the have and the here in her and the the sear\nFo have he he her to the he sear and and the a he are him seart\nAnd the have so halll and here the and the sear and and the he are the the he he the hear hear the the and the he be hard\nAnd here hear and with seare and the and the the the he and the be the so hard the he had sore the and the seare\nAnd the she so to mand the the he the he and the hear sare the me harther\nAnd and the and the me to as halll the so so ",
+    "sample": "Sir, sir, I shall she shall the hear the man the so have\nTo see that me me an the stand that here you worst\nTo shall hear the shall be the death and shall heart heart\nAnd her shall a seal the have heart and heart the hath\nThat the shall be of the shall she way the shall in the\nThat have her of the death a death and here\nTo shall and be hearth shall heart the shall and be have\nThat shall I have have the death and heart the done\nThat the have have heart and hearth shall heart of him\nFrom her will ",
     "prompt": "ROMEO:\n",
     "top_k": 20,
     "seed": 700
@@ -10,7 +10,7 @@
   {
     "causal": true,
     "temperature": 0.8,
-    "sample": "Blode the a brongace anor hikin the I suty do gre him with,\nThat pray here you sliang, noteng I you fearse comince\nOne alliond hand welles cons to cour seaint harm dand\nTher halll is hear hid make to be gell.\nTor me bord in of ive this flie.\n\nSthou seard hear best so be a be thus.\nTharst worrd I not of care the as gelland her speas.\n\nINELO:\nYou mise pealt:\nA punor heelriour and for tor\nI his wor muse telar, eapte deamer of it;\nall hus of ar my conce antifong tialy\nTo mothet: ur, the which heast ",
+    "sample": "Say, you lannio stand the hear need and they honour in\nthee blood for thy face; there fears a deat?\n\nPOMPENEy:\nThe not more make must mement so a dust,\nI'll have purposed to see how a shalll a gue.\nThat I would waring you will was comed leate his sanger;\nThis the with anothin a cangelo nother you broish?\nAnd the she sacciase the be seet taish necous,\nHow have father marry fasse than delish drife,\nAnd like, in the prosonens,\nThat chasbance after liugh and of livifice\nThan heath made! here the not",
     "prompt": "ROMEO:\n",
     "top_k": 20,
     "seed": 700
@@ -18,7 +18,7 @@
   {
     "causal": true,
     "temperature": 1.5,
-    "sample": "Bloded me sooownor pusomir,\nDy wir, 'Cath: bet:\nTho roncesie, flid is tuf I houlo be usaty.\n\nLRIENCUS:\nFraye:\nHive lard caingmiely? whant, do waysd allo! mife ame:\nI ham cther's I dardizetem.\n\n\nJullamsy Pay inge; wil hell gave dveatcter'lyal depriine noth\nTo if meatiabllisonind; yo isellitithtourd me;\nAn, ide fou sant thoughtur'ser;\nAnreldim'Tir:\nFiecr tit hat glean yhoners:\nYot\nProu; a deno, theak'l hyoven, famat, scot ourd-sur\nAs,, your thoorine; my arggesatidis? be\nCspoppiy:.eet silmonse,\nYef",
+    "sample": "Say, yie, wi lord?\n\nLUCIO:\nO wildrak your, perofar; my fult you bee\nhis come. Where, deputy done amen is seave\nAn news trethy bigs: do bdelend holeter.\nAre in cause not disstin;\nTessse is follsa if thoughsabe my orisorrsh, warrreteowor.\nGenily am why afskiar? Can alanne!?\nOrfancel!, if Caulilia, liet!\n\nCANGERY:\nAnviour shered am in as them.\nAn'll with provail nemes younnd is? Ishall you your'd.\nThar am, busine this morrruest-us omir hie, your to'sRifs\nPesage! whithous howse wulff: law not saster",
     "prompt": "ROMEO:\n",
     "top_k": 20,
     "seed": 700
@@ -26,7 +26,7 @@
   {
     "causal": false,
     "temperature": 0.8,
-    "sample": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "sample": "\n\n\n?????\n\n\n\n\n??????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????u???????????????????????????????????f??????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????'?????????????",
     "prompt": "ROMEO:\n",
     "top_k": 20,
     "seed": 700

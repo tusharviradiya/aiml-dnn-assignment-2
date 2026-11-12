@@ -1,49 +1,47 @@
-PRIMARY MODEL: continued four-head causal Transformer; validation 2.026946723666 nats; selected extra epoch 5; Adam reset at continuation start.
-Checkpoint SHA256: 310136e793bb0f86d3a6fb0ae9579ca1b696be71d406cdd26c69c2e05af04849
+PRIMARY MODEL: continued four-head causal Transformer; validation 1.744418427810 nats; selected extra epoch 5; Adam reset at continuation start.
+Checkpoint SHA256: 9a4aecc840d0d8cf201119631261b0875e79156f7660527e57a06da8021958cb
 
 Temperature 0.2; top-k 20; seed 700; 500 NEW characters; prompt 'ROMEO:\n'
-I shall make cour have me to not he the have and the here in her and the the sear
-Fo have he he her to the he sear and and the a he are him seart
-And the have so halll and here the and the sear and and the he are the the he he the hear hear the the and the he be hard
-And here hear and with seare and the and the the the he and the be the so hard the he had sore the and the seare
-And the she so to mand the the he the he and the hear sare the me harther
-And and the and the me to as halll the so so 
+Sir, sir, I shall she shall the hear the man the so have
+To see that me me an the stand that here you worst
+To shall hear the shall be the death and shall heart heart
+And her shall a seal the have heart and heart the hath
+That the shall be of the shall she way the shall in the
+That have her of the death a death and here
+To shall and be hearth shall heart the shall and be have
+That shall I have have the death and heart the done
+That the have have heart and hearth shall heart of him
+From her will 
 
 Temperature 0.8; top-k 20; seed 700; 500 NEW characters; prompt 'ROMEO:\n'
-Blode the a brongace anor hikin the I suty do gre him with,
-That pray here you sliang, noteng I you fearse comince
-One alliond hand welles cons to cour seaint harm dand
-Ther halll is hear hid make to be gell.
-Tor me bord in of ive this flie.
+Say, you lannio stand the hear need and they honour in
+thee blood for thy face; there fears a deat?
 
-Sthou seard hear best so be a be thus.
-Tharst worrd I not of care the as gelland her speas.
-
-INELO:
-You mise pealt:
-A punor heelriour and for tor
-I his wor muse telar, eapte deamer of it;
-all hus of ar my conce antifong tialy
-To mothet: ur, the which heast 
+POMPENEy:
+The not more make must mement so a dust,
+I'll have purposed to see how a shalll a gue.
+That I would waring you will was comed leate his sanger;
+This the with anothin a cangelo nother you broish?
+And the she sacciase the be seet taish necous,
+How have father marry fasse than delish drife,
+And like, in the prosonens,
+That chasbance after liugh and of livifice
+Than heath made! here the not
 
 Temperature 1.5; top-k 20; seed 700; 500 NEW characters; prompt 'ROMEO:\n'
-Bloded me sooownor pusomir,
-Dy wir, 'Cath: bet:
-Tho roncesie, flid is tuf I houlo be usaty.
+Say, yie, wi lord?
 
-LRIENCUS:
-Fraye:
-Hive lard caingmiely? whant, do waysd allo! mife ame:
-I ham cther's I dardizetem.
+LUCIO:
+O wildrak your, perofar; my fult you bee
+his come. Where, deputy done amen is seave
+An news trethy bigs: do bdelend holeter.
+Are in cause not disstin;
+Tessse is follsa if thoughsabe my orisorrsh, warrreteowor.
+Genily am why afskiar? Can alanne!?
+Orfancel!, if Caulilia, liet!
 
-
-Jullamsy Pay inge; wil hell gave dveatcter'lyal depriine noth
-To if meatiabllisonind; yo isellitithtourd me;
-An, ide fou sant thoughtur'ser;
-Anreldim'Tir:
-Fiecr tit hat glean yhoners:
-Yot
-Prou; a deno, theak'l hyoven, famat, scot ourd-sur
-As,, your thoorine; my arggesatidis? be
-Cspoppiy:.eet silmonse,
-Yef
+CANGERY:
+Anviour shered am in as them.
+An'll with provail nemes younnd is? Ishall you your'd.
+Thar am, busine this morrruest-us omir hie, your to'sRifs
+Pesage! whithous howse wulff: law not saster

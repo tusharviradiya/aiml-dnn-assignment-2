@@ -43,10 +43,21 @@ ledger = pd.read_csv('results.csv')
 assert ledger.columns.tolist() == scope['RESULT_COLUMNS']
 assert not ledger.duplicated(['problem','model','seed','notes']).any()
 # Preserve every pre-existing P1 row, allowing CSV float round-trip precision only.
-before = pd.read_csv(ROOT/'problem1'/'metrics'/'experiment_ledger.csv')
-assert len(before)==69 and before.problem.eq('P1').all()
-pd.testing.assert_frame_equal(before[before.problem=='P1'].reset_index(drop=True),
-                              ledger[(ledger.problem=='P1') & ~ledger.notes.str.contains('\"review\"',regex=False,na=False)].reset_index(drop=True),check_exact=False,rtol=1e-12,atol=1e-12)
+# Bind P1 rows to their actual checkpoint metadata, regardless of hardware.
+p1_rows=[]
+for folder in ('har','adding','task5'):
+    for path in (ROOT/'data/experiments'/folder).rglob('*.json'):
+        result=json.loads(path.read_text())
+        if 'row' in result:p1_rows.append(result['row'])
+expected=pd.DataFrame(p1_rows,columns=scope['RESULT_COLUMNS']).drop_duplicates(['problem','model','seed','notes'])
+for column in set(scope['RESULT_COLUMNS'])-{'problem','model','notes'}:
+    expected[column]=pd.to_numeric(expected[column])
+actual_p1=ledger[(ledger.problem=='P1') & ~ledger.notes.str.contains('"review"',regex=False,na=False)]
+assert len(expected)==len(actual_p1)==69
+keys=['problem','model','seed','notes']
+pd.testing.assert_frame_equal(expected.sort_values(keys).reset_index(drop=True),
+                              actual_p1.sort_values(keys).reset_index(drop=True),
+                              check_exact=False,check_dtype=False,rtol=1e-12,atol=1e-12)
 har_runs = pd.read_csv(METRICS/'har_runs.csv')
 har_history = pd.read_csv(METRICS/'har_history.csv')
 har_predictions = pd.read_csv(METRICS/'har_predictions.csv')

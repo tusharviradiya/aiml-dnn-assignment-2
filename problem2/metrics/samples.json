@@ -2,21 +2,21 @@
   {
     "temperature": 0.2,
     "prompt": "ROMEO:\n",
-    "sample": "And he se the tere the to he the he the the the the the the he is the and the the is and to se to he and the the the and he he than sthe and the and the heand and the the he he the sear the he the t the the the he that and and he the the the the and and thand be the t the he he he sthat se heand the t the the he at so he at the he he heat he he ther thear thand the ast wind and the he seat sto he he the t heand and the t the the here and and seand the are to the are the to he sise the the and he",
+    "sample": "And shall the here so shall the her sead and the here\nAnd here sead and and her and the seall to the had\nThe seal to her she she have the willl and that herer and the hearst\nAnd and herer and and man the she were and and the seall and\nThere and and stand and herer and the shall here\nTo the shall and here the seall and to the herer\nThe shall the shall and the hear the sand and the words\nThat I the shall will and and and here the shall you have heave\nThe shall and here and the falll and and the he",
     "top_k": 20,
     "seed": 700
   },
   {
     "temperature": 0.8,
     "prompt": "ROMEO:\n",
-    "sample": "HAnd I me harnt, you austie, deer\nt riot cot ad heat tul treaclin.\n\n\nWA:\nI lon ad be rof wof he ord in paret tence fend pas hirerelest ontalleds\nI your I mioursth nour iscer treanges ar; wouies pas tllio st in auos hat he I ia igr her arislante\nAnd are hind have bime be ame ang benollal oor it toant d than is werin seand\nI tor itot and thin cor muthe nords hange, and, cre staimad I havoust\nHel willl heere lis pint:\nAf rest yowe wisen you see severr hade chan\nAstherer ifoorll e shir or nor tor he",
+    "sample": "And retear be and lest and serelf\nThe sand I hall not me on at fort,\nI bather have shie she not the me wert unter's\nAnd word and wrethat-dinke tall wents and and date,\nTo hough hene tonger to him seadll and trurtie,\nTo all heave supe o's the sa cannnt tam no here\nTo the peyou the bling of a donee war, and\nThou prohald, I seve and that and me where are in the\nThat a by awilll:\nThat greach endutles bath a flord and you helte have hand,\nDot not herer hoher of the sshall an the dlasond's at firther\n",
     "top_k": 20,
     "seed": 700
   },
   {
     "temperature": 1.5,
     "prompt": "ROMEO:\n",
-    "sample": "HAnd:\nThaker fen' mO!\nLOUTIOOf has:\nG:\nBud bew'l fra, bird.\nWhick'sh bucwe cot t sthe! nomo, hols held dardy;\nWame fe tho m tall ayntheserod mil tume arre sthard\nslle decyfost:\nNonon akd yephou gilou:\nO gar letheve tur goubr I f thapl hile:\nWey.\n\nBeralllere ittomphilaw d kgrf wrollee ir my. brfoud methe be,\n\nI who po I thill lifo idis kinst cn irrrelviore.\n\nAncay hatiaut altembof d do shardiaiod savar weve?\n\n\nYICLourauy wiclliny; t mett yeritie\nA iss I'lflllf torster yolarirsues,\nCon tiano w gro",
+    "sample": "And, it hosck heraust theine wels's and peehon;---noow\n\nDUCIO forny-iel'r lords mawery!\n\nPELUSO:\nTknguio to,Ze ankess a aba y deshtible,f, as mary,\nBen'le ame lord.\nMrnt Thisther,' pat that he multlably barle\nt'ent!\n\nDUKE ONONTO:\nSly mnovidice to ben helf se and all Ishe,\nOnf, I lonove livinatl.-lo, Wil, and\n\nGy tstany'd a gand\nYCourd andsed:\nDeet Inoice?\n\nTo arblanes his tosirs woy:\nPork? mildes sangele I'll and your paccia!\n\nAnffowaw's nough ssesemy nime:\nManiy-dy andishers: i't ga at danectle",
     "top_k": 20,
     "seed": 700
   }

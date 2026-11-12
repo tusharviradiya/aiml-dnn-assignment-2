@@ -12,6 +12,7 @@ else:
  assert '1650' in runtime['gpu'], 'A measured GTX 1650 run is required'
  protocol=json.loads(Path('problem2/metrics/config.json').read_text())
  assert protocol['device']=='cuda' and protocol['lm']['d']==128 and protocol['lm']['layers']==4
+ assert runtime.get('fresh_experiments') is True, 'Fresh-experiment provenance is required'
  assert all(r['seconds']>0 for r in runtime['runs'].values())
 assert all(runtime['runs'][p]['status']=='passed' for p in ('problem1','problem2'))
 def read(p):return pd.read_csv(p)
@@ -40,7 +41,8 @@ UCI HAR uses the prescribed nine inertial channels, 128 steps, six activities,
 7352 source-training windows and 2947 official test windows. The 21 source-training
 subjects and nine test subjects are disjoint. For each seed 0/1/2, four training
 subjects are selected by the prescribed NumPy choice for validation. Channel
-normalization uses only the remaining training subjects. Figure 1 shows the splits.
+normalization uses only the remaining training subjects. Figure 1 shows the splits;
+Figure 2 shows the validation-selected confusion matrix.
 All classifiers use last-state classification, $h=64$, one recurrent layer,
 Adam $10^{-3}$, batch 128, ten epochs and norm-1 clipping. Validation macro-F1
 selects checkpoints; reported spreads are sample standard deviations.
@@ -65,8 +67,8 @@ Solved means test MSE below0.05; Figure3 contains length and learning curves.
 rows=[]
 for T in (50,100,200,400):
  g=adding[adding.seq_len==T].set_index('model')
- rows.append([T]+[pm(g.loc[m,'test_mse_mean'],g.loc[m,'test_mse_std']) for m in ('RNN','LSTM','GRU')]+['/'.join(str(int(g.loc[m,'solved'])) for m in ('RNN','LSTM','GRU'))])
-s+=table(2,'Adding MSE; solved R/L/G counts out of three',['T','RNN','LSTM','GRU','Solved'],rows)
+ rows.append([T]+[pm(g.loc[m,'test_mse_mean'],g.loc[m,'test_mse_std']) for m in ('RNN','LSTM','GRU')]+[f'{g.iloc[0].baseline_mse:.4f}']+['/'.join(str(int(g.loc[m,'solved'])) for m in ('RNN','LSTM','GRU'))])
+s+=table(2,'Adding MSE; solved R/L/G counts out of three',['T','RNN','LSTM','GRU','Constant1','Solved'],rows)
 s+=fig(3,'problem1/figures/report_adding.png','Test MSE against length; T=200 train/validation curves.',2.8)
 s+='The hidden-size sweep keeps the HAR budget fixed (Table3). ID ends in3, so the individual experiment compares initial LSTM forget bias0/1 at T=200 (Table4); other initial weights and shuffle seeds are paired. Figure4 shows both studies.\n'
 s+=table(3,'HAR hidden-size sweep',['h','LSTM acc. (\\%)','Params','GRU acc. (\\%)','Params'],[[h,pm((g:=sweep[sweep.hidden_size==h].set_index('model')).loc['LSTM','accuracy_mean'],g.loc['LSTM','accuracy_std'],100),int(g.loc['LSTM','params']),pm(g.loc['GRU','accuracy_mean'],g.loc['GRU','accuracy_std'],100),int(g.loc['GRU','params'])] for h in (16,32,64,128)])
@@ -160,8 +162,12 @@ for a in samples:
  if a['causal']:
   count=Counter(a['sample']);entropy=-sum(v/500*math.log2(v/500) for v in count.values())
   rows.append([a['temperature'],len(count),f'{entropy:.3f}'])
-s+=table(8,'Main-model sample diversity',['Temperature','Distinct characters','Empirical entropy'],rows)
-s+='Table8 describes individual draws, not model predictive entropy. Temperature0.2 concentrates probability on likely characters;0.8 permits more variation;1.5 flattens the distribution. Higher character diversity is not evidence of coherent language. The full labelled samples are in generated\\_samples.txt.\n'
+unmasked_stats=read(P2/'sample_statistics.csv').query("model=='unmasked'").iloc[0]
+rows.append(['unmasked,0.8',int(unmasked_stats.distinct_characters),f'{unmasked_stats.empirical_char_entropy_bits:.3f}'])
+s+=table(8,'Sample diversity: continued main model; unmasked baseline',['Temperature/model','Distinct characters','Empirical entropy'],rows)
+s+=f'The baseline unmasked draw at0.8 has {100*unmasked_stats.newline_fraction:.1f} percent newlines and {100*unmasked_stats.repeated_adjacent_fraction:.1f} percent identical adjacent characters (Table8). Compare this generation evidence with its contaminated validation loss in Table7.\n'
+
+s+='Table8 describes individual draws, not model predictive entropy. Temperature0.2 concentrates probability on likely characters;0.8 permits more variation;1.5 flattens the distribution. Higher character diversity is not evidence of coherent language. At0.2, repeated `shall` fragments dominate;0.8 contains speaker-like `POMPENEy` but malformed `lannio`;1.5 varies punctuation and case while misspelling `wildrak`. The full labelled samples are in generated\\_samples.txt.\n'
 s+=page('Problem 2: attention interpretation and context scaling')
 s+=fig(8,'problem2/figures/report_attention-heads.png','Baseline first-layer heads1/2 on ``To be, or not to be.'' Rows are queries, columns are keys.',4)
 diag=json.loads((P2/'mask_diagnostic.json').read_text())
@@ -170,10 +176,10 @@ s+=table(9,'GTX 1650 full-model context benchmark',['Context','Time(ms), mean $\
 s+=fig(9,'problem2/figures/report_context.png','Measured time and incremental allocated tensor memory versus context.',3.6)
 s+=f'Table9/Figure9 use batch8, float32, evaluation-mode forward plus backward, two warmups and five synchronized timing repeats. CUDA peak allocated memory excludes the pre-existing model/input baseline and is not reserved memory. From64 to512 tokens, time grows {scaling.mean_seconds.iloc[-1]/scaling.mean_seconds.iloc[0]:.2f} times and additional tensor memory {scaling.peak_incremental_bytes.iloc[-1]/scaling.peak_incremental_bytes.iloc[0]:.2f} times. Attention score elements grow64 times; full-model cost need not exactly follow this ratio because projections and FFNs add linear work.\n'
 minutes=sum(r['seconds'] for r in runtime['runs'].values())/60
-s+=f'Execution used the local NVIDIA GTX1650, not a T4. Both complete notebook workflows took {minutes:.2f} minutes, excluding environment setup and dataset downloads; this includes tests, evaluation and plots as well as training. Some diagnostics use CPU. Local timing is a disclosed substitution for the requested T4 timing. No bonus is claimed.\n'
+s+=f'Execution used a local NVIDIA GeForce GTX1650 (4 GB). Both complete notebook workflows took {minutes:.2f} minutes, excluding environment setup and dataset downloads; this includes tests, evaluation and plots as well as training. Some diagnostics use CPU. The requested runtime is reported for this local GPU; T4 timing was not measured. No bonus is claimed.\n'
 s+=r"""\par\textbf{AI-use disclosure.} OpenAI Codex assisted with scratch implementations,
-training, testing, execution, plots, analysis and report preparation. The student
-confirmed the root DOCX as the current brief permitting this assistance.
+training, testing, execution, plots, analysis and report preparation. The current
+assignment permits AI assistance for scratch components.
 """
 s+=page('References')
 s+=r'''
@@ -198,7 +204,8 @@ are handled as explicit assumptions under its missing-information clause.
 import re
 s=re.sub(r'(?<=[a-zA-Z])(?=\d)', ' ', s)
 # Do not alter paths/URLs or commands; above prose normalization is restricted below by undoing known paths.
-s=s.replace('problem 1/','problem1/').replace('problem 2/','problem2/').replace('GTX 1650','GTX 1650').replace('T 4','T4')
+s=s.replace('a 4paper','a4paper').replace('problem 1/','problem1/').replace('problem 2/','problem2/').replace('GTX 1650','GTX 1650').replace('T 4','T4')
+s=s.replace('2026aj 05073','2026aj05073')
 if layout_fixture:
  s=s.replace(r'\begin{document}',r'\begin{document}\pagestyle{myheadings}\markright{LAYOUT FIXTURE ONLY --- historical CPU data; synthetic runtime}')
 Path('docs/report.tex').write_text(s)

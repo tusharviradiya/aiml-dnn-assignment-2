@@ -1,3 +1,3 @@
-# Assignment status — final CPU submission, 12 November 2026
+# Final GPU submission — 12 November 2026
 
-The student chose to finalize verified CPU results and defer GPU migration for connectivity. The current brief is the root DOCX as confirmed by the student. Current evidence, archive details and remaining external steps are in [submission-validation.md](submission-validation.md). Historical policy/readiness estimates are superseded. No GPU results are claimed; downloads are stopped.
+Fresh GTX1650 execution, independent checkpoint audits, report/README formatting and isolated ZIP notebook replay pass. Runtime:10.00 minutes including CPU diagnostics and checks. Current archive details, evidence, timing substitution and remaining portal actions are in [submission-validation.md](submission-validation.md). The CPU submission remains backed up; GPU migration is complete.

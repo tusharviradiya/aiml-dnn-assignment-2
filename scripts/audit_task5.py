@@ -12,6 +12,7 @@ torch.set_num_threads(4)
 root=Path('.')
 metrics=root/'problem1/metrics'
 config=json.loads((metrics/'task5_config.json').read_text())
+device=torch.device(config['har_base']['device'])
 nb=nbformat.read('problem1/problem1.ipynb',as_version=4)
 from notebook_scope import load_definitions
 scope=load_definitions('problem1')
@@ -36,11 +37,11 @@ assert not runs.duplicated(['model','hidden_size','seed']).any()
 for r in runs.itertuples():
     file=(Path('data/experiments/har')/config['har_base']['run_id']/f'{r.model}_{r.seed}.pt') if r.hidden_size==64 else cache/'har'/f'h{r.hidden_size}'/f'{r.model}_{r.seed}.pt'
     saved=torch.load(file,weights_only=True)
-    model=scope['HARClassifier'](r.model,r.hidden_size).eval();model.load_state_dict(saved['state_dict'])
+    model=scope['HARClassifier'](r.model,r.hidden_size).to(device).eval();model.load_state_dict(saved['state_dict'])
     ti,vi,_=scope['subject_split'](subjects,r.seed)
     mean,std=scope['fit_normalizer'](xtrain[ti])
     np.testing.assert_allclose(saved['mean'].numpy(),mean);np.testing.assert_allclose(saved['std'].numpy(),std)
-    with torch.no_grad():pred=torch.cat([model(b).argmax(-1) for b in torch.from_numpy(scope['normalize'](x,mean,std)).split(128)]).numpy()
+    with torch.no_grad():pred=torch.cat([model(b.to(device)).argmax(-1).cpu() for b in torch.from_numpy(scope['normalize'](x,mean,std)).split(128)]).numpy()
     e=predictions[(predictions.model==r.model)&(predictions.hidden_size==r.hidden_size)&(predictions.seed==r.seed)].sort_values('sample')
     np.testing.assert_array_equal(pred,e.predicted)
     np.testing.assert_allclose(accuracy_score(y,pred),r.test_acc)
@@ -59,9 +60,9 @@ assert len(forget)==6 and len(fp)==6000 and len(fh)==30
 for r in forget.itertuples():
     saved=torch.load(cache/'forget'/f'bias{r.forget_bias}'/f'LSTM_200_{r.seed}.pt',weights_only=True)
     assert saved['config']['effective_forget_bias']==r.forget_bias
-    model=scope['AddingRegressor']('LSTM').eval();model.load_state_dict(saved['state_dict'])
+    model=scope['AddingRegressor']('LSTM').to(device).eval();model.load_state_dict(saved['state_dict'])
     xx,yy=scope['make_adding'](1000,200,2)
-    with torch.no_grad():pred=torch.cat([model(b) for b in torch.from_numpy(xx).split(128)]).numpy()
+    with torch.no_grad():pred=torch.cat([model(b.to(device)).cpu() for b in torch.from_numpy(xx).split(128)]).numpy()
     e=fp[(fp.forget_bias==r.forget_bias)&(fp.seed==r.seed)].sort_values('sample')
     np.testing.assert_allclose(pred,e.predicted,rtol=0,atol=1e-14)
     mse=np.mean((pred.astype(np.float64)-yy.astype(np.float64))**2)

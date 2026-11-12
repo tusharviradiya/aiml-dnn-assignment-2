@@ -1,5 +1,5 @@
 {
-  "run_id": "cee2760cd83588bd",
+  "run_id": "9caad1fc2eecb5ca",
   "seeds": [
     0,
     1,
@@ -15,7 +15,7 @@
   "probe_n": 32,
   "probe_seed": 3,
   "har_base": {
-    "run_id": "878cc93e6862a042",
+    "run_id": "788c0cf6d8804cec",
     "hidden_size": 64,
     "batch_size": 128,
     "epochs": 10,
@@ -29,12 +29,12 @@
     "num_layers": 1,
     "dropout": 0.0,
     "threads": 4,
-    "torch_version": "2.15.0+cpu",
+    "torch_version": "2.11.0+cu128",
     "python": "3.14.4",
-    "device": "cpu"
+    "device": "cuda"
   },
   "adding_base": {
-    "run_id": "7d60ee6ede81051e",
+    "run_id": "be79421e51e9e201",
     "hidden_size": 64,
     "batch_size": 128,
     "epochs": 5,
@@ -52,8 +52,8 @@
       400
     ],
     "threads": 4,
-    "device": "cpu",
-    "torch_version": "2.15.0+cpu"
+    "device": "cuda",
+    "torch_version": "2.11.0+cu128"
   },
   "forget_biases": [
     0,

@@ -44,6 +44,7 @@ pages=[p for p in (cache/'report.txt').read_text().split('\f') if p.strip()]
 assert len(pages)==7 and 'References' in pages[-1]
 assert 'AI-use disclosure' in '\n'.join(pages[:6])
 body='\n'.join(pages[:6])
+assert 'Viradiya Tushar Rajeshbhai' in body and '2026aj05073' in body
 for label in ('Figure','Table'):
  for i in range(1,10):assert len(re.findall(rf'{label}\s*{i}(?=\D|$)',body))>=2,(label,i)
 assert 'GTX 1650' in body and 'd = 128' in body

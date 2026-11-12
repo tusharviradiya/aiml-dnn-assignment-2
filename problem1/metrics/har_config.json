@@ -1,5 +1,5 @@
 {
-  "run_id": "878cc93e6862a042",
+  "run_id": "788c0cf6d8804cec",
   "hidden_size": 64,
   "batch_size": 128,
   "epochs": 10,
@@ -13,7 +13,7 @@
   "num_layers": 1,
   "dropout": 0.0,
   "threads": 4,
-  "torch_version": "2.15.0+cpu",
+  "torch_version": "2.11.0+cu128",
   "python": "3.14.4",
-  "device": "cpu"
+  "device": "cuda"
 }

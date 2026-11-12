@@ -1,40 +1,49 @@
 Temperature 0.2; top-k 20; seed 700; 500 NEW characters; prompt 'ROMEO:\n'
-And he se the tere the to he the he the the the the the the he is the and the the is and to se to he and the the the and he he than sthe and the and the heand and the the he he the sear the he the t the the the he that and and he the the the the and and thand be the t the he he he sthat se heand the t the the he at so he at the he he heat he he ther thear thand the ast wind and the he seat sto he he the t heand and the t the the here and and seand the are to the are the to he sise the the and he
+And shall the here so shall the her sead and the here
+And here sead and and her and the seall to the had
+The seal to her she she have the willl and that herer and the hearst
+And and herer and and man the she were and and the seall and
+There and and stand and herer and the shall here
+To the shall and here the seall and to the herer
+The shall the shall and the hear the sand and the words
+That I the shall will and and and here the shall you have heave
+The shall and here and the falll and and the he
 
 Temperature 0.8; top-k 20; seed 700; 500 NEW characters; prompt 'ROMEO:\n'
-HAnd I me harnt, you austie, deer
-t riot cot ad heat tul treaclin.
+And retear be and lest and serelf
+The sand I hall not me on at fort,
+I bather have shie she not the me wert unter's
+And word and wrethat-dinke tall wents and and date,
+To hough hene tonger to him seadll and trurtie,
+To all heave supe o's the sa cannnt tam no here
+To the peyou the bling of a donee war, and
+Thou prohald, I seve and that and me where are in the
+That a by awilll:
+That greach endutles bath a flord and you helte have hand,
+Dot not herer hoher of the sshall an the dlasond's at firther
 
-
-WA:
-I lon ad be rof wof he ord in paret tence fend pas hirerelest ontalleds
-I your I mioursth nour iscer treanges ar; wouies pas tllio st in auos hat he I ia igr her arislante
-And are hind have bime be ame ang benollal oor it toant d than is werin seand
-I tor itot and thin cor muthe nords hange, and, cre staimad I havoust
-Hel willl heere lis pint:
-Af rest yowe wisen you see severr hade chan
-Astherer ifoorll e shir or nor tor he
 
 Temperature 1.5; top-k 20; seed 700; 500 NEW characters; prompt 'ROMEO:\n'
-HAnd:
-Thaker fen' mO!
-LOUTIOOf has:
-G:
-Bud bew'l fra, bird.
-Whick'sh bucwe cot t sthe! nomo, hols held dardy;
-Wame fe tho m tall ayntheserod mil tume arre sthard
-slle decyfost:
-Nonon akd yephou gilou:
-O gar letheve tur goubr I f thapl hile:
-Wey.
+And, it hosck heraust theine wels's and peehon;---noow
 
-Beralllere ittomphilaw d kgrf wrollee ir my. brfoud methe be,
+DUCIO forny-iel'r lords mawery!
 
-I who po I thill lifo idis kinst cn irrrelviore.
+PELUSO:
+Tknguio to,Ze ankess a aba y deshtible,f, as mary,
+Ben'le ame lord.
+Mrnt Thisther,' pat that he multlably barle
+t'ent!
 
-Ancay hatiaut altembof d do shardiaiod savar weve?
+DUKE ONONTO:
+Sly mnovidice to ben helf se and all Ishe,
+Onf, I lonove livinatl.-lo, Wil, and
 
+Gy tstany'd a gand
+YCourd andsed:
+Deet Inoice?
 
-YICLourauy wiclliny; t mett yeritie
-A iss I'lflllf torster yolarirsues,
-Con tiano w gro
+To arblanes his tosirs woy:
+Pork? mildes sangele I'll and your paccia!
+
+Anffowaw's nough ssesemy nime:
+Maniy-dy andishers: i't ga at danectle

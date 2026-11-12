@@ -1,5 +1,5 @@
 {
-  "run_id": "13613c052b7f52c4",
+  "run_id": "24610664fe08a84b",
   "har": {
     "d": 64,
     "layers": 2,
@@ -17,8 +17,8 @@
     ]
   },
   "lm": {
-    "d": 64,
-    "layers": 2,
+    "d": 128,
+    "layers": 4,
     "heads": 4,
     "context": 128,
     "dropout": 0.1,
@@ -34,7 +34,7 @@
   "code_hash": "5b7de9d8a4e1236273f3b460211221d6e5316ec30f93643ddf9d3e64442ad83c",
   "har_hash": "13c05d840167b45922bf97871ec68f9c761f5681ba0b096da0ee8ddde3b25d90",
   "text_hash": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
-  "torch": "2.15.0+cpu",
-  "device": "cpu",
+  "torch": "2.11.0+cu128",
+  "device": "cuda",
   "threads": 4
 }

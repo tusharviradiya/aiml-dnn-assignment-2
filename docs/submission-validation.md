@@ -1,37 +1,39 @@
-# Final CPU submission validation — 12 November 2026
+# Final GTX 1650 submission validation — 12 November 2026
 
-The student explicitly chose finalization with verified CPU results, deferring GTX 1650 setup until suitable connectivity. This supersedes the earlier GPU migration objective for the current submission. No GPU timing or fresh GPU training is claimed.
+The GPU migration is complete. The verified CPU submission is preserved at `.cache/verified-cpu-final/2026aj05073_DNN_Assignment.zip` (SHA-256 `de4ad26c07d58e5e1a0b77476e1b791d33d7d05b05599c041434c3520d941851`), with CPU experiment caches also preserved. The root ZIP now contains the verified GPU submission.
 
-Archive: `2026aj05073_DNN_Assignment.zip`. Size: 1,914,696 bytes. Files: 16.
-SHA-256: `de4ad26c07d58e5e1a0b77476e1b791d33d7d05b05599c041434c3520d941851`.
+Archive: `2026aj05073_DNN_Assignment.zip`; 1,876,278 bytes; 16 required files.
+SHA-256: `fec6f47cfae3383ec484ad5386b833d8f87c4cc7eabee36a2b210ee432797641`.
 
-## Current brief and disclosure
+## Environment and measured execution
 
-The student confirmed the current root DOCX (SHA-256 `4d3f7c56e29ae5111ddef3563db44e77538202d697c1f03d8f12305b455dcfa1`) permits AI-written scratch components. No independent instructor authentication is claimed. README, both notebook introductions and the report disclose actual Codex assistance. Earlier policy/readiness warnings based on a different brief are historical and superseded for this student-confirmed scope. All assessed model/training code and original numerical results are preserved.
+NVIDIA GeForce GTX 1650, 4 GB; driver595.99.02; Python3.14.4; PyTorch2.11.0+cu128; CUDA12.8; four CPU threads. All CUDA wheels completed downloading; offline installation, `pip check`, and CUDA RNN/LSTM/GRU forward/backward smoke checks passed. Evidence: `.cache/gpu-install.log`, `.cache/gpu-smoke.log`, `gpu-environment.txt` and `requirements.txt`.
 
-The current brief excludes references alone from the six-page limit. The revised PDF has six assessed A4/11pt pages including AI-use disclosure, plus one references page; geometric margins, embedded fonts and absence of overflow pass. Pages 1 and 6 were visually inspected after rebuilding; unchanged figures and tables remain present. README renders to one A4 page at 11pt/2cm.
+A clean successful execution trained all required experiments from fresh experiment caches: Problem1 274.883 seconds; Problem2 325.105 seconds; total 10.000 minutes. This includes numerical checks, training, evaluation, plotting and CPU diagnostics; it excludes package installation and already-staged raw dataset downloads. The complete record and notebook source hashes are in `gpu-runtime.json`. T4 runtime is unmeasured; actual GTX1650 timing is the disclosed user-authorized substitute. No independent instructor acceptance of that timing substitution is claimed.
+
+The standard GPU LM now uses d128/four layers, context128, four heads. HAR encoder remains d64/two layers; recurrent h64; seeds0/1/2. No hyperparameter search or budget change was made in response to test scores.
+
+## Corrections and provenance
+
+The first GPU attempt completed main P1 training but stopped at an inappropriate 1e-12 equality assertion comparing a CPU diagnostic trajectory with CUDA training. The corrected notebook checks exact trajectory agreement only for the same backend, and retains protocol checks across CPU/CUDA. The full failed attempt is preserved in `.cache/gtx1650-attempt1/`. The reported final runtime comes from a subsequent clean successful run, with no experiment caches reused from that attempt.
+
+The CUDA context benchmark now saves its raw timing and peak-memory evidence. Its device-matched allocation peak excludes the model/input baseline and is not reserved memory. The confusion figure selects architecture/seed using current validation F1 instead of historical hardcoded values. Report numerical tables, analyses, sample descriptions and CPU/GPU runtime labels reflect the verified fresh results. Report builder and validator now target the current GPU artifacts. Old CPU analyses are explicitly historical; an internal ledger helper was reconstructed from validated current P1 rows, not claimed as a pre-training provenance record.
 
 ## Verification completed
 
-- `scripts/verify_readonly_audits.py`: all ten audits pass with no protected evidence mutations. Numerical recurrent/attention/block reference and gradient checks, invalid-case controls, cache fingerprints, reproducibility fixtures, datasets/splits, experiment coverage and ledger checks pass. Evidence: `.cache/readonly-audits.json` and its ten logs.
-- `scripts/validate_report.py`: report content/page allocation, figures/tables, parameter calculations, numerical evidence, disclosure, font and margin checks pass.
-- `scripts/package_submission.py`: exact 16-file allowlist, correct archive/root name, CRC, size limit, extracted hashes and source-byte comparisons pass.
-- `scripts/verify_extracted_submission.py`: both isolated packaged notebooks execute completely (141 and 55 code cells), using copied historical raw data/checkpoints/measurements and an Adam guard preventing training. No excluded helper dependency. CSV, samples and all packaged figures reproduce exactly. Evidence: `.cache/extracted-verification.json`.
-- Existing pinned CPU environment passes `pip check`. This audit does not claim a fresh dependency installation or fresh full-training run.
-- Current ZIP payload matches current source hashes. Both notebooks' code cells are identical to the verified CPU baseline. Only introductory disclosures changed.
+- Both full fresh notebooks passed:141/55 executed code cells, no saved error outputs; strict scratch forward/backward/reference/count/mask gates passed in the GPU environment.
+- Independent CUDA replay reproduced all9 recurrent HAR checkpoints and36 adding checkpoints, train-only normalization, predictions, metrics, epoch selection, parameters and timing (`audit-recurrent.log`).
+- Independent Task5 audit passed all24 width-sweep checkpoint/prediction records, six paired forget-bias runs, statistics and all18 gradient probes (`audit-task5.log`).
+- Independent Transformer audit passed all9 HAR checkpoints, four baseline LM validation losses/BPC/history, contiguous text targets, matched ablation initialization/budgets, all2000 baseline/no-mask sample characters, attention maps and trained future-token perturbations (`audit-transformer.log`). Current P1 ledger rows bind to actual checkpoint metadata rather than stale copied CPU snapshots.
+- `validate_gpu_submission.py` passed all92 CSV rows, required coverage, sample lengths/temperatures, aggregate means/sample std, BPC calculations, runtime/configuration, context evidence, seven-page A4/11pt/2cm report geometry, disclosure and numbered/referred figures/tables.
+- Report contains six assessed pages including AI-use disclosure, plus references only on page7. All six content pages were visually inspected. README renders to one A4 page at11pt/2cm.
+- ZIP CRC, exact16-file allowlist, root/name/size, source and extraction hashes pass. It excludes data, checkpoints, environments, scripts, internal metrics/audits and CUDA downloads.
+- Both packaged notebooks passed from an isolated ZIP extraction, using independently copied raw data/checkpoints/measurements, no internal helpers and an Adam guard preventing training. The92-row CSV, three primary500-character samples and every packaged figure reproduce exactly. Evidence: `.cache/extracted-verification.json`; final archive hash matches this ZIP. The final report-only correction was checked separately: all notebook cell sources match the successful isolated replay, all other delivered files are byte-identical, and PDF identity, disclosure, GPU/runtime text and geometry pass.
 
-An initial read-only wrapper detected a report rebuild that overlapped its snapshot; no numerical audit failed. The wrapper was rerun after freezing submission files and all ten audits then passed with zero mutations.
+## Verified results and remaining limits
 
-## Coverage and practical limits
+GRU mean HAR accuracy:88.0783 percent (sample std0.6369 percentage points). All36 adding grid runs remain unsolved at the fixed five-epoch budget and are reported honestly. Continued four-head causal LM validation:1.744418 nats,2.5167 BPC. No-mask losses are contaminated, and its baseline generation is entirely newlines. LM ablations use one seed. Longer T50 CPU diagnostics are validation-only and do not substitute for the required test grid. No bonus is claimed. Future resume snapshots were saved during fresh runs; the common LM continuation protocol deliberately resets Adam.
 
-All ten rubric tasks are covered: prescribed data pipelines and adding generator; scratch recurrent reference/count tests; three-seed HAR; complete 36-run adding grid; gradient, width and odd-ID forget-bias studies; attention hand/reference checks; multi-head/encoder/position tests and count reconciliation; HAR position ablation; causal character LM with BPC and three 500-character samples; attention/head/mask/context analyses. Results CSV has the exact 12 required columns and 92 supported rows. No bonus is claimed.
+The student confirmed the root DOCX (SHA-256 `4d3f7c56e29ae5111ddef3563db44e77538202d697c1f03d8f12305b455dcfa1`) as the current brief permitting AI-written scratch components. Actual AI assistance is disclosed; no independent authorship or instructor authentication is asserted. The missing variant table/hand fixture are handled as disclosed assumptions.
 
-Measured baseline training is 44.7 CPU minutes; continuations add 9.13 CPU training minutes; adding diagnostics take 123 seconds wall time. These scopes exclude other setup/execution overhead. T4/GTX 1650 runtime remains unmeasured; CPU timing is explicitly substituted at the student's direction. Acceptance of that substitution has not been independently confirmed. All 36 original adding runs remain unsolved; LM comparisons are single-seed. Historical optimizer/RNG states are missing; future runs save resume snapshots. The missing variant table/hand fixture are handled as disclosed assumptions.
-
-Datasets, checkpoints, environments, internal scripts, audit documents and partial CUDA downloads are excluded from the ZIP. CUDA downloads are stopped; retained chunks are only for possible future reuse. Full cache-free training and clean downloads are unverified in this final audit.
-
-## Remaining student actions
-
-Confirm name/ID and disclosed variant assumptions, check the authoritative portal deadline, upload the exact ZIP, download/open the uploaded copy and retain the confirmation receipt. The supplied deadline weekday/date conflict and unfinished portal link cannot be resolved locally. No university upload or external message was performed.
-
-The chosen CPU submission is finalized and technically verified, with the timing substitution and reproducibility limits above disclosed. GPU migration is deferred and is not required to reopen this ZIP.
+The assignment is technically ready as the user-authorized local GPU submission. The student confirmed the identity Viradiya Tushar Rajeshbhai, 2026aj05073, the use of local GTX1650 timing, and permission for AI-written scratch components. The final report explicitly includes the local GPU and AI-use disclosure. Remaining personal external steps: check the portal deadline, upload the exact ZIP, download/open the uploaded copy, and retain the receipt. Disclosed variant/fixture assumptions remain documented. The date/weekday conflict and incomplete portal link require the course portal. No portal upload or external message was performed.

@@ -1,3 +1,5 @@
+> Historical CPU development/reference record. The current GPU submission and verified measurements are documented in [submission-validation.md](submission-validation.md).
+
 # Assignment assumptions — no external clarification relied upon
 
 The supplied DOCX permits reasonable assumptions where information is missing.

@@ -1,297 +1,200 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+\usepackage[T 1]{fontenc}
 \usepackage[margin=2cm]{geometry}
-\usepackage{graphicx,booktabs,amsmath,amssymb,array,url}
-\usepackage{hyperref}
-\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=black,pdftitle={DNN Programming Assignment 2},pdfauthor={Viradiya Tushar Rajeshbhai}}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{2pt}
-\setlength{\emergencystretch}{1em}
-\setlength{\tabcolsep}{5pt}
-\setlength{\topsep}{3pt}
-\renewcommand{\arraystretch}{1.08}
-\newcommand{\topic}[1]{\vspace{4pt}{\large\bfseries #1}\par}
+\usepackage{graphicx,booktabs,amsmath,amssymb,url}
+\setlength{\parindent}{0pt}\setlength{\parskip}{4pt}
+\setlength{\tabcolsep}{4pt}\setlength{\emergencystretch}{2em}
 \begin{document}
-\begin{center}
-{\Large\bfseries DNN Programming Assignment 2}\par
-Viradiya Tushar Rajeshbhai \quad Student ID: 2026aj05073\par
-Chosen settings: $h=64$, $d=64$; seeds $0,1,2$.
-\end{center}
-\topic{Problem 1: data, verification and HAR classification}
-UCI HAR uses nine channels in the prescribed order: body acceleration xyz,
-body gyroscope xyz, total acceleration xyz. Shapes are $7352\times128\times9$
-(training source) and $2947\times128\times9$ (test), with labels remapped 1--6 to 0--5.
-The 21 training and 9 test subjects are disjoint. For each seed, NumPy's prescribed
-choice holds out four training subjects; normalization uses that seed's training
-portion only. Figure 1 shows class balance; constant channels are rejected.
+\begin{center}\Large DNN Programming Assignment 2\\\normalsize
+Viradiya Tushar Rajeshbhai --- 2026aj05073\end{center}
+\section*{Problem 1: data, verification and HAR classification}
+UCI HAR uses the prescribed nine inertial channels, 128 steps, six activities,
+7352 source-training windows and 2947 official test windows. The 21 source-training
+subjects and nine test subjects are disjoint. For each seed 0/1/2, four training
+subjects are selected by the prescribed NumPy choice for validation. Channel
+normalization uses only the remaining training subjects. Figure 1 shows the splits;
+Figure 2 shows the validation-selected confusion matrix.
+All classifiers use last-state classification, $h=64$, one recurrent layer,
+Adam $10^{-3}$, batch 128, ten epochs and norm-1 clipping. Validation macro-F 1
+selects checkpoints; reported spreads are sample standard deviations.
 
-Sizes/seeds are explicit assumptions under the missing-information clause [5].
-All recurrent classifiers use the last hidden state, one library layer, no dropout,
-Adam $10^{-3}$, batch 128, 10 epochs and norm-1 clipping. Best checkpoints use
-validation macro-F1 (earliest tie). All reported spread is sample std over three seeds;
-timing is training-only CPU, four threads, not T4. Test data never select checkpoints.
-
-Scratch cells use registered matrices, tanh RNN, LSTM i/f/g/o gates and GRU r/z/n
-gates, including PyTorch's reset on the recurrent candidate bias. Eight forward cases
-per cell cover two dtypes, two seeds and nonzero states. Maximum errors are
-$1.19\cdot10^{-7}$ (RNN), $2.38\cdot10^{-7}$ (LSTM/GRU), below $10^{-5}$;
-backward errors are at most $2.22\cdot10^{-16}$.
-For $g=1,4,3$ gates, single-bias count is $gh(d+h+1)$; PyTorch/custom
-count is $gh(d+h+2)$. At $d=9,h=64$, these are 4736/4800,
-18944/19200 and 14208/14400. Classifier heads add $6h+6$ parameters.
-\begin{center}
-\textbf{Table 1. HAR recurrent comparison}\par\vspace{2pt}
-\begin{tabular}{lrrrr}\toprule
-Model & Accuracy (\%) & Macro-F1 & Parameters & sec/epoch\\\midrule
-RNN & $70.52\pm4.91$ & $0.6814\pm0.0495$ & 5190 & 0.677\\
-LSTM & $87.71\pm0.29$ & $0.8768\pm0.0023$ & 19590 & 1.182\\
-GRU & $88.19\pm1.04$ & $0.8819\pm0.0104$ & 14790 & 2.279\\
+The scratch cells match library outputs within $10^{-5}$; assert cells also verify
+backward gradients and nonzero initial states. For $g=1,4,3$ gates, the single-bias
+count is $gh(d+h+1)$ and PyTorch's two-bias count is $gh(d+h+2)$.
+At $d=9,h=64$, RNN/LSTM/GRU counts are 4736/18944/14208 versus
+4800/19200/14400. Classifier heads add $6h+6$.
+\begin{center}\textbf{Table 1. HAR: three seeds; GTX 1650 training time}\par\smallskip
+\begin{tabular}{lllll}\toprule
+Model & Acc. (\%) & Macro-F 1 & Params & s/epoch\\\midrule
+GRU & 88.0783 $\pm$ 0.6369 & 0.8807 $\pm$ 0.0063 & 14790 & 0.213\\
+LSTM & 87.5014 $\pm$ 0.4243 & 0.8750 $\pm$ 0.0046 & 19590 & 0.208\\
+RNN & 72.4579 $\pm$ 1.0483 & 0.7159 $\pm$ 0.0085 & 5190 & 0.126\\
 \bottomrule\end{tabular}\end{center}
-\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem1/figures/report_class-balance.png}\par
-\par Figure 1. Class balance for all three subject splits and the test set.
-\begin{center}
-\begin{minipage}{.43\linewidth}\centering
-\includegraphics[width=\linewidth,height=5.2cm,keepaspectratio]{problem1/figures/report_confusion.png}\par
-\end{minipage}\hfill\begin{minipage}{.53\linewidth}
-Figure 2. Validation-selected GRU, seed 2, epoch 9. Sitting/standing account for
-204 cross-errors (88+116). Mean validation macro-F1 selects GRU (0.9104),
-then seed 2; it is not the highest-test-score run. Table 1 shows the strong
-classification gain from gating. The custom cells are checked against library
-layers; library recurrent layers are used only in permitted experiments.
-\end{minipage}\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{problem1/figures/report_class-balance.png}\par Figure 1. Class balance by subject split and official test set.\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=3.6cm,keepaspectratio]{problem1/figures/report_confusion.png}\par Figure 2. Validation-selected GRU, seed 2, epoch 9. Table 1 compares all architectures.\end{center}
 \newpage
-\topic{Problem 1: adding problem, width and individual ablations}
-The supplied generator is unchanged: two markers, one per half; targets equal their
-marked-value sum. All $T\in\{50,100,200,400\}$ use 10000/1000/1000 train/validation/test
-examples with data seeds 0/1/2. Models use $h=64$, batch 128, Adam $10^{-3}$,
-clipping 1 and five epochs; lowest validation MSE selects a checkpoint. Model seeds
-are 0/1/2. Solved means test MSE $<0.05$. Table 2 and Figure 3a--b show no solved
-run (0/3 in every model/length group). The short budget was fixed before testing.
-\begin{center}
-\textbf{Table 2. Adding test MSE; every group solved 0/3}\par\vspace{2pt}
-\begin{tabular}{lrrrr}\toprule
-T & RNN & LSTM & GRU & Constant 1\\\midrule
-50 & $0.1743\pm0.0005$ & $0.1743\pm0.0003$ & $0.1717\pm0.0025$ & 0.1754\\
-100 & $0.1700\pm0.0005$ & $0.1700\pm0.0008$ & $0.1693\pm0.0008$ & 0.1697\\
-200 & $0.1686\pm0.0008$ & $0.1684\pm0.0005$ & $0.1685\pm0.0003$ & 0.1679\\
-400 & $0.1545\pm0.0003$ & $0.1538\pm0.0005$ & $0.1535\pm0.0003$ & 0.1527\\
-\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=3.4cm,keepaspectratio]{problem1/figures/report_adding.png}\par
-Figure 3a--b. (a) Test MSE versus length; (b) T=200 train (solid)/validation (dashed) curves.
-\vspace{-4pt}Table 3/Figure 4a retain the same 10-epoch HAR protocol; six $h=64$ runs are reused.
-ID ends in 3 (odd): Table 4/Figure 4b compare initial LSTM effective forget bias 0/1 at
-T=200, five epochs, three paired seeds; the other weights and shuffle are identical.
-\begin{center}
-\textbf{Table 3. HAR sweep: LSTM (left), GRU (right)}\par\vspace{2pt}
-\begin{tabular}{lrrrrrr}\toprule
-h & LSTM acc. (\%) & Params & sec & GRU acc. (\%) & Params & sec\\\midrule
-16 & $75.55\pm6.53$ & 1830 & 0.30 & $78.57\pm2.23$ & 1398 & 1.12\\
-32 & $84.80\pm1.12$ & 5702 & 0.54 & $87.41\pm0.73$ & 4326 & 1.59\\
-64 & $87.71\pm0.29$ & 19590 & 1.18 & $88.19\pm1.04$ & 14790 & 2.28\\
-128 & $88.28\pm0.43$ & 71942 & 3.00 & $89.04\pm0.70$ & 54150 & 4.18\\
-\bottomrule\end{tabular}\end{center}\begin{center}
-\textbf{Table 4. Initial forget-bias ablation}\par\vspace{2pt}
-\begin{tabular}{lrr}\toprule
-Bias & Test MSE & Solved\\\midrule
-0 & $0.16840\pm0.00045$ & 0/3\\
-1 & $0.16849\pm0.00039$ & 0/3\\
-\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=3cm,keepaspectratio]{problem1/figures/report_sweep-forget.png}\par
-Figure 4a--b. (a) HAR width trade-offs; (b) initial forget-bias comparison.
+\section*{Problem 1: adding, width and individual ablation}
+The prescribed adding generator uses two markers, one per half; assertions check
+marker counts and exact target sums. Each length uses 10000/1000/1000 examples
+with data seeds 0/1/2. All models use $h=64$, Adam $10^{-3}$, batch 128,
+five epochs and clipping 1, with three model seeds. Validation MSE selects weights.
+The theoretical constant-1 baseline is $1/6$; Table 2 uses the measured baseline.
+Solved means test MSE below 0.05; Figure 3 contains length and learning curves.
+\begin{center}\textbf{Table 2. Adding MSE; solved R/L/G counts out of three}\par\smallskip
+\begin{tabular}{llllll}\toprule
+T & RNN & LSTM & GRU & Constant 1 & Solved\\\midrule
+50 & 0.1743 $\pm$ 0.0005 & 0.1743 $\pm$ 0.0003 & 0.1717 $\pm$ 0.0025 & 0.1754 & 0/0/0\\
+100 & 0.1700 $\pm$ 0.0005 & 0.1700 $\pm$ 0.0008 & 0.1693 $\pm$ 0.0008 & 0.1697 & 0/0/0\\
+200 & 0.1686 $\pm$ 0.0008 & 0.1684 $\pm$ 0.0005 & 0.1685 $\pm$ 0.0003 & 0.1679 & 0/0/0\\
+400 & 0.1545 $\pm$ 0.0003 & 0.1538 $\pm$ 0.0005 & 0.1535 $\pm$ 0.0003 & 0.1527 & 0/0/0\\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{problem1/figures/report_adding.png}\par Figure 3. Test MSE against length; T=200 train/validation curves.\end{center}
+The hidden-size sweep keeps the HAR budget fixed (Table 3). ID ends in 3, so the individual experiment compares initial LSTM forget bias 0/1 at T=200 (Table 4); other initial weights and shuffle seeds are paired. Figure 4 shows both studies.
+\begin{center}\textbf{Table 3. HAR hidden-size sweep}\par\smallskip
+\begin{tabular}{lllll}\toprule
+h & LSTM acc. (\%) & Params & GRU acc. (\%) & Params\\\midrule
+16 & 76.2697 $\pm$ 6.6941 & 1830 & 78.7694 $\pm$ 2.0219 & 1398\\
+32 & 83.8254 $\pm$ 1.8710 & 5702 & 87.3317 $\pm$ 1.1564 & 4326\\
+64 & 87.5014 $\pm$ 0.4243 & 19590 & 88.0783 $\pm$ 0.6369 & 14790\\
+128 & 87.7276 $\pm$ 0.6798 & 71942 & 88.9492 $\pm$ 0.1930 & 54150\\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\textbf{Table 4. Forget-bias ablation, three seeds}\par\smallskip
+\begin{tabular}{lll}\toprule
+Bias & MSE & Solved\\\midrule
+0 & 0.1684 $\pm$ 0.0004 & 0/3\\
+1 & 0.1685 $\pm$ 0.0004 & 0/3\\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{problem1/figures/report_sweep-forget.png}\par Figure 4. Hidden-size trade-offs and initial forget-bias comparison.\end{center}
 \newpage
-\topic{Problem 1: gradient evidence and one-page analysis}
-\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem1/figures/report_gradients.png}\par
-\par Figure 5. At T=100, mean batch L2 norms of actual $\partial L/\partial h_t$;
-log scale, before/after training, three-seed means. A fixed independent 32-example
-probe uses seed 3. Float64 custom unrolls reproduce library predictions and all
-recurrent parameter gradients. LSTM retains a separate cell-state graph.
-\begin{center}
-\textbf{Table 5. T=50 diagnostic, seed 0; test data never evaluated}\par\vspace{2pt}
-\begin{tabular}{lrrr}\toprule
-Model & 32-example train MSE & Val, 5 epochs & Val, 25 epochs\\\midrule
-RNN & 4.62e-06 & 0.16681 & 0.16463\\
-LSTM & 0.016 & 0.16587 & 0.01327\\
+\section*{Problem 1: gradient evidence and one-page analysis}
+\begin{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem1/figures/report_gradients.png}\par Figure 5. Actual hidden-state gradient norms at T=100 before/after training; logarithmic scale, three-seed means.\end{center}
+A fixed independent seed 3 probe contains 32 examples. Float 64 custom unrolls
+retain each hidden state and verify agreement with library predictions and parameter
+gradients. LSTM retains a separate cell-state graph. Small early hidden gradients
+indicate weak direct credit assignment to early states, but do not alone measure
+all memory carried through an LSTM cell state. Figure 5 should therefore be read
+alongside the predictive evidence in Table 2, not as proof that gates solve every task.
+RNN: mean post-training first/last hidden-gradient norms are $5.31e-24$/$1.49e-02$. LSTM: mean post-training first/last hidden-gradient norms are $2.05e-13$/$1.65e-02$. GRU: mean post-training first/last hidden-gradient norms are $9.96e-07$/$1.54e-02$. 
+
+Table 2 records 0/36 solved runs at the fixed five-epoch budget. Failure near the constant baseline indicates little useful marker-dependent prediction. It does not establish that the architecture cannot solve the task with another budget. Long sequences increase the credit-assignment distance and computation; three seeds expose instability rather than hiding failed runs.
+
+\begin{center}\textbf{Table 5. T=50 diagnostics on CPU; no test-set evaluation}\par\smallskip
+\begin{tabular}{llll}\toprule
+Model & Train 32 MSE & Val,5 epochs & Val,25 epochs\\\midrule
+RNN & 0.00000 & 0.16681 & 0.16463\\
+LSTM & 0.01598 & 0.16587 & 0.01327\\
 GRU & 0.00187 & 0.16301 & 0.00189\\
 \bottomrule\end{tabular}\end{center}
-Figure 5 shows early hidden-gradient attenuation at T=100. After training, the t=1/t=100 mean-norm ratios are about 3.6$\times$10$^{-22}$ (RNN), 1.2$\times$10$^{-11}$ (LSTM) and 6.5$\times$10$^{-5}$ (GRU). Predictions and parameter gradients match the library graph. Gating retains stronger early hidden signals here, but these derivatives also depend on loss and trajectory; $dL/dh_t$ does not cover LSTM's separate cell-memory path or prove a general memory ranking.
-
-Table 2 and Figure 3a--b preserve 36 unsolved five-epoch test runs. T=400's lower MSE also occurs for constant prediction, not better memory. New Table 5 reports independent T=50 diagnostics. All models fit 32 training examples below 0.05; memorization is not generalization. With unchanged data, initialization, shuffle, optimizer and batch, the 25-epoch pilots exactly replay their first five baseline epochs, then reach validation MSE 0.16463, 0.01327, 0.00189 (RNN/LSTM/GRU). This isolates duration as a gated short-sequence limitation. It neither explains T=200--400 nor establishes a new test ranking: no pilot test data were accessed. Finite gradients, target identity, state reset and parameter updates pass.
-
-The paired odd-ID study changes only initial effective forget bias. Table 4/Figure 4b give test MSE 0.16840$\pm$0.00045 (bias 0) versus 0.16849$\pm$0.00039 (bias 1),  neither solved. This difference is small relative to seed spread; no reliable benefit or harm follows under five epochs.
-
-On HAR, Table 1 gives 70.52$\pm$4.91\% (RNN), 87.71$\pm$0.29\% (LSTM), 88.19$\pm$1.04\% (GRU); Figure 2 shows sitting/standing confusion. Table 3/Figure 4a show GRU $h=32$$\to$128 raises accuracy 87.41$\to$89.04\% while parameters grow 4326$\to$54150. LSTM $h=128$ reaches 88.28\% with 71942 parameters. CPU training favors LSTM over comparable GRU widths on this backend; it does not measure deployment energy.
-
-For a memory-constrained wearable, these measurements favor prototyping GRU $h=32$: 71\% fewer parameters than $h=64$ for 0.78 points lower accuracy, and better accuracy than LSTM $h=32$. Float32 weights occupy 16.9 KiB before activations/runtime. Device latency and energy remain unmeasured; three seeds and short budgets limit certainty.
+Table 5 separates fitting 32 examples from generalizing to independent validation
+examples. These longer diagnostics support only a limited duration diagnosis at T=50;
+they cannot be substituted for the prescribed test grid or claimed as T=400 success.
+Table 4 evaluates one paired initialization change rather than a new architecture.
+The cell retention factor can improve the early optimization path, but its effect
+must be judged from validation-selected test results and seed spread.
+For a wearable prototype I would start with GRU, selected by the highest mean validation F 1 (0.9075), then consider the smaller widths in Table 3 if memory is constrained. Its mean test accuracy is 88.08 percent and it has 14790 parameters. Table 1 supplies the measured training-cost trade-off; these GPU training times are not wearable inference latency or energy measurements. Deployment still needs on-device power, latency and accuracy validation.
 \newpage
-\topic{Problem 2: scratch Transformer and HAR encoder}
-Custom scaled dot-product attention computes
-\[ A=\operatorname{softmax}(QK^\top/\sqrt{d_k}+M),\qquad O=AV, \]
-where forbidden logits are $-\infty$. Boolean True means visible. Fully masked rows are rejected. Row-sum, shape, causality and reference tests pass. Maximum SDPA reference error is
-$3.58\cdot10^{-7}$ and input-gradient error $8.88\cdot10^{-16}$.
-Only tests use framework attention/Transformer implementations.
-
-Our nonuniform three-token example uses $Q=[(1,0);(0,1);(1,1)]$,
+\section*{Problem 2: scratch Transformer and HAR encoder}
+Attention is $A=\mathrm{softmax}(QK^T/\sqrt{d_k}+M)$, $O=AV$.
+Assertions verify row sums, shapes, zero future weights, gradients and agreement
+with PyTorch SDPA within $10^{-5}$. Framework attention/encoder layers are used
+only in tests. Fully masked rows are rejected. A nonuniform hand example substitutes
+for the absent instructor fixture: $Q=[(1,0);(0,1);(1,1)]$,
 $K=[(1,0);(0,1);(1,-1)]$, $V=[(1,0);(0,2);(3,4)]$.
-Let $a=1/\sqrt2$, $E=e^a$. Scaled score rows are $(a,0,a),(0,a,-a),(a,a,0)$.
-Exponentiating and normalizing gives
-\[
- A=\begin{bmatrix} E/(2E+1)&1/(2E+1)&E/(2E+1)\\
- 1/Z&E/Z&E^{-1}/Z\\ E/(2E+1)&E/(2E+1)&1/(2E+1)\end{bmatrix},\quad Z=1+E+E^{-1}.
-\]
-Each output is $(A_{i1}+3A_{i3},2A_{i2}+4A_{i3})$;
-numerically $(1.6044,2.0000),(0.7041,1.7121),(0.9944,1.5933)$.
-Scalar arithmetic and code agree below $10^{-5}$. The earlier uniform/masked
-example and random reference tests remain in the notebook.
+For $a=1/\sqrt 2$, score rows are $(a,0,a),(0,a,-a),(a,a,0)$.
+Exponentiate and divide each row by its sum; outputs are
+$(1.6044,2.0000),(0.7041,1.7121),(0.9944,1.5933)$, agreeing with code.
 
-Biased Q/K/V/O projections split/merge heads. Blocks use pre-LayerNorm
-(eps$=10^{-5}$), residuals, ReLU FFN width $4d$, dropout 0.1 on FFN activation
-and branch outputs. With dropout off, MHA/block reference errors are $1.80\cdot10^{-16}$ and $8.88\cdot10^{-16}$. Sinusoidal
-$PE_{p,2i}=\sin(p/10000^{2i/d})$, $PE_{p,2i+1}=\cos(p/10000^{2i/d})$
-matches scalar tests within $5.96\cdot10^{-8}$; backward/causality tests pass.
+Q/K/V/O projections reshape into heads. Pre-LayerNorm blocks use residuals,
+ReLU FFN width$4d$ and dropout. Sinusoidal positions use
+$PE_{p,2i}=\sin(p/10000^{2i/d})$ and cosine for odd components.
+Matrix weights per block are $4d^2+2dd_{ff}$:196608 at $d=128,d_{ff}=512$.
+Biases and LayerNorm add $13d=1664$, total 198272, checked by summing parameters.
+For the HAR encoder, $d=64$:16384+32768=49152 weights, plus 832 gives 49984.
 
-Block matrices have $4d^2+2d d_{ff}$ weights: $196608$ at $d=128,d_{ff}=512$.
-Biases/norms add $13d=1664$, giving $198272$ total.
-At our $d=64,d_{ff}=256$, weights are $16384+32768=49152$.
-Attention biases add $256$; FFN biases $320$; two LayerNorms $256$.
-Total $49152+256+320+256=49984$ matches code; in general $12d^2+13d$.
-Two blocks, patch embedding, CLS, final norm and 6-class head give 105222;
-learned positions add 1088. The untied 65-character LM has 108481 parameters.
-
-Encoders in Figure 6 use 8-step patches (72 values), a $d=64$ embedding, CLS, two blocks/four heads,
-then normalized CLS classification. Table 6 compares nine runs with none/sinusoidal/learned positions,
-using the exact P1 subjects, frozen training statistics, batch 128, Adam$10^{-3}$,
-clipping 1 and 10 epochs. Architecture, dropout and patching differ from recurrent models.
-\begin{center}
-\textbf{Table 6. HAR positional comparison, three seeds}\par\vspace{2pt}
-\begin{tabular}{lrrrr}\toprule
-Positions/model & Accuracy (\%) & Macro-F1 & Params & sec/epoch\\\midrule
-learned & $91.20\pm0.53$ & $0.9121\pm0.0057$ & 106310 & 1.521\\
-none & $90.54\pm1.82$ & $0.9045\pm0.0182$ & 105222 & 1.419\\
-sinusoidal & $90.61\pm1.02$ & $0.9062\pm0.0106$ & 105222 & 1.544\\
-P1 GRU & $88.19\pm1.04$ & $0.8819\pm0.0104$ & 14790 & 2.279\\
-\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=3cm,keepaspectratio]{problem2/figures/report_positions.png}\par
-\par Figure 6. HAR accuracy with sample std. Mean validation F1 chooses sinusoidal
-(0.9276), not learned (0.9144), despite learned's higher test mean. The selected encoder
-improves accuracy by 2.42 points over GRU, using 7.11$\times$ the parameters.
-Flattening preserves the eight ordered offsets inside each patch, even without positions.
-The trained no-position probe is invariant to whole-patch reversal (max logit change
-$1.91\cdot10^{-6}$), but within-patch reversal changes logits by 5.52. Depth, size,
-patching and dropout confound attention-specific attribution. CPU time is not energy.
+TaskA uses 8-step patches, a CLS token, $d=64$, two blocks/four heads,
+dropout 0.1, batch 128 and ten epochs under the same subject splits. Table 6 and
+Figure 6 compare no, sinusoidal and learned positions. Recurrent baselines are in
+Table 1; patching, dropout and parameter counts confound architecture-only conclusions.
+\begin{center}\textbf{Table 6. HAR encoder, three seeds}\par\smallskip
+\begin{tabular}{lllll}\toprule
+Position & Acc. (\%) & Macro-F 1 & Params & s/epoch\\\midrule
+learned & 91.5847 $\pm$ 2.0396 & 0.9159 $\pm$ 0.0201 & 106310 & 0.269\\
+none & 89.5374 $\pm$ 0.7666 & 0.8945 $\pm$ 0.0076 & 105222 & 0.274\\
+sinusoidal & 90.3970 $\pm$ 1.1095 & 0.9044 $\pm$ 0.0118 & 105222 & 0.270\\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=3.3cm,keepaspectratio]{problem2/figures/report_positions.png}\par Figure 6. Position ablation; error bars are sample standard deviations.\end{center}
+Removing positions makes attention invariant to permutations of whole patches,
+verified by reversing patch order. It does not remove order within each flattened
+8-step patch. Thus a strong no-position result would not prove temporal order irrelevant.
+Sizes/seeds are disclosed assumptions where the variant table is missing.
 \newpage
-\topic{Problem 2: causal language modeling, heads and masking}
-Tiny Shakespeare has 1115394 characters and 65 distinct characters. Sorted vocabulary uses the whole text; contiguous 90/10 split gives 1003854/111540
-training/validation characters.
-Contiguous nonoverlapping 128-step next-character blocks are not shuffled; fewer
-than 128 trailing transitions per split are omitted. No targets cross the split boundary.
-CPU uses the assignment FAQ exception: $d=64$, two layers (rather than $d=128$/four),
-context 128/four heads. All comparisons use five full epochs, batch 64, seed 0,
-Adam$10^{-3}$, dropout 0.1 and norm1 clipping. Minimum validation loss selects checkpoints; Figure 7 shows continued learning.
-Head/mask variants start with identical parameter values; all have 108481 parameters.
-\begin{center}
-\textbf{Table 7. LM validation; BPC = nats / ln 2}\par\vspace{2pt}
-\begin{tabular}{lrrrr}\toprule
-Heads & Mask & 5-epoch nats & Continued nats & Continued BPC\\\midrule
-4 & causal & 2.23495 & 2.02695 & 2.92427\\
-1 & causal & 2.20279 & 1.99610 & 2.87976\\
-8 & causal & 2.25598 & 2.07216 & 2.98949\\
-4 & leakage & 0.31769 & 0.03194 & 0.04608\\
-\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem2/figures/report_lm-continued.png}\par
-\par Figure 7a--c. (a) Continued validation curves; (b) selected causal losses;
-(c) mask-removal training loss. Original five-epoch curves remain in the notebook. Uniform baseline is $\ln65=4.17439$ nats.
-Five additional epochs improve causal validation (Table 7). All variants restart Adam
-because old optimizer states are absent; duration and restart effects are not isolated.
-Original ablations have matched initialization; continuations start from their own
-validation-selected weights under a common rule. One seed cannot establish a ranking.
-Heads share the same matrix counts but store different numbers of softmax maps.
-
-In the original five-epoch mask ablation, input $t+1$ exposes the target at $t$. Training loss falls to
-0.59362 versus causal 2.26579. Apparent validation 0.31769 nats/0.45834 BPC is
-\textbf{contaminated}, not autoregressive quality. Changing future tokens leaves the
-trained causal prefix logits unchanged (max 0), but changes unmasked logits by 7.15354.
-Its original generation exposes failure: 98.4\% of its 500 characters
-are newlines and only 4 characters are distinct (temperature 0.8).
-
-The primary LM is the continued four-head causal checkpoint (Table 7), selected at
-additional epoch 5. Its three 500-character draws are in
-\path{problem2/generated_samples.txt}:
-prompt \texttt{ROMEO:\textbackslash n}, top-k 20, seed 700, temperatures 0.2/0.8/1.5.
-Table 8 describes single draws, not predictive entropy.
-\begin{center}
-\textbf{Table 8. Continued main-model sample diversity}\par\vspace{2pt}
-\begin{tabular}{lrr}\toprule
-Temperature & Distinct chars & Empirical entropy (bits)\\\midrule
-0.2 & 23 & 3.402\\
-0.8 & 38 & 4.355\\
-1.5 & 50 & 4.782\\
-\bottomrule\end{tabular}\end{center}At 0.2, ``the he''/``and the'' recur; ``halll'' shows spelling failure despite common words.
-At 0.8, ``That pray here you sliang'' has clause-like shape but malformed words and
-no coherent continuation. At 1.5, ``LRIENCUS:'' resembles a speaker cue, surrounded
-by broken words such as ``caingmiely''. Increased case/punctuation variety is not
-improved coherence. All three samples remain weak despite lower validation loss.
+\section*{Problem 2: causal language model and ablations}
+Tiny Shakespeare uses its full 65-character vocabulary; the first 90 percent
+trains and last 10 percent validates, without shuffled text. The standard GPU model
+uses $d=128$, four layers, context 128, four heads, batch 64, dropout 0.1,
+Adam $10^{-3}$ and five epochs. Heads 1/4/8 and mask removal have matched budgets.
+Four additional five-epoch continuations reset Adam consistently from each selected
+baseline. This deliberate restart protocol does not isolate duration from restart effects.
+\begin{center}\textbf{Table 7. LM validation; BPC = nats / ln 2}\par\smallskip
+\begin{tabular}{lllll}\toprule
+Heads & Mask & Base nats & Continued nats & BPC\\\midrule
+4 & causal & 1.9093 & 1.7444 & 2.5167\\
+1 & causal & 1.8971 & 1.7538 & 2.5302\\
+8 & causal & 1.9226 & 1.7547 & 2.5315\\
+4 & unmasked & 0.0285 & 0.0210 & 0.0303\\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem2/figures/report_lm-continued.png}\par Figure 7. Validation learning, head ablation and mask-removal training loss.\end{center}
+Uniform prediction costs $\ln 65=4.17439$ nats. Table 7 and Figure 7 provide
+learning evidence; one seed does not establish a reliable head-count ranking.
+Unmasked training exposes the next-character target through future input tokens:
+its validation loss is contaminated and is not autoregressive quality. Causal-prefix
+invariance and an unmasked counterexample are tested on the trained weights.
+The primary LM is the continued four-head causal checkpoint. All samples contain
+500 new characters after \texttt{ROMEO:\textbackslash n}, top-k 20, sampling seed 700.
+\begin{center}\textbf{Table 8. Sample diversity: continued main model; unmasked baseline}\par\smallskip
+\begin{tabular}{lll}\toprule
+Temperature/model & Distinct characters & Empirical entropy\\\midrule
+0.2 & 26 & 3.673\\
+0.8 & 41 & 4.379\\
+1.5 & 47 & 4.687\\
+unmasked,0.8 & 1 & -0.000\\
+\bottomrule\end{tabular}\end{center}
+The baseline unmasked draw at 0.8 has 100.0 percent newlines and 100.0 percent identical adjacent characters (Table 8). Compare this generation evidence with its contaminated validation loss in Table 7.
+Table 8 describes individual draws, not model predictive entropy. Temperature 0.2 concentrates probability on likely characters;0.8 permits more variation;1.5 flattens the distribution. Higher character diversity is not evidence of coherent language. At 0.2, repeated `shall` fragments dominate;0.8 contains speaker-like `POMPENEy` but malformed `lannio`;1.5 varies punctuation and case while misspelling `wildrak`. The full labelled samples are in generated\_samples.txt.
 \newpage
-\topic{Problem 2: attention interpretation and context scaling}
-\includegraphics[width=\linewidth,height=5.5cm,keepaspectratio]{problem2/figures/report_attention-heads.png}\par
-\par Figure 8a--b. Five-epoch baseline layer 1, heads 1/2 on ``To be, or not to be.''
-In Figure 8, rows are queries, columns keys. Both favor current/nearby characters with different
-off-diagonal patterns (mean diagonal mass 0.3616/0.3736).
-At query 17 (b), head 1 assigns 0.6783 to itself and 0.0460 to key 3 (earlier b);
-head 1's query 18 (e) places 0.3480 on key 17 (b), linking the local be pair.
-For query 18, head 2 places 0.2982 on key 17 and 0.1891 on the preceding space;
-query 17 attends 0.5991 to itself and 0.1213 to that space. Such weights describe
-this input and do not establish semantic importance or a causal mechanism.
-Future entries are exactly zero. This single sentence does not establish specialization.
-
-Figure 9 and Table 9 measure baseline cost: batch 8, float 32, dropout off, contexts 64/128/256/512.
-Two warmups precede five timed forward+backward repeats. Raw times and three
-allocation-event traces per length are retained; matching measurements replay.
-CPU memory reconstructs peak additional live tensor bytes from allocation/free
-events, excluding model/input baseline, interpreter and allocator reservation.
-It is neither process RSS nor reserved GPU memory.
-\begin{center}
-\textbf{Table 9. Full-model context cost on CPU}\par\vspace{2pt}
-\begin{tabular}{lrrr}\toprule
-Context & Time (ms), mean $\pm$ std & Peak tensor MiB & Score elements\\\midrule
-64 & $8.709\pm0.402$ & 5.228 & 131072\\
-128 & $14.602\pm0.810$ & 12.714 & 524288\\
-256 & $45.767\pm0.897$ & 41.331 & 2097152\\
-512 & $187.750\pm6.799$ & 146.753 & 8388608\\
-\bottomrule\end{tabular}\end{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem2/figures/report_context.png}\par
-\par Figure 9a--b. Time and incremental tensor peak versus context; dashed line
-is an anchored quadratic memory reference. With 8$\times$ context, score elements
-increase 64$\times$, measured time 21.56$\times$, tensor peak 28.07$\times$.
-Attention products cost $O(T^2d)$; embeddings/FFN add linear-T work, so full-model
-ratios need not equal 64. Short-length timing includes overhead and cache effects.
-Long-context quality and T4/device latency are not evaluated.
-
-The 92 rows contain 82 baseline runs, 6 adding diagnostics and 4 LM continuations.
-Cached replay is not fresh training. No bonus is claimed; GPU timing is unmeasured.
-
-\textbf{AI-use disclosure.} OpenAI Codex assisted with scratch recurrent/Transformer
-code, pipelines, experiments, tests, execution, plots, analysis and report preparation.
-The student confirmed the root DOCX as the current brief permitting this assistance.
+\section*{Problem 2: attention interpretation and context scaling}
+\begin{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem2/figures/report_attention-heads.png}\par Figure 8. Baseline first-layer heads 1/2 on ``To be, or not to be. Rows are queries, columns are keys.\end{center}
+The mean diagonal masses of the two heads in Figure 8 are 0.2387 and 0.2671. These quantify self-attention for this sentence; off-diagonal weights identify other accessible character positions. Future weights are zero. Different patterns in one sentence do not establish semantic specialization or causal importance.
+\begin{center}\textbf{Table 9. GTX 1650 full-model context benchmark}\par\smallskip
+\begin{tabular}{lll}\toprule
+Context & Time(ms), mean $\pm$ std & Peak tensor MiB\\\midrule
+64 & 7.3873 $\pm$ 0.0631 & 16.582\\
+128 & 9.3585 $\pm$ 0.0422 & 37.662\\
+256 & 17.0292 $\pm$ 0.5549 & 98.960\\
+512 & 44.2106 $\pm$ 0.1714 & 309.819\\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=3.6cm,keepaspectratio]{problem2/figures/report_context.png}\par Figure 9. Measured time and incremental allocated tensor memory versus context.\end{center}
+Table 9/Figure 9 use batch 8, float 32, evaluation-mode forward plus backward, two warmups and five synchronized timing repeats. CUDA peak allocated memory excludes the pre-existing model/input baseline and is not reserved memory. From 64 to 512 tokens, time grows 5.98 times and additional tensor memory 18.68 times. Attention score elements grow 64 times; full-model cost need not exactly follow this ratio because projections and FFNs add linear work.
+Execution used a local NVIDIA GeForce GTX 1650 (4 GB). Both complete notebook workflows took 10.00 minutes, excluding environment setup and dataset downloads; this includes tests, evaluation and plots as well as training. Some diagnostics use CPU. The requested runtime is reported for this local GPU; T4 timing was not measured. No bonus is claimed.
+\par\textbf{AI-use disclosure.} OpenAI Codex assisted with scratch implementations,
+training, testing, execution, plots, analysis and report preparation. The current
+assignment permits AI assistance for scratch components.
 \newpage
-\topic{References (excluded from six-page limit)}
-[1] A. Vaswani et al. \emph{Attention Is All You Need}. 2017.
-Sections 3.2.1, 3.2.2, 3.5 and Table 1: attention, head projections, positions and complexity.
-\url{https://arxiv.org/abs/1706.03762}.
-The assignment's pre-LN requirement is followed; the original paper uses post-LN.
+\section*{References}
 
-[2] UCI Machine Learning Repository. \emph{Human Activity Recognition Using Smartphones}.
-Official nine-channel sensor windows and subject IDs.
+[1] Course assignment: DNN Programming Assignment--2, RNN, LSTM, GRU and Transformer;
+current root DOCX identified by the student. Missing variant table and hand fixture
+are handled as explicit assumptions under its missing-information clause.
+
+[2] Vaswani et al., Attention Is All You Need (2017).
+\url{https://arxiv.org/abs/1706.03762}. The assignment uses pre-LN, unlike the original post-LN block.
+
+[3] UCI Human Activity Recognition Using Smartphones.
 \url{https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones}.
 
-[3] A. Karpathy. \emph{char-rnn: Tiny Shakespeare input.txt}.
+[4] Karpathy, Tiny Shakespeare data.
 \url{https://github.com/karpathy/char-rnn/tree/master/data/tinyshakespeare}.
 
-[4] PyTorch reference documentation and installed class documentation:
-RNN, LSTM, GRU, functional scaled\_dot\_product\_attention,
-MultiheadAttention and TransformerEncoderLayer (verification only).
+[5] PyTorch reference documentation; recurrent and attention modules used for verification.
 \url{https://pytorch.org/docs/stable/nn.html}.
-
-[5] Course assignment: \emph{DNN Programming Assignment--2: RNN, LSTM, GRU and
-Transformer}, current root DOCX confirmed by the student on 12 November 2026. Source of dataset/split/generator instructions,
-marking criteria, CPU exception and permission to state reasonable assumptions for
-missing information. The referenced variant table and instructor hand example were
-not supplied; chosen sizes/seeds and self-created examples are assumptions, not
-verified instructor clarifications. The DOCX gives 14 November 2026, 11:59 PM IST, with an inconsistent
-weekday label. Confirm the deadline on the course portal; its link is not supplied.
 \end{document}
