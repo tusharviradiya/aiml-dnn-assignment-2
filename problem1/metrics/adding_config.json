@@ -1,8 +1,8 @@
 {
-  "run_id": "be79421e51e9e201",
+  "run_id": "dfc8d3d6b1266b42",
   "hidden_size": 64,
   "batch_size": 128,
-  "epochs": 5,
+  "epochs": 50,
   "lr": 0.001,
   "clip_norm": 1.0,
   "seeds": [

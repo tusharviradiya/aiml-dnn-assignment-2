@@ -46,7 +46,8 @@ assert not ledger.duplicated(['problem','model','seed','notes']).any()
 # Bind P1 rows to their actual checkpoint metadata, regardless of hardware.
 p1_rows=[]
 for folder in ('har','adding','task5'):
-    for path in (ROOT/'data/experiments'/folder).rglob('*.json'):
+    active=json.loads((ROOT/'problem1/metrics'/dict(har='har_config.json',adding='adding_config.json',task5='task5_config.json')[folder]).read_text())['run_id']
+    for path in (ROOT/'data/experiments'/folder/active).rglob('*.json'):
         result=json.loads(path.read_text())
         if 'row' in result:p1_rows.append(result['row'])
 expected=pd.DataFrame(p1_rows,columns=scope['RESULT_COLUMNS']).drop_duplicates(['problem','model','seed','notes'])
@@ -180,7 +181,7 @@ assert (scaling.mean_seconds>0).all() and (scaling.peak_incremental_bytes>0).all
 np.testing.assert_array_equal(scaling.attention_score_elements,8*4*scaling.context**2)
 for name in ('har_positions.png','lm_ablations.png','attention_heads.png','context_scaling.png'):
     assert (ROOT/'problem2'/'figures'/name).stat().st_size>1000
-assert len(ledger[(ledger.problem=='P2') & ~ledger.notes.str.contains('\"review\"',regex=False,na=False)])==13
+assert len(ledger[(ledger.problem=='P2') & ~ledger.notes.str.contains('\"review\"',regex=False,na=False) & ~ledger.notes.str.contains('kv-cache-benchmark',regex=False,na=False)])==13
 print('PASS: all 2000 generated characters reproduced; saved two-head attention and context-scaling evidence')
 print('PASS: Problem 1 ledger preserved; 13 baseline P2 runs (supplemental rows audited separately), no forbidden model layers or duplicate rows')
 

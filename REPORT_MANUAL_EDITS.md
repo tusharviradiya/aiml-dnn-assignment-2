@@ -1,3 +1,3 @@
-# Final GPU report
+# Revised report complete
 
-Report updates are complete and verified; no pending manual report edit is required. See [final validation](docs/submission-validation.md) for evidence, limitations and remaining personal portal actions.
+No pending manual report edit. The final submission validation records actual results, local GPU timing, AI disclosure and package checks. Portal upload remains personal.

@@ -1,5 +1,5 @@
 {
-  "run_id": "9caad1fc2eecb5ca",
+  "run_id": "0957de1893d476b8",
   "seeds": [
     0,
     1,
@@ -34,10 +34,10 @@
     "device": "cuda"
   },
   "adding_base": {
-    "run_id": "be79421e51e9e201",
+    "run_id": "dfc8d3d6b1266b42",
     "hidden_size": 64,
     "batch_size": 128,
-    "epochs": 5,
+    "epochs": 50,
     "lr": 0.001,
     "clip_norm": 1.0,
     "seeds": [

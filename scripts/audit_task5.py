@@ -56,7 +56,7 @@ for r in summary.itertuples():
 print('PASS: all 24 HAR sweep checkpoints, predictions, statistics and selections')
 forget=pd.read_csv(metrics/'forget_bias_runs.csv');fp=pd.read_csv(metrics/'forget_bias_predictions.csv')
 fh=pd.read_csv(metrics/'forget_bias_history.csv');fs=pd.read_csv(metrics/'forget_bias_summary.csv')
-assert len(forget)==6 and len(fp)==6000 and len(fh)==30
+assert len(forget)==6 and len(fp)==6000 and len(fh)==6*config['adding_base']['epochs']
 for r in forget.itertuples():
     saved=torch.load(cache/'forget'/f'bias{r.forget_bias}'/f'LSTM_200_{r.seed}.pt',weights_only=True)
     assert saved['config']['effective_forget_bias']==r.forget_bias
@@ -94,6 +94,7 @@ for kind in ['RNN','LSTM','GRU']:
             expected=pd.DataFrame(scope['hidden_gradient_probe'](kind,seed,trained))
             actual=grad[(grad.model==kind)&(grad.seed==seed)&(grad.phase==('after' if trained else 'before'))].sort_values('t')
             np.testing.assert_allclose(actual.norm,expected.norm,rtol=1e-8,atol=1e-300)
+            assert actual.checkpoint_run_id.eq(config['adding_base']['run_id']).all()
 print('PASS: all 18 gradient probes reproduced; fused-library output and parameter-gradient comparisons passed')
 ledger=pd.read_csv('results.csv');selected=ledger[ledger.notes.str.contains(config['run_id'],regex=False,na=False)]
 assert len(selected)==24 and selected.problem.eq('P1').all()

@@ -16,7 +16,7 @@ else:
  assert all(r['seconds']>0 for r in runtime['runs'].values())
 assert all(runtime['runs'][p]['status']=='passed' for p in ('problem1','problem2'))
 def read(p):return pd.read_csv(p)
-def pm(m,s,scale=1):return f'{m*scale:.4f} $\\pm$ {s*scale:.4f}'
+def pm(m,s,scale=1,precision=4):return f'{m*scale:.{precision}f} $\\pm$ {s*scale:.{precision}f}'
 def table(n,title,heads,rows):
  return '\\begin{center}\\textbf{Table '+str(n)+'. '+title+'}\\par\\smallskip\n\\begin{tabular}{'+'l'*len(heads)+'}\\toprule\n'+' & '.join(heads)+r'\\\midrule'+'\n'+'\n'.join(' & '.join(map(str,row))+r'\\' for row in rows)+'\n\\bottomrule\\end{tabular}\\end{center}\n'
 def fig(n,path,caption,height):
@@ -60,19 +60,19 @@ s+=page('Problem 1: adding, width and individual ablation')
 s+=r'''The prescribed adding generator uses two markers, one per half; assertions check
 marker counts and exact target sums. Each length uses 10000/1000/1000 examples
 with data seeds 0/1/2. All models use $h=64$, Adam $10^{-3}$, batch128,
-five epochs and clipping1, with three model seeds. Validation MSE selects weights.
+50 epochs and clipping1, with three model seeds. Validation MSE selects weights.
 The theoretical constant-1 baseline is $1/6$; Table2 uses the measured baseline.
 Solved means test MSE below0.05; Figure3 contains length and learning curves.
 '''
 rows=[]
 for T in (50,100,200,400):
  g=adding[adding.seq_len==T].set_index('model')
- rows.append([T]+[pm(g.loc[m,'test_mse_mean'],g.loc[m,'test_mse_std']) for m in ('RNN','LSTM','GRU')]+[f'{g.iloc[0].baseline_mse:.4f}']+['/'.join(str(int(g.loc[m,'solved'])) for m in ('RNN','LSTM','GRU'))])
+ rows.append([T]+[pm(g.loc[m,'test_mse_mean'],g.loc[m,'test_mse_std'],precision=6) for m in ('RNN','LSTM','GRU')]+[f'{g.iloc[0].baseline_mse:.4f}']+['/'.join(str(int(g.loc[m,'solved'])) for m in ('RNN','LSTM','GRU'))])
 s+=table(2,'Adding MSE; solved R/L/G counts out of three',['T','RNN','LSTM','GRU','Constant1','Solved'],rows)
-s+=fig(3,'problem1/figures/report_adding.png','Test MSE against length; T=200 train/validation curves.',2.8)
+s+=fig(3,'problem1/figures/report_adding.png','Test MSE against length; T=200 curves: solid training, dashed validation.',2.8)
 s+='The hidden-size sweep keeps the HAR budget fixed (Table3). ID ends in3, so the individual experiment compares initial LSTM forget bias0/1 at T=200 (Table4); other initial weights and shuffle seeds are paired. Figure4 shows both studies.\n'
 s+=table(3,'HAR hidden-size sweep',['h','LSTM acc. (\\%)','Params','GRU acc. (\\%)','Params'],[[h,pm((g:=sweep[sweep.hidden_size==h].set_index('model')).loc['LSTM','accuracy_mean'],g.loc['LSTM','accuracy_std'],100),int(g.loc['LSTM','params']),pm(g.loc['GRU','accuracy_mean'],g.loc['GRU','accuracy_std'],100),int(g.loc['GRU','params'])] for h in (16,32,64,128)])
-s+=table(4,'Forget-bias ablation, three seeds',['Bias','MSE','Solved'],[[int(r.forget_bias),pm(r.test_mse_mean,r.test_mse_std),f'{int(r.solved)}/3'] for r in forget.itertuples()])
+s+=table(4,'Forget-bias ablation, three seeds',['Bias','MSE','Solved'],[[int(r.forget_bias),pm(r.test_mse_mean,r.test_mse_std,precision=6),f'{int(r.solved)}/3'] for r in forget.itertuples()])
 s+=fig(4,'problem1/figures/report_sweep-forget.png','Hidden-size trade-offs and initial forget-bias comparison.',2.6)
 s+=page('Problem 1: gradient evidence and one-page analysis')
 s+=fig(5,'problem1/figures/report_gradients.png','Actual hidden-state gradient norms at T=100 before/after training; logarithmic scale, three-seed means.',4)
@@ -89,20 +89,23 @@ for m in ('RNN','LSTM','GRU'):
  s+=f'{m}: mean post-training first/last hidden-gradient norms are ${g.iloc[0]:.2e}$/${g.iloc[-1]:.2e}$. '
 s+='\n\n'
 solved=int(adding.solved.sum())
-s+=f'Table2 records {solved}/36 solved runs at the fixed five-epoch budget. Failure near the constant baseline indicates little useful marker-dependent prediction. It does not establish that the architecture cannot solve the task with another budget. Long sequences increase the credit-assignment distance and computation; three seeds expose instability rather than hiding failed runs.\n\n'
-rows=[]
+s+=f'Table2 records {solved}/36 solved runs under a common 50-epoch budget. The earlier five-epoch grid solved none. The revision was motivated by independent T=50 validation pilots; no outcome-driven epoch extension was made. Each revised checkpoint is selected by validation MSE. Earlier test results were already observed; these are follow-up experiments, not a new untouched test set.\n\n'
 for m in ('RNN','LSTM','GRU'):
- a=json.loads((P1/'supplement'/f'adding-{m}-overfit.json').read_text());b=json.loads((P1/'supplement'/f'adding-{m}-validation-pilot.json').read_text())
- rows.append([m,f'{a["final_train32_mse"]:.5f}',f'{min(h["val_mse"] for h in b["history"][:5]):.5f}',f'{b["best_val_mse"]:.5f}'])
-s+=table(5,'T=50 diagnostics on CPU; no test-set evaluation',['Model','Train32 MSE','Val,5 epochs','Val,25 epochs'],rows)
-s+=r'''Table5 separates fitting32 examples from generalizing to independent validation
-examples. These longer diagnostics support only a limited duration diagnosis at T=50;
-they cannot be substituted for the prescribed test grid or claimed as T=400 success.
-Table4 evaluates one paired initialization change rather than a new architecture.
-The cell retention factor can improve the early optimization path, but its effect
-must be judged from validation-selected test results and seed spread.
-'''
+ g=adding[adding.model==m].sort_values('seq_len')
+ s+=m+': solved counts at T=50/100/200/400 are '+ '/'.join(str(int(v)) for v in g.solved)+' out of three at each length. '
+s+='These finite-budget results describe where learning succeeds or stalls; they do not prove architectural impossibility.\n\n'
+fraw=read(P1/'forget_bias_runs.csv').pivot(index='seed',columns='forget_bias',values='test_mse')
+delta=fraw[1]-fraw[0]
+s+=f'Table4 compares only the initial effective forget bias, with paired weights and shuffle seeds. Bias1-minus-bias0 test MSE differences have mean {delta.mean():.5f} and sample standard deviation {delta.std(ddof=1):.5f}; the three differences are '+', '.join(f'{v:.5f}' for v in delta)+'. Negative differences favor bias1. This small paired study supports a protocol-specific observation, not a universal ranking.\n\n'
+hmap=har.set_index('model')
+s+=f"Table1: GRU uses {100*(1-hmap.loc['GRU','params']/hmap.loc['LSTM','params']):.1f} percent fewer parameters than LSTM, with {100*(hmap.loc['GRU','accuracy_mean']-hmap.loc['LSTM','accuracy_mean']):.2f} percentage-point accuracy difference. Mean training seconds/epoch are {hmap.loc['RNN','seconds_per_epoch_mean']:.3f}/{hmap.loc['LSTM','seconds_per_epoch_mean']:.3f}/{hmap.loc['GRU','seconds_per_epoch_mean']:.3f} for RNN/LSTM/GRU. A smaller or faster model is useful only if its measured accuracy is acceptable.\n"
 s+=f'For a wearable prototype I would start with {best.model}, selected by the highest mean validation F1 ({best.validation_f1_mean:.4f}), then consider the smaller widths in Table3 if memory is constrained. Its mean test accuracy is {best.accuracy_mean*100:.2f} percent and it has {int(best.params)} parameters. Table1 supplies the measured training-cost trade-off; these GPU training times are not wearable inference latency or energy measurements. Deployment still needs on-device power, latency and accuracy validation.\n'
+minutes=sum(r['seconds'] for r in runtime['runs'].values())/60
+s+=f'Execution used a local NVIDIA GeForce GTX1650 (4 GB). Both complete notebook workflows took {minutes:.2f} minutes, excluding setup, downloads and the preserved earlier P2 optimization attempt; these independently fresh P1/final P2 runs include tests, evaluation, plots and training. Some diagnostics use CPU. The requested runtime is reported for this local GPU; T4 timing was not measured. The KV-cache stretch experiment is included.\n'
+s+=r"""\par\textbf{AI-use disclosure.} OpenAI Codex assisted with scratch implementations,
+training, testing, execution, plots, analysis and report preparation. Claude supplied
+an external review. The current assignment permits AI assistance for scratch components.
+"""
 s+=page('Problem 2: scratch Transformer and HAR encoder')
 s+=r'''Attention is $A=\mathrm{softmax}(QK^T/\sqrt{d_k}+M)$, $O=AV$.
 Assertions verify row sums, shapes, zero future weights, gradients and agreement
@@ -122,11 +125,11 @@ Biases and LayerNorm add $13d=1664$, total198272, checked by summing parameters.
 For the HAR encoder, $d=64$:16384+32768=49152 weights, plus832 gives49984.
 
 TaskA uses 8-step patches, a CLS token, $d=64$, two blocks/four heads,
-dropout0.1, batch128 and ten epochs under the same subject splits. Table6 and
+dropout0.1, batch128 and ten epochs under the same subject splits. Table5 and
 Figure6 compare no, sinusoidal and learned positions. Recurrent baselines are in
 Table1; patching, dropout and parameter counts confound architecture-only conclusions.
 '''
-s+=table(6,'HAR encoder, three seeds',['Position','Acc. (\\%)','Macro-F1','Params','s/epoch'],[[r.model.removeprefix('HAR-Transformer-'),pm(r.acc_mean,r.acc_std,100),pm(r.f1_mean,r.f1_std),int(r.params),f'{r.seconds:.3f}'] for r in enc.itertuples()])
+s+=table(5,'HAR encoder, three seeds',['Position','Acc. (\\%)','Macro-F1','Params','s/epoch'],[[r.model.removeprefix('HAR-Transformer-'),pm(r.acc_mean,r.acc_std,100),pm(r.f1_mean,r.f1_std),int(r.params),f'{r.seconds:.3f}'] for r in enc.itertuples()])
 s+=fig(6,'problem2/figures/report_positions.png','Position ablation; error bars are sample standard deviations.',3.3)
 s+=r'''Removing positions makes attention invariant to permutations of whole patches,
 verified by reversing patch order. It does not remove order within each flattened
@@ -145,9 +148,9 @@ rows=[]
 for r in lm.itertuples():
  c=json.loads(r.notes);after=cont[f'h{c["heads"]}-causal{int(c["causal"])}']
  rows.append([c['heads'],'causal' if c['causal'] else 'unmasked',f'{r.val_loss_nats:.4f}',f'{after["best_val_loss"]:.4f}',f'{after["bits_per_char"]:.4f}'])
-s+=table(7,'LM validation; BPC = nats / ln2',['Heads','Mask','Base nats','Continued nats','BPC'],rows)
+s+=table(6,'LM validation; BPC = nats / ln2',['Heads','Mask','Base nats','Continued nats','BPC'],rows)
 s+=fig(7,'problem2/figures/report_lm-continued.png','Validation learning, head ablation and mask-removal training loss.',4)
-s+=r'''Uniform prediction costs $\ln65=4.17439$ nats. Table7 and Figure7 provide
+s+=r'''Uniform prediction costs $\ln65=4.17439$ nats. Table6 and Figure7 provide
 learning evidence; one seed does not establish a reliable head-count ranking.
 Unmasked training exposes the next-character target through future input tokens:
 its validation loss is contaminated and is not autoregressive quality. Causal-prefix
@@ -164,23 +167,25 @@ for a in samples:
   rows.append([a['temperature'],len(count),f'{entropy:.3f}'])
 unmasked_stats=read(P2/'sample_statistics.csv').query("model=='unmasked'").iloc[0]
 rows.append(['unmasked,0.8',int(unmasked_stats.distinct_characters),f'{unmasked_stats.empirical_char_entropy_bits:.3f}'])
-s+=table(8,'Sample diversity: continued main model; unmasked baseline',['Temperature/model','Distinct characters','Empirical entropy'],rows)
-s+=f'The baseline unmasked draw at0.8 has {100*unmasked_stats.newline_fraction:.1f} percent newlines and {100*unmasked_stats.repeated_adjacent_fraction:.1f} percent identical adjacent characters (Table8). Compare this generation evidence with its contaminated validation loss in Table7.\n'
+s+=table(7,'Sample diversity: continued main model; unmasked baseline',['Temperature/model','Distinct characters','Empirical entropy'],rows)
+s+=f'The baseline unmasked draw at0.8 has {100*unmasked_stats.newline_fraction:.1f} percent newlines and {100*unmasked_stats.repeated_adjacent_fraction:.1f} percent identical adjacent characters (Table7). Compare this generation evidence with its contaminated validation loss in Table6.\n'
 
-s+='Table8 describes individual draws, not model predictive entropy. Temperature0.2 concentrates probability on likely characters;0.8 permits more variation;1.5 flattens the distribution. Higher character diversity is not evidence of coherent language. At0.2, repeated `shall` fragments dominate;0.8 contains speaker-like `POMPENEy` but malformed `lannio`;1.5 varies punctuation and case while misspelling `wildrak`. The full labelled samples are in generated\\_samples.txt.\n'
+s+='Table7 describes individual draws, not model predictive entropy. Temperature0.2 concentrates probability on likely characters;0.8 permits more variation;1.5 flattens the distribution. Higher character diversity is not evidence of coherent language. At0.2, repeated `shall` fragments dominate;0.8 contains speaker-like `POMPENEy` but malformed `lannio`;1.5 varies punctuation and case while misspelling `wildrak`. The full labelled samples are in generated\\_samples.txt.\n'
 s+=page('Problem 2: attention interpretation and context scaling')
 s+=fig(8,'problem2/figures/report_attention-heads.png','Baseline first-layer heads1/2 on ``To be, or not to be.'' Rows are queries, columns are keys.',4)
 diag=json.loads((P2/'mask_diagnostic.json').read_text())
-s+=f'The mean diagonal masses of the two heads in Figure8 are {diag["diagonal_attention_means"][0]:.4f} and {diag["diagonal_attention_means"][1]:.4f}. These quantify self-attention for this sentence; off-diagonal weights identify other accessible character positions. Future weights are zero. Different patterns in one sentence do not establish semantic specialization or causal importance.\n'
-s+=table(9,'GTX 1650 full-model context benchmark',['Context','Time(ms), mean $\\pm$ std','Peak tensor MiB'],[[int(r.context),pm(r.mean_seconds,r.std_seconds,1000),f'{r.peak_incremental_bytes/2**20:.3f}'] for r in scaling.itertuples()])
-s+=fig(9,'problem2/figures/report_context.png','Measured time and incremental allocated tensor memory versus context.',3.6)
-s+=f'Table9/Figure9 use batch8, float32, evaluation-mode forward plus backward, two warmups and five synchronized timing repeats. CUDA peak allocated memory excludes the pre-existing model/input baseline and is not reserved memory. From64 to512 tokens, time grows {scaling.mean_seconds.iloc[-1]/scaling.mean_seconds.iloc[0]:.2f} times and additional tensor memory {scaling.peak_incremental_bytes.iloc[-1]/scaling.peak_incremental_bytes.iloc[0]:.2f} times. Attention score elements grow64 times; full-model cost need not exactly follow this ratio because projections and FFNs add linear work.\n'
-minutes=sum(r['seconds'] for r in runtime['runs'].values())/60
-s+=f'Execution used a local NVIDIA GeForce GTX1650 (4 GB). Both complete notebook workflows took {minutes:.2f} minutes, excluding environment setup and dataset downloads; this includes tests, evaluation and plots as well as training. Some diagnostics use CPU. The requested runtime is reported for this local GPU; T4 timing was not measured. No bonus is claimed.\n'
-s+=r"""\par\textbf{AI-use disclosure.} OpenAI Codex assisted with scratch implementations,
-training, testing, execution, plots, analysis and report preparation. The current
-assignment permits AI assistance for scratch components.
-"""
+s+=f'Figure8 mean diagonal weights are {diag["diagonal_attention_means"][0]:.4f} and {diag["diagonal_attention_means"][1]:.4f}. Future weights are zero; heads distribute weight differently over visible character positions. This single input does not establish semantic specialization or causal importance.\n'
+s+=table(8,'GTX 1650 full-model context benchmark',['Context','Time(ms), mean $\\pm$ std','Peak tensor MiB'],[[int(r.context),pm(r.mean_seconds,r.std_seconds,1000),f'{r.peak_incremental_bytes/2**20:.3f}'] for r in scaling.itertuples()])
+s+=fig(9,'problem2/figures/report_context.png','Measured time and incremental allocated tensor memory versus context.',3.3)
+s+=f'Table8/Figure9: batch8/FP32, eval-mode forward plus backward, two warmups and five synchronized timings. Peak allocated tensor memory subtracts the model/input baseline. From64 to512, time grows {scaling.mean_seconds.iloc[-1]/scaling.mean_seconds.iloc[0]:.2f} times and memory {scaling.peak_incremental_bytes.iloc[-1]/scaling.peak_incremental_bytes.iloc[0]:.2f} times. Attention scores grow64 times; projections and FFNs add linear work, so full-model ratios differ.\n'
+kv=json.loads((P2/'kv_benchmark.json').read_text())
+krows=[]
+for r in kv['trials']:
+ if r['cached']:
+  unc=next(a for a in kv['trials'] if not a['cached'] and a['prompt_length']==r['prompt_length'] and a['new_characters']==r['new_characters'])
+  krows.append([f"{r['prompt_length']}+{r['new_characters']}",f"{unc['mean_seconds']:.3f}",f"{r['mean_seconds']:.3f}",f"{r['speedup']:.2f}"])
+s+=table(9,'Bonus: total greedy generation latency on GTX1650',['Prompt+new','Uncached(s)','Cached(s)','Speed ratio'],krows)
+s+='Table9 uses selected continued weights, batch1/FP32, three warmups and ten alternating paired synchronized trials, including prefill. Ratio = uncached/cached mean latency. Logits pass absolute/relative tolerances $10^{-5}$; greedy outputs match exactly. Rebuilding after window shifts preserves original positions and context. Short-prefix speed-ups do not extend to the500-character rolling case, which is slower. Raw trials are in CSV notes.\n'
 s+=page('References')
 s+=r'''
 [1] Course assignment: DNN Programming Assignment--2, RNN, LSTM, GRU and Transformer;

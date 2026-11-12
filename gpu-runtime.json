@@ -1,20 +1,25 @@
 {
   "gpu": "NVIDIA GeForce GTX 1650",
   "torch": "2.11.0+cu128",
-  "scope": "Complete notebook execution excluding environment setup and dataset download",
+  "scope": "Sum of independent fresh complete P1 and final P2 notebook executions; excludes environment setup, staged downloads and preserved earlier P2 optimization attempt",
   "source_hashes": {
-    "problem1": "df4145dbfa37664155a29166246cc453a3094e3ed5fd5fc74238cc2813b5a8ff",
-    "problem2": "9fa20016f0d159906937b665b4b2e743b2e2c7af3f0104d99cfd5b6246786318"
+    "problem1": "fe6ad7b8260872a20d8a0d809834d6aa7ecbe163b7d6bfdede74006d0051ae93",
+    "problem2": "e77b2d40c503bfe700568ec46f39d85c3845da6713a2249d411a5f9336a71447"
   },
   "fresh_experiments": true,
   "runs": {
     "problem1": {
       "status": "passed",
-      "seconds": 274.88305143099933
+      "seconds": 5413.089540348003
     },
     "problem2": {
       "status": "passed",
-      "seconds": 325.1047884640029
+      "seconds": 362.9807608830015
     }
+  },
+  "previous_problem2_attempt": {
+    "status": "passed",
+    "seconds": 386.86491076499806,
+    "evidence": ".cache/improvement-run"
   }
 }

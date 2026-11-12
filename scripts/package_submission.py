@@ -25,7 +25,7 @@ for problem in ('problem1','problem2'):
  assert [c.execution_count for c in cells]==list(range(1,len(cells)+1))
 ledger=pd.read_csv('results.csv')
 assert ledger.columns.tolist()=='problem,model,seed,seq_len,test_acc,macro_f1,test_mse,params,sec_per_epoch,val_loss_nats,bits_per_char,notes'.split(',')
-assert len(ledger)==92 and not ledger.duplicated(['problem','model','seed','notes']).any()
+assert len(ledger)==100 and not ledger.duplicated(['problem','model','seed','notes']).any()
 assert len(Path('README.md').read_text().split())<=550
 info=subprocess.check_output(['pdfinfo','report.pdf'],text=True)
 assert 'Pages:           7' in info and '(A4)' in info

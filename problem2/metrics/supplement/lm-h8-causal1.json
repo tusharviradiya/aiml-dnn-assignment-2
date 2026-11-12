@@ -10,31 +10,31 @@
       "epoch": 1,
       "train_loss": 1.8424639345522713,
       "val_loss": 1.8815624267718274,
-      "seconds": 7.801996324000356
+      "seconds": 7.761646606995782
     },
     {
       "epoch": 2,
       "train_loss": 1.7786938495035227,
       "val_loss": 1.8467029786137297,
-      "seconds": 7.781721123999887
+      "seconds": 7.78038845500123
     },
     {
       "epoch": 3,
       "train_loss": 1.7276889829117557,
       "val_loss": 1.8088632927422683,
-      "seconds": 7.788122939997265
+      "seconds": 7.76136099499854
     },
     {
       "epoch": 4,
       "train_loss": 1.6845044567401968,
       "val_loss": 1.7823859126094288,
-      "seconds": 7.79069101800269
+      "seconds": 7.750787434000813
     },
     {
       "epoch": 5,
       "train_loss": 1.6479800856864382,
       "val_loss": 1.754722945588875,
-      "seconds": 7.787286823000613
+      "seconds": 7.7617875459982315
     }
   ],
   "config": {
@@ -167,7 +167,7 @@
     "macro_f1": null,
     "test_mse": null,
     "params": 810049,
-    "sec_per_epoch": 7.789963645800162,
+    "sec_per_epoch": 7.76319420739892,
     "val_loss_nats": 1.754722945588875,
     "bits_per_char": 2.5315300917351444,
     "notes": "{\"baseline_epoch\": 5, \"baseline_key\": \"lm/heads8_causal1\", \"before\": 1.9225504773355653, \"best_epoch\": 5, \"best_val_loss\": 1.754722945588875, \"bits_per_char\": 2.5315300917351444, \"cache_contract\": {\"baseline_checkpoint_sha256\": \"f9788fd05f6289b6ae24b6160695e8a2cdfb2047910082375ff97656c6e066e0\", \"baseline_epoch\": 5, \"baseline_key\": \"lm/heads8_causal1\", \"baseline_source_hash\": \"5b7de9d8a4e1236273f3b460211221d6e5316ec30f93643ddf9d3e64442ad83c\", \"baseline_validation\": 1.9225504773355653, \"chars\": [\"\\n\", \" \", \"!\", \"$\", \"&\", \"'\", \",\", \"-\", \".\", \"3\", \":\", \";\", \"?\", \"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"G\", \"H\", \"I\", \"J\", \"K\", \"L\", \"M\", \"N\", \"O\", \"P\", \"Q\", \"R\", \"S\", \"T\", \"U\", \"V\", \"W\", \"X\", \"Y\", \"Z\", \"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \"i\", \"j\", \"k\", \"l\", \"m\", \"n\", \"o\", \"p\", \"q\", \"r\", \"s\", \"t\", \"u\", \"v\", \"w\", \"x\", \"y\", \"z\"], \"config\": {\"batch_size\": 64, \"causal\": true, \"clip_norm\": 1.0, \"context\": 128, \"d\": 128, \"dropout\": 0.1, \"epochs\": 5, \"generation_seed\": 700, \"heads\": 8, \"layers\": 4, \"lr\": 0.001, \"seed\": 0, \"top_k\": 20}, \"data_sha256\": \"8542cc91aface8204f0f11fe4b94f81399ad21ac7867007aa88b375b591e4bed\", \"device\": \"cuda\", \"epochs\": 5, \"numpy\": \"2.5.4\", \"optimizer\": \"Adam-defaults-reset\", \"schema\": 1, \"selection\": \"minimum validation loss including baseline; earliest tie\", \"shuffle\": false, \"source_sha256\": \"fb587d214404f160faab044ec9232be27d62dcdc64c4407813128d06f264159b\", \"task\": \"lm-continuation\", \"threads\": 4, \"torch\": \"2.11.0+cu128\"}, \"causal\": true, \"checkpoint_sha256\": \"b69ca567c72593755ec491d8e17c633d42b8a92a49b7a8f62704c1c8f7aad57e\", \"config\": {\"batch_size\": 64, \"causal\": true, \"clip_norm\": 1.0, \"context\": 128, \"d\": 128, \"dropout\": 0.1, \"epochs\": 5, \"generation_seed\": 700, \"heads\": 8, \"layers\": 4, \"lr\": 0.001, \"seed\": 0, \"top_k\": 20}, \"heads\": 8, \"historical_resume_states_available\": true, \"protocol\": \"5 additional epochs from validation-selected baseline; Adam reset for all variants\", \"review\": \"2026-11-09\"}"

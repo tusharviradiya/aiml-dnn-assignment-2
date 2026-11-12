@@ -4,7 +4,7 @@ import json,math,re,subprocess,xml.etree.ElementTree as ET
 import nbformat,pandas as pd,numpy as np
 columns='problem,model,seed,seq_len,test_acc,macro_f1,test_mse,params,sec_per_epoch,val_loss_nats,bits_per_char,notes'.split(',')
 df=pd.read_csv('results.csv');assert list(df.columns)==columns
-assert len(df)==92 and not df.duplicated(['problem','model','seed','notes']).any()
+assert len(df)==100 and not df.duplicated(['problem','model','seed','notes']).any()
 for p in ('problem1','problem2'):
  nb=nbformat.read(f'{p}/{p}.ipynb',4);nbformat.validate(nb)
  cells=[c for c in nb.cells if c.cell_type=='code']
@@ -58,3 +58,23 @@ for page in root.findall('.//x:page',ns):
   if y0>h-margin and ''.join(word.itertext()).strip().isdigit():continue
   assert x0>=margin-1 and x1<=w-margin+1 and y0>=margin-1 and y1<=h-margin+1,(word.text,x0,x1,y0,y1)
 print('PASS fresh GPU evidence, samples, aggregate calculations, measured timing, report geometry and references')
+# Revised protocol and inference-only bonus evidence.
+ac=json.loads(Path('problem1/metrics/adding_config.json').read_text());assert ac['epochs']==50
+ah=pd.read_csv('problem1/metrics/adding_history.csv');assert len(ah)==36*ac['epochs']
+fc=pd.read_csv('problem1/metrics/forget_bias_history.csv');assert len(fc)==6*ac['epochs']
+kv=json.loads(Path('problem2/metrics/kv_benchmark.json').read_text());assert len(kv['trials'])==8
+assert kv['request']['warmups']==3 and kv['request']['repeats']==10
+assert kv['max_logit_error']<=1e-5
+for r in kv['trials']:
+ t=np.array(r['timing_seconds']);assert len(t)==10 and (t>0).all()
+ np.testing.assert_allclose([r['mean_seconds'],r['std_seconds']],[t.mean(),t.std(ddof=1)],rtol=1e-12)
+bonus=df[df.notes.str.contains('kv-cache-benchmark',regex=False,na=False)]
+assert len(bonus)==8 and bonus.sec_per_epoch.isna().all() and bonus.val_loss_nats.isna().all()
+print('PASS revised 50-epoch coverage and eight inference-only KV benchmark rows')
+assert runtime['fresh_experiments'] is True
+import hashlib
+for problem in ('problem1','problem2'):
+ nb=nbformat.read(f'{problem}/{problem}.ipynb',4)
+ actual=hashlib.sha256('\n'.join(c.source for c in nb.cells if c.cell_type=='code').encode()).hexdigest()
+ assert actual==runtime['source_hashes'][problem], 'Executed source differs from measured fresh workflow'
+print('PASS fresh runtime bound to submitted notebook code hashes')

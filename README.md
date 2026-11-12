@@ -22,27 +22,26 @@ is inside the notebooks; internal scripts and metric files are unnecessary.
 Data/checkpoints/environments are excluded. Missing caches train afresh; matching
 caches replay. `DNN_VERIFY_CACHED_ONLY=1` rejects missing experiment caches.
 
-A successful fresh run took **10.00 minutes** total: Problem 1
-4.58 and Problem 2
-5.42 minutes. This includes tests, training,
-evaluation, plots and CPU diagnostics; excludes package installation, staged dataset
-downloads and a preserved earlier failed attempt. **T4 timing is unmeasured.**
-Actual GTX 1650 timing is the disclosed substitution for the requested T4 runtime.
+Successful fresh notebook executions took **96.27 minutes** total:
+P1 90.22, final P2 6.05 minutes. This sums independent
+fresh P1 and final P2 runs; an earlier P2 inference-optimization attempt is preserved
+and excluded. Includes tests, training, evaluation, plots, CPU diagnostics and cache
+benchmarks; excludes setup and staged downloads. T4 timing is unmeasured; actual
+local GTX1650 timings are reported.
 
 Settings: recurrent h=64; HAR encoder d=64/two layers; seeds 0/1/2. The LM uses
-standard d=128/four layers, context128, four heads. HAR:10 epochs; adding:5.
+standard d=128/four layers, context128, four heads. HAR:10 epochs; adding and paired forget-bias runs:50.
 Odd-ID forget-bias0/1 ablation included. Head/mask baselines get five epochs and
 five continuation epochs with Adam deliberately reset consistently. Primary samples
 contain500 new characters each at temperatures0.2/0.8/1.5, top-k20, seed700.
 
 Missing variant table/instructor hand fixture are handled as disclosed assumptions:
-chosen sizes/seeds and a self-created three-token example. All36 adding grid runs
-remain unsolved; LM ablations use one seed. No bonus is claimed. Fresh runs save
+chosen sizes/seeds and a self-created three-token example. The revised adding grid solves 18/36 runs; LM ablations use one seed. The KV-cache bonus is included. Inference benchmarks use three warmups and ten paired synchronized trials, including prefill. Cache rebuilding after128 tokens preserves sliding-window positions; the500-character benchmark reports this limitation. Inference times live in CSV notes, not sec_per_epoch. Fresh runs save
 optimizer/RNG resume snapshots. Six assessed report pages include the AI disclosure;
 references use one excluded page. GPU checkpoint replay and package checks are
 recorded in the local audit; fresh hardware may give small numerical/timing differences.
 
 OpenAI Codex assisted with scratch implementations, pipelines, experiments, tests,
-execution, plots, analysis/report drafting and packaging. The current assignment
+execution, plots, analysis/report drafting and packaging. Claude supplied an external review. The current assignment
 permits AI assistance for scratch components. Confirm the portal's
 deadline; after upload, download/open the archive and retain the receipt.

@@ -58,3 +58,11 @@ for row in rows.itertuples():
  np.testing.assert_allclose(epochs.train_seconds.mean(),row.sec_per_epoch,atol=1e-12)
  print('PASS GPU adding',row.model,row.seq_len,row.seed,flush=True)
 print('PASS independently reproduced all nine HAR and 36 adding checkpoints')
+# A controlled budget follow-up must preserve the old first-five-epoch trajectory.
+baseline=Path('.cache/pre-improvement-2026-11-12/problem1/metrics/adding_history.csv')
+if baseline.exists():
+ old=pd.read_csv(baseline).sort_values(['model','seq_len','seed','epoch'])
+ prefix=history[history.epoch<=5].sort_values(['model','seq_len','seed','epoch'])
+ assert prefix[['model','seq_len','seed','epoch']].reset_index(drop=True).equals(old[['model','seq_len','seed','epoch']].reset_index(drop=True))
+ np.testing.assert_allclose(prefix[['train_mse','val_mse']],old[['train_mse','val_mse']],atol=1e-12,rtol=0)
+ print('PASS exact original five-epoch training/validation trajectories preserved in all 36 longer runs')
