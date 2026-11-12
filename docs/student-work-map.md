@@ -1,3 +1,5 @@
+> Historical audit: current brief confirmation and final CPU submission status supersede earlier policy/readiness conclusions. See [submission-validation.md](submission-validation.md) and [ai-policy-resolution.md](ai-policy-resolution.md).
+
 # Final scratch-component map
 
 | Notebook | One-based cell | Completed component (student reports manual implementation) |

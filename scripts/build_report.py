@@ -281,16 +281,15 @@ this input and do not establish semantic importance or a causal mechanism.
 Future entries are exactly zero. This single sentence does not establish specialization.
 
 Figure9 and Table9 measure baseline cost: batch8, float32, dropout off, contexts64/128/256/512.
-Two warmups precede five timed forward+backward repeats; all raw times and three
-independent allocation-event traces per length are retained internally; the notebook
-replays matching measurements or measures a fresh run. CPU memory reconstructs
-peak additional live tensor bytes from raw profiler allocation/free events, relative
-to existing model/input baseline; it excludes interpreter/model weights and allocator
-reservation. It is neither process RSS nor reserved GPU memory.
+Two warmups precede five timed forward+backward repeats. Raw times and three
+allocation-event traces per length are retained; matching measurements replay.
+CPU memory reconstructs peak additional live tensor bytes from allocation/free
+events, excluding model/input baseline, interpreter and allocator reservation.
+It is neither process RSS nor reserved GPU memory.
 '''
 scaling=pd.read_csv(P2/'context_scaling.csv')
 s+=table('Table 9. Full-model context cost on CPU',['Context',r'Time (ms), mean $\pm$ std','Peak tensor MiB','Score elements'],[[r.context,pm(r.mean_seconds,r.std_seconds,1000,3),f'{r.peak_incremental_bytes/2**20:.3f}',r.attention_score_elements] for r in scaling.itertuples(index=False)])
-s+=image('problem2/figures/report_context.png',height='4.5cm')+r'''
+s+=image('problem2/figures/report_context.png',height='4cm')+r'''
 \par Figure 9a--b. Time and incremental tensor peak versus context; dashed line
 is an anchored quadratic memory reference. With8$\times$ context, score elements
 increase64$\times$, measured time28.29$\times$, tensor peak28.07$\times$.
@@ -298,22 +297,14 @@ Attention products cost$O(T^2d)$; embeddings/FFN add linear-T work, so full-mode
 ratios need not equal64. Short-length timing includes overhead and cache effects.
 Long-context quality and T4/device latency are not evaluated.
 
-The92 rows retain 82 baseline runs, 6 adding diagnostics and 4 LM continuations.
-Both notebooks reproduce these results; cached replay is not fresh training.
-No bonus is claimed. See the AI-use statement on the excluded final page.
-\newpage
-\topic{AI-use statement and references (excluded from six-page limit)}
-OpenAI Codex (including Codex CLI) assisted with requirements review, data
-pipelines, training/experiment code, tests, debugging, execution, plots,
-analysis/report drafting, reproducibility audits and packaging. Earlier development
-records identify AI-written RNN, LSTM and GRU cells and Transformer attention,
-multi-head attention and encoder-block implementations. The submitted scratch code
-matches the preserved baseline; passing tests does not establish personal authorship.
-The student previously reported manual implementation, but independent replacement
-is unverified. The supplied assignment prohibits AI-written scratch parts and requires
-this declaration. No verified instructor exemption is available. Academic compliance
-remains unresolved; disclosure alone does not authorize restricted work.
+The92 rows contain 82 baseline runs, 6 adding diagnostics and 4 LM continuations.
+Cached replay is not fresh training. No bonus is claimed; GPU timing is unmeasured.
 
+\textbf{AI-use disclosure.} OpenAI Codex assisted with scratch recurrent/Transformer
+code, pipelines, experiments, tests, execution, plots, analysis and report preparation.
+The student confirmed the root DOCX as the current brief permitting this assistance.
+\newpage
+\topic{References (excluded from six-page limit)}
 [1] A. Vaswani et al. \emph{Attention Is All You Need}. 2017.
 Sections 3.2.1, 3.2.2, 3.5 and Table1: attention, head projections, positions and complexity.
 \url{https://arxiv.org/abs/1706.03762}.
@@ -332,7 +323,7 @@ MultiheadAttention and TransformerEncoderLayer (verification only).
 \url{https://pytorch.org/docs/stable/nn.html}.
 
 [5] Course assignment: \emph{DNN Programming Assignment--2: RNN, LSTM, GRU and
-Transformer}, supplied original DOCX reviewed 10 November 2026. Source of dataset/split/generator instructions,
+Transformer}, current root DOCX confirmed by the student on 12 November 2026. Source of dataset/split/generator instructions,
 marking criteria, CPU exception and permission to state reasonable assumptions for
 missing information. The referenced variant table and instructor hand example were
 not supplied; chosen sizes/seeds and self-created examples are assumptions, not

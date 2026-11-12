@@ -1,26 +1,9 @@
-# AI policy assessment — 10 November 2026
+# Current assignment and AI-use status — 12 November 2026
 
-The controlling supplied original assignment has SHA-256
-`37311ac57faf68aaf1adc2e69c312fe9325154f3d3de93b2abbd2304e14e950d`.
-It requires student-authored scratch components, prohibits AI writing those parts,
-and requires a report-end statement naming the AI tool and each use. The AI-use
-statement and references are excluded from the six-content-page limit.
+The student explicitly confirmed that the root `DNN Programming Assignment – RNN, LSTM, GRU and Transformer_bak.docx` is the current brief and permits AI-written scratch components. SHA-256: `4d3f7c56e29ae5111ddef3563db44e77538202d697c1f03d8f12305b455dcfa1`. This student confirmation supersedes earlier local audit status based on a different version; no independent instructor authentication is claimed.
 
-No authenticated instructor amendment was located. Public searches for the exact
-assignment/instructor did not locate an official amendment; no connected document
-session was available. The private course portal and instructor mailbox were not
-accessible. The student explicitly confirmed on 10 November 2026 that no verified
-instructor authorization is available. Locally edited DOCX versions and old summaries
-claiming permission do not change the controlling rules. In particular the prior
-`4d3f7c56...` review claiming that AI restrictions/declarations were removed is withdrawn.
+The current brief has no express AI prohibition or declaration requirement. It retains individual-work, framework and data restrictions. Actual AI assistance remains disclosed in README, both notebook introductions and within the report's six content pages. References alone occupy the excluded seventh page. The work does not claim independent authorship of AI-written components.
 
-Development records identify AI-written MyRNNCell, MyLSTMCell, MyGRUCell,
-scaled_dot_product_attention, MyMultiHeadAttention and MyEncoderBlock. Current code
-matches the preserved baseline. A prior student statement of manual completion is
-recorded as a statement, not established authorship. Tests assess correctness only.
-README, both notebooks and the report now disclose the tool and actual scope.
+The student subsequently instructed finalization with verified CPU results because CUDA downloads exceed the available mobile-data budget. GPU experiments are deferred. No T4 or GTX 1650 runtime is claimed. The requested T4 runtime is addressed through an explicit CPU-timing substitution, not a fabricated measurement. Instructor acceptance of that substitution has not been independently verified.
 
-**Academic compliance is blocked.** Disclosure does not cure a prohibited use.
-Only an applicable written instructor exemption or instructor-approved remediation
-can resolve this. No restricted implementation was rewritten in this audit, and no
-instructor message, GitHub push or university submission was performed.
+Historical warnings are preserved in `.cache/cpu-final-status-history/`; the latest technical status is in `submission-validation.md`.

@@ -1,3 +1,5 @@
+> Historical audit: current brief confirmation and final CPU submission status supersede earlier policy/readiness conclusions. See [submission-validation.md](submission-validation.md) and [ai-policy-resolution.md](ai-policy-resolution.md).
+
 # Strict rubric review — 10 November 2026
 
 **Estimated technical score: 95/100, conditional on instructor acceptance of authorship.**

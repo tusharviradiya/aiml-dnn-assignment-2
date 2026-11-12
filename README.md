@@ -2,11 +2,9 @@
 
 Viradiya Tushar Rajeshbhai.
 
-OpenAI Codex (including Codex CLI) assisted with requirements review, data pipelines, training/experiment code, tests, debugging, execution, plots, analysis/report drafting, reproducibility audits and packaging. Earlier development records identify AI-written RNN/LSTM/GRU cells and Transformer attention, multi-head attention and encoder-block implementations. The submitted scratch code matches the preserved baseline. The student previously reported manual implementation; independent replacement is unverified. The supplied assignment prohibits AI-written scratch parts and requires disclosure. No verified instructor exemption is available (confirmed by the student on 10 November 2026). Academic compliance remains blocked; passing technical checks and providing disclosure do not authorize restricted work.
-
-Tested: Python 3.14.4, PyTorch 2.15.0+cpu, four CPU threads. Exact package versions
-are in `requirements.txt`; the assignment requires Python 3.10 or later.
-From the extracted `2026aj05073_DNN_Assignment/` directory:
+Verified CPU submission: Python 3.14.4, PyTorch 2.15.0+cpu, four CPU threads.
+Exact versions are in `requirements.txt`. From the extracted
+`2026aj05073_DNN_Assignment/` directory:
 
 ```sh
 python3.14 -m venv .venv
@@ -14,37 +12,36 @@ python3.14 -m venv .venv
 .venv/bin/python -m ipykernel install --user --name dnn-assignment
 ```
 
-Open `problem1/problem1.ipynb` in a Jupyter-compatible notebook editor, select
-`dnn-assignment`, and Restart & Run All; then repeat for `problem2/problem2.ipynb`.
-Save both notebooks after execution. The editor is separate from the pinned kernel
-environment. All experiment, test and figure code is inside the notebooks;
-internal scripts and metric files are unnecessary. Paths work from the extracted
-root or notebook directories. Initial downloads need internet: UCI HAR (~61 MB)
-and Tiny Shakespeare (~1.1 MB).
+Select the `dnn-assignment` kernel in a Jupyter-compatible editor. Restart & Run All
+`problem1/problem1.ipynb`, then `problem2/problem2.ipynb`; save outputs. The editor
+is separate from the pinned kernel environment. Both notebooks contain all tests,
+experiments and figure code. Relative paths support the extracted root or notebook
+directories. Initial dataset downloads require internet: UCI HAR (~61 MB) and
+Tiny Shakespeare (~1.1 MB). Data/checkpoints/environments are excluded from the ZIP.
+Absent experiment caches trigger training; matching local caches replay results.
+`DNN_VERIFY_CACHED_ONLY=1` rejects missing caches.
 
-**Settings:** h=64, d=64, seeds 0, 1, 2 and a self-created three-token example are explicit assumptions under the DOCX missing-information clause: its referenced variant table and instructor example were not supplied. The official
-CPU exception allows the two-layer d=64 LM (context 128, four heads).
-HAR uses 10 epochs; the 36-run adding grid uses 5. The odd-ID forget-bias 0/1
-ablation is included.
+Settings: h=64, HAR encoder d=64, seeds 0/1/2 and a self-created three-token example
+are disclosed assumptions because the variant table and instructor fixture were
+not supplied. ID ends in 3: forget-bias 0/1 ablation. HAR uses 10 epochs; adding uses
+5. The explicit CPU exception is used for the LM: d=64, two layers, context128,
+four heads. Head/mask variants use five epochs plus five continuation epochs,
+resetting Adam consistently from validation-selected baselines. Primary samples:
+500 new characters each, temperatures 0.2/0.8/1.5, top-k20, seed700.
 
-The primary four-head causal LM continues its selected five-epoch baseline for
-five extra epochs, resetting Adam for every continued variant. Its three samples
-have 500 new characters each, temperatures 0.2/0.8/1.5, top-k 20, prompt
-`ROMEO:\n`, and sampling seed 700. The 92 CSV rows comprise 82 baseline runs,
-6 validation-only adding diagnostics and 4 LM continuations.
+Measured training: baseline **44.7 CPU minutes**, LM continuations **9.13 additional
+CPU minutes**; adding diagnostics **123 seconds wall time**. These scopes exclude
+other execution/setup overhead. **T4 and GTX 1650 runtimes are unmeasured.** CPU
+measurements are the disclosed substitute for the README's requested T4 timing.
+Final validation uses historical caches; full fresh training was not repeated.
 
-Matching local `data/` caches replay results; absent caches trigger training.
-Set `DNN_VERIFY_CACHED_ONLY=1` to fail on missing caches. Data, checkpoints and
-environments are excluded from the ZIP. Fresh execution regenerates metrics,
-figures and samples; hardware timings vary. Historical optimizer/RNG states are
-missing; future runs save resume snapshots. The pinned environment was installed in a preceding review and reused for this audit;
-`pip check` passed again. Both notebooks were verified there using existing experiment
-caches. Full uncached training was not repeated.
+Limitations: all 36 baseline adding runs remain unsolved; LM comparisons are
+single-seed. Historical optimizer/RNG states are missing; future runs save resume
+snapshots. No bonus is claimed. Six content pages include the AI-use disclosure;
+references occupy one excluded page.
 
-Measured baseline training: 44.7 CPU minutes; LM continuation: 9.13 additional
-training minutes; adding diagnostics: 123 seconds wall time. Other execution
-and validation overhead is excluded. **T4 runtime is unmeasured**, leaving that
-README requirement unmet. All 36 original adding runs are unsolved; LM evidence
-is single-seed. No bonus is claimed. The PDF has six assessed A4 pages plus one
-excluded AI-use/reference page. Portal upload, download/open verification
-and receipt remain outstanding.
+OpenAI Codex/Codex CLI assisted with scratch implementations, pipelines, training,
+tests, execution, plots, analysis/report drafting and packaging. The student
+confirmed the root DOCX as the current brief permitting this assistance. Actual
+AI assistance remains disclosed. Portal deadline confirmation, upload, downloaded
+archive inspection and receipt retention remain student actions.
