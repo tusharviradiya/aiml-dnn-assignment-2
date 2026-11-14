@@ -22,12 +22,13 @@ is inside the notebooks; internal scripts and metric files are unnecessary.
 Data/checkpoints/environments are excluded. Missing caches train afresh; matching
 caches replay. `DNN_VERIFY_CACHED_ONLY=1` rejects missing experiment caches.
 
-Successful fresh notebook executions took **96.27 minutes** total:
+Before this presentation revision, fresh notebook executions took **96.27 minutes** total:
 P1 90.22, final P2 6.05 minutes. This sums independent
 fresh P1 and final P2 runs; an earlier P2 inference-optimization attempt is preserved
 and excluded. Includes tests, training, evaluation, plots, CPU diagnostics and cache
 benchmarks; excludes setup and staged downloads. T4 timing is unmeasured; actual
-local GTX1650 timings are reported.
+local GTX1650 timings are reported. This revision changes documentation/plots only;
+its cached verification is separate from that fresh runtime.
 
 Settings: recurrent h=64; HAR encoder d=64/two layers; seeds 0/1/2. The LM uses
 standard d=128/four layers, context128, four heads. HAR:10 epochs; adding and paired forget-bias runs:50.

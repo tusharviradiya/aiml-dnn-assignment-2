@@ -1,11 +1,13 @@
-# Final revised assignment validation
+# Final verified submission — 13 November 2026 presentation revision
 
-Archive: `2026aj05073_DNN_Assignment.zip`; 1,876,466 bytes; 16 required files.
-SHA-256: `3f3a21ecbccf46cc608f36ffd40a812a60d9465314d55d3aa860f28e99a62fc3`.
+Archive: `2026aj05073_DNN_Assignment.zip`; 1,893,436 bytes; 16 required files.
+SHA-256: `ffff31c5ebcd06578282917e85a7d7acfa7de86f5cd387e555951f6efcc858f3`.
 
 Viradiya Tushar Rajeshbhai, 2026aj05073. Local NVIDIA GeForce GTX1650 (4GB); PyTorch2.11.0+cu128. T4 timing was not measured. The actual local GPU timing is disclosed. AI assistance, including permitted scratch components, is explicitly disclosed in report.pdf.
 
-Fresh complete execution: P1 5413.090s; P2 362.981s; total 96.27min. Includes training, tests, evaluation, plots, CPU diagnostics and KV benchmark; excludes environment setup and staged dataset downloads. No P1 training caches or final P2 training caches were reused. P1 and final P2 are independently fresh notebook runs; the earlier preserved P2 optimization attempt is excluded from the total. Submitted code hashes match the measured execution.
+Fresh complete execution: P1 5413.090s; P2 362.981s; total 96.27min. Includes training, tests, evaluation, plots, CPU diagnostics and KV benchmark; excludes environment setup and staged dataset downloads. No P1 training caches or final P2 training caches were reused. P1 and final P2 are independently fresh notebook runs; the earlier preserved P2 optimization attempt is excluded from the total. The original fresh code hashes remain bound to the preserved baseline ZIP. The current submission changes only report plotting, an exact Task5 Markdown-fingerprint compatibility entry and documentation; it was verified separately by cached-only replay with Adam blocked. gpu-runtime.json is unchanged. See docs/presentation-revision.json and scripts/verify_presentation_revision.py for the reviewed source difference and unchanged-measurement checks.
+
+Current verdict: **READY TO SUBMIT**. The [final rubric review](../FINAL_SUBMISSION_REVIEW.md) records all changes, qualified estimates and test evidence. No new training was run for this presentation revision. The final archive also passed isolated extraction: both notebooks executed without internal helpers; CSV, samples and all packaged figures reproduced exactly.
 
 ## Revised adding evidence
 
@@ -47,6 +49,6 @@ The cache rebuilds after the128-token window shifts, preserving the original pos
 
 All independent recurrent, Task5, Transformer and KV audits passed. results.csv has100 rows and exactly12 prescribed columns. Report: six assessed A4/11pt/2cm pages including AI disclosure, plus references only. Required figures/tables are captioned, numbered and referenced. README renders to one page. ZIP allowlist/CRC/hash/size checks pass, with datasets/checkpoints/environments/internal helpers excluded. Both notebooks pass isolated ZIP extraction with original raw timing replay and an Adam guard that rejects training; CSV, samples and packaged figures reproduce exactly.
 
-The previous verified ZIP and source/evidence remain in `.cache/pre-improvement-2026-11-12/`. The protocol was frozen in docs/improvement-protocol.md before this revised training. Logs and runtime evidence are in `.cache/improvement-run/` and gpu-runtime.json.
+The immediately preceding verified ZIP/source/evidence remain in `.cache/presentation-revision-2026-11-13/`; the older five-epoch backup remains in `.cache/pre-improvement-2026-11-12/`. The protocol was frozen in docs/improvement-protocol.md before this revised training. Logs and runtime evidence are in `.cache/improvement-run/` and gpu-runtime.json.
 
 Technical work is complete. The missing variant table/hand fixture assumptions remain disclosed; the student confirmed identity, local GPU choice and AI permission. Remaining personal steps: verify the course portal deadline, upload this exact ZIP, download/open the uploaded copy and retain the receipt. No portal upload was performed. Marks and bonus acceptance remain instructor decisions.

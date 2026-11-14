@@ -32,25 +32,8 @@ RNN & 72.4579 $\pm$ 1.0483 & 0.7159 $\pm$ 0.0085 & 5190 & 0.581\\
 \bottomrule\end{tabular}\end{center}
 \begin{center}\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{problem1/figures/report_class-balance.png}\par Figure 1. Class balance by subject split and official test set.\end{center}
 \begin{center}\includegraphics[width=\linewidth,height=3.6cm,keepaspectratio]{problem1/figures/report_confusion.png}\par Figure 2. Validation-selected GRU, seed 2, epoch 9. Table 1 compares all architectures.\end{center}
-\newpage
-\section*{Problem 1: adding, width and individual ablation}
-The prescribed adding generator uses two markers, one per half; assertions check
-marker counts and exact target sums. Each length uses 10000/1000/1000 examples
-with data seeds 0/1/2. All models use $h=64$, Adam $10^{-3}$, batch 128,
-50 epochs and clipping 1, with three model seeds. Validation MSE selects weights.
-The theoretical constant-1 baseline is $1/6$; Table 2 uses the measured baseline.
-Solved means test MSE below 0.05; Figure 3 contains length and learning curves.
-\begin{center}\textbf{Table 2. Adding MSE; solved R/L/G counts out of three}\par\smallskip
-\begin{tabular}{llllll}\toprule
-T & RNN & LSTM & GRU & Constant 1 & Solved\\\midrule
-50 & 0.116151 $\pm$ 0.082032 & 0.002012 $\pm$ 0.000542 & 0.000238 $\pm$ 0.000058 & 0.1754 & 1/3/3\\
-100 & 0.169745 $\pm$ 0.000937 & 0.025186 $\pm$ 0.031006 & 0.000581 $\pm$ 0.000057 & 0.1697 & 0/2/3\\
-200 & 0.168346 $\pm$ 0.000209 & 0.168243 $\pm$ 0.000256 & 0.000493 $\pm$ 0.000190 & 0.1679 & 0/0/3\\
-400 & 0.153994 $\pm$ 0.000453 & 0.153601 $\pm$ 0.000043 & 0.001764 $\pm$ 0.000396 & 0.1527 & 0/0/3\\
-\bottomrule\end{tabular}\end{center}
-\begin{center}\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{problem1/figures/report_adding.png}\par Figure 3. Test MSE against length; T=200 curves: solid training, dashed validation.\end{center}
-The hidden-size sweep keeps the HAR budget fixed (Table 3). ID ends in 3, so the individual experiment compares initial LSTM forget bias 0/1 at T=200 (Table 4); other initial weights and shuffle seeds are paired. Figure 4 shows both studies.
-\begin{center}\textbf{Table 3. HAR hidden-size sweep}\par\smallskip
+Table 2 keeps the same HAR budget and subject splits while varying hidden width.
+\begin{center}\textbf{Table 2. HAR hidden-size sweep}\par\smallskip
 \begin{tabular}{lllll}\toprule
 h & LSTM acc. (\%) & Params & GRU acc. (\%) & Params\\\midrule
 16 & 76.2697 $\pm$ 6.6941 & 1830 & 78.7694 $\pm$ 2.0219 & 1398\\
@@ -58,33 +41,49 @@ h & LSTM acc. (\%) & Params & GRU acc. (\%) & Params\\\midrule
 64 & 87.5014 $\pm$ 0.4243 & 19590 & 88.0783 $\pm$ 0.6369 & 14790\\
 128 & 87.7276 $\pm$ 0.6798 & 71942 & 88.9492 $\pm$ 0.1930 & 54150\\
 \bottomrule\end{tabular}\end{center}
+\newpage
+\section*{Problem 1: adding, width and individual ablation}
+The prescribed adding generator uses two markers, one per half; assertions check
+marker counts and exact target sums. Each length uses 10000/1000/1000 examples
+with data seeds 0/1/2. All models use $h=64$, Adam $10^{-3}$, batch 128,
+50 epochs and clipping 1, with three model seeds. Validation MSE selects weights.
+The theoretical constant-1 baseline is $1/6$; Table 3 uses the measured baseline.
+Solved means test MSE below 0.05; Figure 3 contains length and learning curves.
+\begin{center}\textbf{Table 3. Adding MSE; solved R/L/G counts out of three}\par\smallskip
+\begin{tabular}{llllll}\toprule
+T & RNN & LSTM & GRU & Constant 1 & Solved\\\midrule
+50 & 0.116151 $\pm$ 0.082032 & 0.002012 $\pm$ 0.000542 & 0.000238 $\pm$ 0.000058 & 0.1754 & 1/3/3\\
+100 & 0.169745 $\pm$ 0.000937 & 0.025186 $\pm$ 0.031006 & 0.000581 $\pm$ 0.000057 & 0.1697 & 0/2/3\\
+200 & 0.168346 $\pm$ 0.000209 & 0.168243 $\pm$ 0.000256 & 0.000493 $\pm$ 0.000190 & 0.1679 & 0/0/3\\
+400 & 0.153994 $\pm$ 0.000453 & 0.153601 $\pm$ 0.000043 & 0.001764 $\pm$ 0.000396 & 0.1527 & 0/0/3\\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=5.1cm,keepaspectratio]{problem1/figures/report_adding.png}\par Figure 3. Test MSE against length; T=200 curves: solid training, dashed validation.\end{center}
+ID ends in 3, so the required individual experiment compares initial LSTM forget bias 0/1 at T=200 (Table 4); other initial weights and shuffle seeds are paired. Figure 4 shows this and the hidden-size study (Table 2).
 \begin{center}\textbf{Table 4. Forget-bias ablation, three seeds}\par\smallskip
 \begin{tabular}{lll}\toprule
 Bias & MSE & Solved\\\midrule
 0 & 0.166789 $\pm$ 0.002848 & 0/3\\
 1 & 0.167462 $\pm$ 0.003357 & 0/3\\
 \bottomrule\end{tabular}\end{center}
-\begin{center}\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{problem1/figures/report_sweep-forget.png}\par Figure 4. Hidden-size trade-offs and initial forget-bias comparison.\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=4.3cm,keepaspectratio]{problem1/figures/report_sweep-forget.png}\par Figure 4. Hidden-size trade-offs and initial forget-bias comparison.\end{center}
 \newpage
 \section*{Problem 1: gradient evidence and one-page analysis}
-\begin{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem1/figures/report_gradients.png}\par Figure 5. Actual hidden-state gradient norms at T=100 before/after training; logarithmic scale, three-seed means.\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=5.8cm,keepaspectratio]{problem1/figures/report_gradients.png}\par Figure 5. Actual hidden-state gradient norms at T=100 before/after training; logarithmic scale, three-seed means.\end{center}
 A fixed independent seed 3 probe contains 32 examples. Float 64 custom unrolls
 retain each hidden state and verify agreement with library predictions and parameter
 gradients. LSTM retains a separate cell-state graph. Small early hidden gradients
 indicate weak direct credit assignment to early states, but do not alone measure
 all memory carried through an LSTM cell state. Figure 5 should therefore be read
-alongside the predictive evidence in Table 2, not as proof that gates solve every task.
-RNN: mean post-training first/last hidden-gradient norms are $4.33e-07$/$1.23e-02$. LSTM: mean post-training first/last hidden-gradient norms are $1.92e-03$/$6.61e-03$. GRU: mean post-training first/last hidden-gradient norms are $1.54e-03$/$1.95e-03$. 
+alongside the predictive evidence in Table 3, not as proof that gates solve every task.
+RNN: mean post-training first/last hidden-gradient norms are $4.33\times 10^{-7}$/$1.23\times 10^{-2}$. LSTM: mean post-training first/last hidden-gradient norms are $1.92\times 10^{-3}$/$6.61\times 10^{-3}$. GRU: mean post-training first/last hidden-gradient norms are $1.54\times 10^{-3}$/$1.95\times 10^{-3}$.
 
-Table 2 records 18/36 solved runs under a common 50-epoch budget. The earlier five-epoch grid solved none. The revision was motivated by independent T=50 validation pilots; no outcome-driven epoch extension was made. Each revised checkpoint is selected by validation MSE. Earlier test results were already observed; these are follow-up experiments, not a new untouched test set.
+Table 3 records 18/36 solved runs under a common 50-epoch budget. Validation-only T=50 pilots motivated this frozen follow-up budget after the earlier five-epoch grid solved none. Earlier test results were already observed; this is not a new untouched holdout. Validation MSE selects each checkpoint. GRU solves all lengths; LSTM becomes unstable at T=100 and stalls at T=200/400; RNN solves only one short run. This is finite-budget evidence, not architectural impossibility.
 
-RNN: solved counts at T=50/100/200/400 are 1/0/0/0 out of three at each length. LSTM: solved counts at T=50/100/200/400 are 3/2/0/0 out of three at each length. GRU: solved counts at T=50/100/200/400 are 3/3/3/3 out of three at each length. These finite-budget results describe where learning succeeds or stalls; they do not prove architectural impossibility.
-
-Table 4 compares only the initial effective forget bias, with paired weights and shuffle seeds. Bias 1-minus-bias 0 test MSE differences have mean 0.00067 and sample standard deviation 0.00062; the three differences are 0.00135, 0.00054, 0.00013. Negative differences favor bias 1. This small paired study supports a protocol-specific observation, not a universal ranking.
+Table 4: neither initial forget bias solves T=200. Paired bias 1-minus-bias 0 MSE differences are 0.00135, 0.00054, 0.00013 (mean 0.00067, sample std 0.00062). Negative favors bias 1; no benefit is observed here. Baseline-level losses limit conclusions about forgetting or a universal ranking.
 
 Table 1: GRU uses 24.5 percent fewer parameters than LSTM, with 0.58 percentage-point accuracy difference. Mean training seconds/epoch are 0.581/1.432/1.419 for RNN/LSTM/GRU. A smaller or faster model is useful only if its measured accuracy is acceptable.
-For a wearable prototype I would start with GRU, selected by the highest mean validation F 1 (0.9075), then consider the smaller widths in Table 3 if memory is constrained. Its mean test accuracy is 88.08 percent and it has 14790 parameters. Table 1 supplies the measured training-cost trade-off; these GPU training times are not wearable inference latency or energy measurements. Deployment still needs on-device power, latency and accuracy validation.
-Execution used a local NVIDIA GeForce GTX 1650 (4 GB). Both complete notebook workflows took 96.27 minutes, excluding setup, downloads and the preserved earlier P 2 optimization attempt; these independently fresh P 1/final P 2 runs include tests, evaluation, plots and training. Some diagnostics use CPU. The requested runtime is reported for this local GPU; T4 timing was not measured. The KV-cache stretch experiment is included.
+For a wearable prototype I would start with GRU, selected by the highest mean validation F 1 (0.9075), then consider smaller widths in Table 2 if memory is constrained. Table 1 supplies its accuracy, parameters and training cost; GPU training times do not measure wearable inference latency or energy. Deployment needs on-device validation.
+Local NVIDIA GeForce GTX 1650 (4 GB): independently fresh P 1/final P 2 workflows took 96.27 minutes before this presentation revision, including tests, training, evaluation, plots and CPU diagnostics; setup, downloads and an earlier P 2 optimization attempt are excluded. Current cached verification is separate. T4 timing was not measured. The KV-cache bonus is included.
 \par\textbf{AI-use disclosure.} OpenAI Codex assisted with scratch implementations,
 training, testing, execution, plots, analysis and report preparation. Claude supplied
 an external review. The current assignment permits AI assistance for scratch components.
@@ -112,12 +111,13 @@ dropout 0.1, batch 128 and ten epochs under the same subject splits. Table 5 and
 Figure 6 compare no, sinusoidal and learned positions. Recurrent baselines are in
 Table 1; patching, dropout and parameter counts confound architecture-only conclusions.
 \begin{center}\textbf{Table 5. HAR encoder, three seeds}\par\smallskip
-\begin{tabular}{lllll}\toprule
-Position & Acc. (\%) & Macro-F 1 & Params & s/epoch\\\midrule
-learned & 91.5847 $\pm$ 2.0396 & 0.9159 $\pm$ 0.0201 & 106310 & 0.308\\
-none & 89.5374 $\pm$ 0.7666 & 0.8945 $\pm$ 0.0076 & 105222 & 0.294\\
-sinusoidal & 90.3970 $\pm$ 1.1095 & 0.9044 $\pm$ 0.0118 & 105222 & 0.284\\
+\begin{tabular}{llllll}\toprule
+Position & Val F 1 & Test acc. (\%) & Test F 1 & Params & s/epoch\\\midrule
+learned & 0.9190 & 91.5847 $\pm$ 2.0396 & 0.9159 $\pm$ 0.0201 & 106310 & 0.308\\
+none & 0.9274 & 89.5374 $\pm$ 0.7666 & 0.8945 $\pm$ 0.0076 & 105222 & 0.294\\
+sinusoidal & 0.9314 & 90.3970 $\pm$ 1.1095 & 0.9044 $\pm$ 0.0118 & 105222 & 0.284\\
 \bottomrule\end{tabular}\end{center}
+The highest mean validation F 1 (0.9314) selects sinusoidal, rather than choosing by test accuracy. Against the validation-selected GRU in Table 1, it achieves 90.40 versus 88.08 percent test accuracy (+2.32 percentage points), using 105222 versus 14790 parameters (7.11 times). Mean local training time is 0.284 versus 1.419 s/epoch. Patching shortens attention to 17 tokens versus 128 recurrent steps; size and dropout also differ, so these timings do not isolate architecture or measure energy.
 \begin{center}\includegraphics[width=\linewidth,height=3.3cm,keepaspectratio]{problem2/figures/report_positions.png}\par Figure 6. Position ablation; error bars are sample standard deviations.\end{center}
 Removing positions makes attention invariant to permutations of whole patches,
 verified by reversing patch order. It does not remove order within each flattened
@@ -139,7 +139,7 @@ Heads & Mask & Base nats & Continued nats & BPC\\\midrule
 8 & causal & 1.9226 & 1.7547 & 2.5315\\
 4 & unmasked & 0.0285 & 0.0210 & 0.0303\\
 \bottomrule\end{tabular}\end{center}
-\begin{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem2/figures/report_lm-continued.png}\par Figure 7. Validation learning, head ablation and mask-removal training loss.\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=5cm,keepaspectratio]{problem2/figures/report_lm-continued.png}\par Figure 7. Validation learning; head-loss difference from four heads (one seed); mask-removal training loss.\end{center}
 Uniform prediction costs $\ln 65=4.17439$ nats. Table 6 and Figure 7 provide
 learning evidence; one seed does not establish a reliable head-count ranking.
 Unmasked training exposes the next-character target through future input tokens:
@@ -156,10 +156,10 @@ Temperature/model & Distinct characters & Empirical entropy\\\midrule
 unmasked,0.8 & 1 & -0.000\\
 \bottomrule\end{tabular}\end{center}
 The baseline unmasked draw at 0.8 has 100.0 percent newlines and 100.0 percent identical adjacent characters (Table 7). Compare this generation evidence with its contaminated validation loss in Table 6.
-Table 7 describes individual draws, not model predictive entropy. Temperature 0.2 concentrates probability on likely characters;0.8 permits more variation;1.5 flattens the distribution. Higher character diversity is not evidence of coherent language. At 0.2, repeated `shall` fragments dominate;0.8 contains speaker-like `POMPENEy` but malformed `lannio`;1.5 varies punctuation and case while misspelling `wildrak`. The full labelled samples are in generated\_samples.txt.
+Table 7 describes individual draws, not model predictive entropy. Temperature 0.2 concentrates probability on likely characters; 0.8 permits more variation; 1.5 flattens the distribution. Higher character diversity is not evidence of coherent language. At 0.2, repeated `shall' fragments dominate; 0.8 contains speaker-like `POMPENEy' but malformed `lannio'; 1.5 varies punctuation and case while misspelling `wildrak'. The full labelled samples are in generated\_samples.txt.
 \newpage
 \section*{Problem 2: attention interpretation and context scaling}
-\begin{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem2/figures/report_attention-heads.png}\par Figure 8. Baseline first-layer heads 1/2 on ``To be, or not to be. Rows are queries, columns are keys.\end{center}
+\begin{center}\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{problem2/figures/report_attention-heads.png}\par Figure 8. Baseline first-layer heads 1/2 on ``To be, or not to be.'' Rows are queries, columns are keys.\end{center}
 Figure 8 mean diagonal weights are 0.2387 and 0.2671. Future weights are zero; heads distribute weight differently over visible character positions. This single input does not establish semantic specialization or causal importance.
 \begin{center}\textbf{Table 8. GTX 1650 full-model context benchmark}\par\smallskip
 \begin{tabular}{lll}\toprule

@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-13",
+  "baseline_archive": ".cache/presentation-revision-2026-11-13/2026aj05073_DNN_Assignment.zip",
+  "baseline_archive_sha256": "3f3a21ecbccf46cc608f36ffd40a812a60d9465314d55d3aa860f28e99a62fc3",
+  "fresh_runtime_sha256": "18c9232808a4feeba1423148bb01aebf255db293ca1b450c72e9febc27b4bc5d",
+  "scope": "Presentation only: corrected Markdown, exact Task5 Markdown fingerprint alias, report plot renderer; all model/training/test code and measurements unchanged. Historical 96.27-minute fresh run is not a timing of this revision.",
+  "revised_source_hashes": {
+    "problem1": "70b2ccd32a507f3adca38ff7cde81669522315407e4af2ac0330bba5589037e4",
+    "problem2": "599a7f5a622e4c6d30d0b94eb18e72b53c9456c277deb565e3aa667e33af0d24"
+  },
+  "allowed_changed_code_cells_zero_based": {
+    "problem1": [
+      50
+    ],
+    "problem2": [
+      77
+    ]
+  },
+  "validation": "scripts/verify_presentation_revision.py; cached-only replay records stored separately",
+  "verification_records": {
+    "root_cached_replay": ".cache/presentation-replay.json",
+    "independent_audits": ".cache/presentation-independent-audits.json",
+    "figure_annotation_sizes": ".cache/presentation-figure-fonts.json",
+    "final_isolated_extraction": ".cache/presentation-extracted-verification.json"
+  }
+}

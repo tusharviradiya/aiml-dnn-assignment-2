@@ -17,6 +17,9 @@ else:
 assert all(runtime['runs'][p]['status']=='passed' for p in ('problem1','problem2'))
 def read(p):return pd.read_csv(p)
 def pm(m,s,scale=1,precision=4):return f'{m*scale:.{precision}f} $\\pm$ {s*scale:.{precision}f}'
+def scientific(value):
+ mantissa,exponent=f'{value:.2e}'.split('e')
+ return mantissa+r'\times10^{'+str(int(exponent))+'}'
 def table(n,title,heads,rows):
  return '\\begin{center}\\textbf{Table '+str(n)+'. '+title+'}\\par\\smallskip\n\\begin{tabular}{'+'l'*len(heads)+'}\\toprule\n'+' & '.join(heads)+r'\\\midrule'+'\n'+'\n'.join(' & '.join(map(str,row))+r'\\' for row in rows)+'\n\\bottomrule\\end{tabular}\\end{center}\n'
 def fig(n,path,caption,height):
@@ -26,6 +29,11 @@ har=read(P1/'har_summary.csv');runs=read(P1/'har_runs.csv');adding=read(P1/'addi
 best=har.sort_values(['validation_f1_mean','model'],ascending=[False,True]).iloc[0]
 representative=runs[runs.model==best.model].sort_values(['val_macro_f1','seed'],ascending=[False,True]).iloc[0]
 lm=read(P2/'lm_runs.csv');enc=read(P2/'har_summary.csv');scaling=read(P2/'context_scaling.csv')
+# Select the encoder using validation evidence, before comparing its test result.
+encoder_history=read(P2/'har_history.csv')
+encoder_validation=encoder_history.groupby(['position','seed']).val_f1.max().groupby('position').agg(['mean','std'])
+selected_position=encoder_validation['mean'].sort_values(ascending=False).index[0]
+selected_encoder=enc.set_index('model').loc['HAR-Transformer-'+selected_position]
 cont={k:json.loads((P2/'supplement'/f'lm-{k}.json').read_text()) for k in ('h4-causal1','h1-causal1','h8-causal1','h4-causal0')}
 s=r'''\documentclass[11pt,a4paper]{article}
 \usepackage[T1]{fontenc}
@@ -56,52 +64,49 @@ At $d=9,h=64$, RNN/LSTM/GRU counts are 4736/18944/14208 versus
 s+=table(1,'HAR: three seeds; GTX 1650 training time',['Model','Acc. (\\%)','Macro-F1','Params','s/epoch'],[[r.model,pm(r.accuracy_mean,r.accuracy_std,100),pm(r.macro_f1_mean,r.macro_f1_std),int(r.params),f'{r.seconds_per_epoch_mean:.3f}'] for r in har.itertuples()])
 s+=fig(1,'problem1/figures/report_class-balance.png','Class balance by subject split and official test set.',2.6)
 s+=fig(2,'problem1/figures/report_confusion.png',f'Validation-selected {best.model}, seed {int(representative.seed)}, epoch {int(representative.best_epoch)}. Table 1 compares all architectures.',3.6)
+s+='Table2 keeps the same HAR budget and subject splits while varying hidden width.\n'
+s+=table(2,'HAR hidden-size sweep',['h','LSTM acc. (\\%)','Params','GRU acc. (\\%)','Params'],[[h,pm((g:=sweep[sweep.hidden_size==h].set_index('model')).loc['LSTM','accuracy_mean'],g.loc['LSTM','accuracy_std'],100),int(g.loc['LSTM','params']),pm(g.loc['GRU','accuracy_mean'],g.loc['GRU','accuracy_std'],100),int(g.loc['GRU','params'])] for h in (16,32,64,128)])
 s+=page('Problem 1: adding, width and individual ablation')
 s+=r'''The prescribed adding generator uses two markers, one per half; assertions check
 marker counts and exact target sums. Each length uses 10000/1000/1000 examples
 with data seeds 0/1/2. All models use $h=64$, Adam $10^{-3}$, batch128,
 50 epochs and clipping1, with three model seeds. Validation MSE selects weights.
-The theoretical constant-1 baseline is $1/6$; Table2 uses the measured baseline.
+The theoretical constant-1 baseline is $1/6$; Table3 uses the measured baseline.
 Solved means test MSE below0.05; Figure3 contains length and learning curves.
 '''
 rows=[]
 for T in (50,100,200,400):
  g=adding[adding.seq_len==T].set_index('model')
  rows.append([T]+[pm(g.loc[m,'test_mse_mean'],g.loc[m,'test_mse_std'],precision=6) for m in ('RNN','LSTM','GRU')]+[f'{g.iloc[0].baseline_mse:.4f}']+['/'.join(str(int(g.loc[m,'solved'])) for m in ('RNN','LSTM','GRU'))])
-s+=table(2,'Adding MSE; solved R/L/G counts out of three',['T','RNN','LSTM','GRU','Constant1','Solved'],rows)
-s+=fig(3,'problem1/figures/report_adding.png','Test MSE against length; T=200 curves: solid training, dashed validation.',2.8)
-s+='The hidden-size sweep keeps the HAR budget fixed (Table3). ID ends in3, so the individual experiment compares initial LSTM forget bias0/1 at T=200 (Table4); other initial weights and shuffle seeds are paired. Figure4 shows both studies.\n'
-s+=table(3,'HAR hidden-size sweep',['h','LSTM acc. (\\%)','Params','GRU acc. (\\%)','Params'],[[h,pm((g:=sweep[sweep.hidden_size==h].set_index('model')).loc['LSTM','accuracy_mean'],g.loc['LSTM','accuracy_std'],100),int(g.loc['LSTM','params']),pm(g.loc['GRU','accuracy_mean'],g.loc['GRU','accuracy_std'],100),int(g.loc['GRU','params'])] for h in (16,32,64,128)])
+s+=table(3,'Adding MSE; solved R/L/G counts out of three',['T','RNN','LSTM','GRU','Constant1','Solved'],rows)
+s+=fig(3,'problem1/figures/report_adding.png','Test MSE against length; T=200 curves: solid training, dashed validation.',5.1)
+s+='ID ends in3, so the required individual experiment compares initial LSTM forget bias0/1 at T=200 (Table4); other initial weights and shuffle seeds are paired. Figure4 shows this and the hidden-size study (Table2).\n'
 s+=table(4,'Forget-bias ablation, three seeds',['Bias','MSE','Solved'],[[int(r.forget_bias),pm(r.test_mse_mean,r.test_mse_std,precision=6),f'{int(r.solved)}/3'] for r in forget.itertuples()])
-s+=fig(4,'problem1/figures/report_sweep-forget.png','Hidden-size trade-offs and initial forget-bias comparison.',2.6)
+s+=fig(4,'problem1/figures/report_sweep-forget.png','Hidden-size trade-offs and initial forget-bias comparison.',4.3)
 s+=page('Problem 1: gradient evidence and one-page analysis')
-s+=fig(5,'problem1/figures/report_gradients.png','Actual hidden-state gradient norms at T=100 before/after training; logarithmic scale, three-seed means.',4)
+s+=fig(5,'problem1/figures/report_gradients.png','Actual hidden-state gradient norms at T=100 before/after training; logarithmic scale, three-seed means.',5.8)
 s+=r'''A fixed independent seed3 probe contains32 examples. Float64 custom unrolls
 retain each hidden state and verify agreement with library predictions and parameter
 gradients. LSTM retains a separate cell-state graph. Small early hidden gradients
 indicate weak direct credit assignment to early states, but do not alone measure
 all memory carried through an LSTM cell state. Figure5 should therefore be read
-alongside the predictive evidence in Table2, not as proof that gates solve every task.
+alongside the predictive evidence in Table3, not as proof that gates solve every task.
 '''
 grad=read(P1/'hidden_gradients.csv')
 for m in ('RNN','LSTM','GRU'):
  g=grad[(grad.model==m)&(grad.phase=='after')].groupby('t').norm.mean()
- s+=f'{m}: mean post-training first/last hidden-gradient norms are ${g.iloc[0]:.2e}$/${g.iloc[-1]:.2e}$. '
+ s+=f'{m}: mean post-training first/last hidden-gradient norms are ${scientific(g.iloc[0])}$/${scientific(g.iloc[-1])}$. '
 s+='\n\n'
 solved=int(adding.solved.sum())
-s+=f'Table2 records {solved}/36 solved runs under a common 50-epoch budget. The earlier five-epoch grid solved none. The revision was motivated by independent T=50 validation pilots; no outcome-driven epoch extension was made. Each revised checkpoint is selected by validation MSE. Earlier test results were already observed; these are follow-up experiments, not a new untouched test set.\n\n'
-for m in ('RNN','LSTM','GRU'):
- g=adding[adding.model==m].sort_values('seq_len')
- s+=m+': solved counts at T=50/100/200/400 are '+ '/'.join(str(int(v)) for v in g.solved)+' out of three at each length. '
-s+='These finite-budget results describe where learning succeeds or stalls; they do not prove architectural impossibility.\n\n'
+s+=f'Table3 records {solved}/36 solved runs under a common 50-epoch budget. Validation-only T=50 pilots motivated this frozen follow-up budget after the earlier five-epoch grid solved none. Earlier test results were already observed; this is not a new untouched holdout. Validation MSE selects each checkpoint. GRU solves all lengths; LSTM becomes unstable at T=100 and stalls at T=200/400; RNN solves only one short run. This is finite-budget evidence, not architectural impossibility.\n\n'
 fraw=read(P1/'forget_bias_runs.csv').pivot(index='seed',columns='forget_bias',values='test_mse')
 delta=fraw[1]-fraw[0]
-s+=f'Table4 compares only the initial effective forget bias, with paired weights and shuffle seeds. Bias1-minus-bias0 test MSE differences have mean {delta.mean():.5f} and sample standard deviation {delta.std(ddof=1):.5f}; the three differences are '+', '.join(f'{v:.5f}' for v in delta)+'. Negative differences favor bias1. This small paired study supports a protocol-specific observation, not a universal ranking.\n\n'
+s+=f'Table4: neither initial forget bias solves T=200. Paired bias1-minus-bias0 MSE differences are '+', '.join(f'{v:.5f}' for v in delta)+f' (mean {delta.mean():.5f}, sample std {delta.std(ddof=1):.5f}). Negative favors bias1; no benefit is observed here. Baseline-level losses limit conclusions about forgetting or a universal ranking.\n\n'
 hmap=har.set_index('model')
 s+=f"Table1: GRU uses {100*(1-hmap.loc['GRU','params']/hmap.loc['LSTM','params']):.1f} percent fewer parameters than LSTM, with {100*(hmap.loc['GRU','accuracy_mean']-hmap.loc['LSTM','accuracy_mean']):.2f} percentage-point accuracy difference. Mean training seconds/epoch are {hmap.loc['RNN','seconds_per_epoch_mean']:.3f}/{hmap.loc['LSTM','seconds_per_epoch_mean']:.3f}/{hmap.loc['GRU','seconds_per_epoch_mean']:.3f} for RNN/LSTM/GRU. A smaller or faster model is useful only if its measured accuracy is acceptable.\n"
-s+=f'For a wearable prototype I would start with {best.model}, selected by the highest mean validation F1 ({best.validation_f1_mean:.4f}), then consider the smaller widths in Table3 if memory is constrained. Its mean test accuracy is {best.accuracy_mean*100:.2f} percent and it has {int(best.params)} parameters. Table1 supplies the measured training-cost trade-off; these GPU training times are not wearable inference latency or energy measurements. Deployment still needs on-device power, latency and accuracy validation.\n'
+s+=f'For a wearable prototype I would start with {best.model}, selected by the highest mean validation F1 ({best.validation_f1_mean:.4f}), then consider smaller widths in Table2 if memory is constrained. Table1 supplies its accuracy, parameters and training cost; GPU training times do not measure wearable inference latency or energy. Deployment needs on-device validation.\n'
 minutes=sum(r['seconds'] for r in runtime['runs'].values())/60
-s+=f'Execution used a local NVIDIA GeForce GTX1650 (4 GB). Both complete notebook workflows took {minutes:.2f} minutes, excluding setup, downloads and the preserved earlier P2 optimization attempt; these independently fresh P1/final P2 runs include tests, evaluation, plots and training. Some diagnostics use CPU. The requested runtime is reported for this local GPU; T4 timing was not measured. The KV-cache stretch experiment is included.\n'
+s+=f'Local NVIDIA GeForce GTX1650 (4 GB): independently fresh P1/final P2 workflows took {minutes:.2f} minutes before this presentation revision, including tests, training, evaluation, plots and CPU diagnostics; setup, downloads and an earlier P2 optimization attempt are excluded. Current cached verification is separate. T4 timing was not measured. The KV-cache bonus is included.\n'
 s+=r"""\par\textbf{AI-use disclosure.} OpenAI Codex assisted with scratch implementations,
 training, testing, execution, plots, analysis and report preparation. Claude supplied
 an external review. The current assignment permits AI assistance for scratch components.
@@ -129,7 +134,8 @@ dropout0.1, batch128 and ten epochs under the same subject splits. Table5 and
 Figure6 compare no, sinusoidal and learned positions. Recurrent baselines are in
 Table1; patching, dropout and parameter counts confound architecture-only conclusions.
 '''
-s+=table(5,'HAR encoder, three seeds',['Position','Acc. (\\%)','Macro-F1','Params','s/epoch'],[[r.model.removeprefix('HAR-Transformer-'),pm(r.acc_mean,r.acc_std,100),pm(r.f1_mean,r.f1_std),int(r.params),f'{r.seconds:.3f}'] for r in enc.itertuples()])
+s+=table(5,'HAR encoder, three seeds',['Position','Val F1','Test acc. (\\%)','Test F1','Params','s/epoch'],[[r.model.removeprefix('HAR-Transformer-'),f'{encoder_validation.loc[r.model.removeprefix("HAR-Transformer-"),"mean"]:.4f}',pm(r.acc_mean,r.acc_std,100),pm(r.f1_mean,r.f1_std),int(r.params),f'{r.seconds:.3f}'] for r in enc.itertuples()])
+s+=f'The highest mean validation F1 ({encoder_validation.loc[selected_position,"mean"]:.4f}) selects {selected_position}, rather than choosing by test accuracy. Against the validation-selected {best.model} in Table1, it achieves {100*selected_encoder.acc_mean:.2f} versus {100*best.accuracy_mean:.2f} percent test accuracy (+{100*(selected_encoder.acc_mean-best.accuracy_mean):.2f} percentage points), using {int(selected_encoder.params)} versus {int(best.params)} parameters ({selected_encoder.params/best.params:.2f} times). Mean local training time is {selected_encoder.seconds:.3f} versus {best.seconds_per_epoch_mean:.3f} s/epoch. Patching shortens attention to17 tokens versus128 recurrent steps; size and dropout also differ, so these timings do not isolate architecture or measure energy.\n'
 s+=fig(6,'problem2/figures/report_positions.png','Position ablation; error bars are sample standard deviations.',3.3)
 s+=r'''Removing positions makes attention invariant to permutations of whole patches,
 verified by reversing patch order. It does not remove order within each flattened
@@ -149,7 +155,7 @@ for r in lm.itertuples():
  c=json.loads(r.notes);after=cont[f'h{c["heads"]}-causal{int(c["causal"])}']
  rows.append([c['heads'],'causal' if c['causal'] else 'unmasked',f'{r.val_loss_nats:.4f}',f'{after["best_val_loss"]:.4f}',f'{after["bits_per_char"]:.4f}'])
 s+=table(6,'LM validation; BPC = nats / ln2',['Heads','Mask','Base nats','Continued nats','BPC'],rows)
-s+=fig(7,'problem2/figures/report_lm-continued.png','Validation learning, head ablation and mask-removal training loss.',4)
+s+=fig(7,'problem2/figures/report_lm-continued.png','Validation learning; head-loss difference from four heads (one seed); mask-removal training loss.',5)
 s+=r'''Uniform prediction costs $\ln65=4.17439$ nats. Table6 and Figure7 provide
 learning evidence; one seed does not establish a reliable head-count ranking.
 Unmasked training exposes the next-character target through future input tokens:
@@ -170,9 +176,9 @@ rows.append(['unmasked,0.8',int(unmasked_stats.distinct_characters),f'{unmasked_
 s+=table(7,'Sample diversity: continued main model; unmasked baseline',['Temperature/model','Distinct characters','Empirical entropy'],rows)
 s+=f'The baseline unmasked draw at0.8 has {100*unmasked_stats.newline_fraction:.1f} percent newlines and {100*unmasked_stats.repeated_adjacent_fraction:.1f} percent identical adjacent characters (Table7). Compare this generation evidence with its contaminated validation loss in Table6.\n'
 
-s+='Table7 describes individual draws, not model predictive entropy. Temperature0.2 concentrates probability on likely characters;0.8 permits more variation;1.5 flattens the distribution. Higher character diversity is not evidence of coherent language. At0.2, repeated `shall` fragments dominate;0.8 contains speaker-like `POMPENEy` but malformed `lannio`;1.5 varies punctuation and case while misspelling `wildrak`. The full labelled samples are in generated\\_samples.txt.\n'
+s+="Table7 describes individual draws, not model predictive entropy. Temperature0.2 concentrates probability on likely characters; 0.8 permits more variation; 1.5 flattens the distribution. Higher character diversity is not evidence of coherent language. At0.2, repeated `shall' fragments dominate; 0.8 contains speaker-like `POMPENEy' but malformed `lannio'; 1.5 varies punctuation and case while misspelling `wildrak'. The full labelled samples are in generated\\_samples.txt.\n"
 s+=page('Problem 2: attention interpretation and context scaling')
-s+=fig(8,'problem2/figures/report_attention-heads.png','Baseline first-layer heads1/2 on ``To be, or not to be.'' Rows are queries, columns are keys.',4)
+s+=fig(8,'problem2/figures/report_attention-heads.png',"Baseline first-layer heads1/2 on ``To be, or not to be.'' Rows are queries, columns are keys.",4)
 diag=json.loads((P2/'mask_diagnostic.json').read_text())
 s+=f'Figure8 mean diagonal weights are {diag["diagonal_attention_means"][0]:.4f} and {diag["diagonal_attention_means"][1]:.4f}. Future weights are zero; heads distribute weight differently over visible character positions. This single input does not establish semantic specialization or causal importance.\n'
 s+=table(8,'GTX 1650 full-model context benchmark',['Context','Time(ms), mean $\\pm$ std','Peak tensor MiB'],[[int(r.context),pm(r.mean_seconds,r.std_seconds,1000),f'{r.peak_incremental_bytes/2**20:.3f}'] for r in scaling.itertuples()])
@@ -213,7 +219,7 @@ s=s.replace('a 4paper','a4paper').replace('problem 1/','problem1/').replace('pro
 s=s.replace('2026aj 05073','2026aj05073')
 if layout_fixture:
  s=s.replace(r'\begin{document}',r'\begin{document}\pagestyle{myheadings}\markright{LAYOUT FIXTURE ONLY --- historical CPU data; synthetic runtime}')
-Path('docs/report.tex').write_text(s)
+Path('docs/report.tex').write_text('\n'.join(line.rstrip() for line in s.splitlines())+'\n')
 build=Path('.cache/report');build.mkdir(parents=True,exist_ok=True)
 for _ in range(2):
  r=subprocess.run(['pdflatex','-interaction=nonstopmode','-halt-on-error',f'-output-directory={build}','docs/report.tex'],capture_output=True,text=True)
